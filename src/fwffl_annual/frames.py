@@ -99,6 +99,7 @@ def team_weeks(arc: Archive) -> pd.DataFrame:
                         "manager": arc.manager(uid),
                         "team_name": season.team_names.get(uid, ""),
                         "points": points,
+                        "opp_roster_id": opponent["roster_id"] if opponent else None,
                         "opp_uid": season.owner_of.get(opponent["roster_id"]) if opponent else None,
                         "opp_manager": arc.who(season.year, opponent["roster_id"]) if opponent else None,
                         "opp_points": (opponent.get("points") or 0.0) if opponent else None,
