@@ -1,11 +1,14 @@
 /* ==========================================================================
-   FWFFL Annual — two materials, one page.
+   FWFFL Annual — one material: a stadium at night.
 
-   Dark is the primary world: a stadium at night, chalk on a green-black ground,
-   championship gold used only where something was actually won. Light is the
-   same record printed on paper. The palette is token-level so all three theme
-   states (dark stamp, light stamp, and the un-stamped OS default) resolve as a
-   complete set — never a colour defined only inside a media query.
+   Chalk on a green-black ground, championship gold used only where something
+   was actually won. This is deliberately single-theme rather than an omission:
+   there is no light palette and no `prefers-color-scheme` branch, so the page
+   looks the same on every device regardless of the viewer's system setting.
+
+   Because nothing here reacts to the host, every colour — the body background
+   included — is painted explicitly from a token. A transparent body would
+   borrow the host's ground and put dark text on white.
    ========================================================================== */
 
 :root {
@@ -37,45 +40,6 @@
   --display: "Helvetica Neue", "Arial Narrow", Arial, system-ui, sans-serif;
   --body: Georgia, "Iowan Old Style", "Times New Roman", serif;
   --data: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
-}
-
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) {
-    color-scheme: light;
-    --ground: #e7ebe7;
-    --panel: #f7f9f6;
-    --panel-2: #edf1ed;
-    --line: #c8d2cc;
-    --line-soft: #dbe2dc;
-    --ink: #101917;
-    --ink-2: #55645f;
-    --ink-3: #7c8a85;
-    --gold: #8a5d0a;
-    --gold-dim: #c8a55e;
-    --warm: #b8690e;
-    --cool: #1e7cb8;
-    --mid: #7b8a8e;
-    --shadow: 0 1px 0 rgb(16 25 23 / 4%) inset;
-  }
-}
-
-:root[data-theme="light"] {
-  color-scheme: light;
-  --ground: #e7ebe7;
-  --panel: #f7f9f6;
-  --panel-2: #edf1ed;
-  --line: #c8d2cc;
-  --line-soft: #dbe2dc;
-  --ink: #101917;
-  --ink-2: #55645f;
-  --ink-3: #7c8a85;
-  --gold: #8a5d0a;
-  --gold-dim: #c8a55e;
-  --warm: #b8690e;
-  --cool: #1e7cb8;
-  --mid: #7b8a8e;
-  --shadow: 0 1px 0 rgb(16 25 23 / 4%) inset;
-  --edge: rgb(16 25 23 / 22%);
 }
 
 * { box-sizing: border-box; }

@@ -109,9 +109,8 @@ def standalone(fragment: str, *, description: str = SOCIAL_DESCRIPTION) -> str:
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{description}">
 <meta name="twitter:card" content="summary">
-<meta name="color-scheme" content="dark light">
-<meta name="theme-color" content="#0b1013" media="(prefers-color-scheme: dark)">
-<meta name="theme-color" content="#e7ebe7" media="(prefers-color-scheme: light)">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#0b1013">
 </head>
 <body>
 {marker}{body}
