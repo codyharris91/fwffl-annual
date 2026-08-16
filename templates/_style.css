@@ -1,0 +1,708 @@
+/* ==========================================================================
+   FWFFL Annual — two materials, one page.
+
+   Dark is the primary world: a stadium at night, chalk on a green-black ground,
+   championship gold used only where something was actually won. Light is the
+   same record printed on paper. The palette is token-level so all three theme
+   states (dark stamp, light stamp, and the un-stamped OS default) resolve as a
+   complete set — never a colour defined only inside a media query.
+   ========================================================================== */
+
+:root {
+  color-scheme: dark;
+
+  --ground: #0b1013;
+  --panel: #151e22;
+  --panel-2: #1d282d;
+  --line: #2a3a40;
+  --line-soft: #202c31;
+
+  --ink: #e8efea;
+  --ink-2: #94a6a2;   /* green-biased grey, chosen to sit in the same family */
+  --ink-3: #63756f;
+
+  --gold: #f2b33d;
+  --gold-dim: #8a6a26;
+
+  --warm: #cf7a16;    /* diverging pole: above expectation, lucky, ahead */
+  --cool: #2e93ce;    /* diverging pole: below expectation, unlucky, behind */
+  --mid: #6b7a7e;     /* neutral midpoint */
+
+  --shadow: 0 1px 0 rgb(255 255 255 / 4%) inset;
+
+  --measure: 66ch;
+  --gutter: clamp(1rem, 4vw, 2.75rem);
+
+  --display: "Helvetica Neue", "Arial Narrow", Arial, system-ui, sans-serif;
+  --body: Georgia, "Iowan Old Style", "Times New Roman", serif;
+  --data: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    color-scheme: light;
+    --ground: #e7ebe7;
+    --panel: #f7f9f6;
+    --panel-2: #edf1ed;
+    --line: #c8d2cc;
+    --line-soft: #dbe2dc;
+    --ink: #101917;
+    --ink-2: #55645f;
+    --ink-3: #7c8a85;
+    --gold: #8a5d0a;
+    --gold-dim: #c8a55e;
+    --warm: #b8690e;
+    --cool: #1e7cb8;
+    --mid: #7b8a8e;
+    --shadow: 0 1px 0 rgb(16 25 23 / 4%) inset;
+  }
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --ground: #e7ebe7;
+  --panel: #f7f9f6;
+  --panel-2: #edf1ed;
+  --line: #c8d2cc;
+  --line-soft: #dbe2dc;
+  --ink: #101917;
+  --ink-2: #55645f;
+  --ink-3: #7c8a85;
+  --gold: #8a5d0a;
+  --gold-dim: #c8a55e;
+  --warm: #b8690e;
+  --cool: #1e7cb8;
+  --mid: #7b8a8e;
+  --shadow: 0 1px 0 rgb(16 25 23 / 4%) inset;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- type ---------------------------------------------------------------- */
+
+.display,
+h1, h2, h3, .eyebrow, .stat-value, .rank {
+  font-family: var(--display);
+  font-stretch: condensed;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(3.2rem, 13vw, 8.5rem);
+  line-height: 0.84;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+h2 {
+  margin: 0;
+  font-size: clamp(1.9rem, 5vw, 3.1rem);
+  line-height: 0.94;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+h3 {
+  margin: 0 0 0.6rem;
+  font-size: 1rem;
+  letter-spacing: 0.09em;
+  color: var(--ink);
+}
+
+p { margin: 0 0 1rem; max-width: var(--measure); }
+
+.eyebrow {
+  font-size: 0.72rem;
+  letter-spacing: 0.24em;
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.lede {
+  font-size: 1.12rem;
+  color: var(--ink-2);
+  max-width: var(--measure);
+}
+
+.note {
+  font-family: var(--data);
+  font-size: 0.74rem;
+  line-height: 1.6;
+  color: var(--ink-3);
+  text-transform: none;
+  max-width: var(--measure);
+}
+
+.num { font-family: var(--data); font-variant-numeric: tabular-nums; }
+
+/* --- shell --------------------------------------------------------------- */
+
+.wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.chapter {
+  padding: clamp(3.5rem, 9vw, 6.5rem) 0;
+  border-top: 1px solid var(--line);
+}
+
+.chapter-head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.block { margin-top: 2.75rem; }
+
+.block-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.9rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.block-head p { margin: 0; }
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+  gap: 2.5rem;
+}
+
+/* --- hero ---------------------------------------------------------------- */
+
+.hero {
+  padding: clamp(3rem, 10vw, 6rem) 0 clamp(2rem, 6vw, 3.5rem);
+}
+
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.4rem;
+  margin-top: 1.6rem;
+  font-family: var(--data);
+  font-size: 0.78rem;
+  color: var(--ink-2);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.hero-meta b { color: var(--gold); font-weight: 700; }
+
+/* Championship banners: the one deliberately loud thing on the page. */
+.banners {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.75rem;
+  margin-top: 2.5rem;
+}
+
+.banner {
+  position: relative;
+  padding: 1rem 0.85rem 2rem;
+  background: linear-gradient(180deg, var(--panel-2), var(--panel));
+  border: 1px solid var(--line);
+  border-bottom: none;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 88%, 0 100%);
+  text-align: center;
+}
+
+.banner .year {
+  font-family: var(--display);
+  font-stretch: condensed;
+  font-weight: 800;
+  font-size: 1.45rem;
+  color: var(--gold);
+  letter-spacing: 0.04em;
+}
+
+.banner .who {
+  font-family: var(--display);
+  font-stretch: condensed;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.86rem;
+  letter-spacing: 0.05em;
+  margin-top: 0.35rem;
+  overflow-wrap: anywhere;
+}
+
+.banner .team {
+  font-family: var(--data);
+  font-size: 0.64rem;
+  color: var(--ink-3);
+  margin-top: 0.3rem;
+  text-transform: none;
+  overflow-wrap: anywhere;
+}
+
+.banner.pending { opacity: 0.5; }
+.banner.pending .year { color: var(--ink-3); }
+
+/* --- nav ----------------------------------------------------------------- */
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: color-mix(in srgb, var(--ground) 92%, transparent);
+  backdrop-filter: blur(8px);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.nav ul {
+  display: flex;
+  gap: 0.15rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.nav a {
+  display: block;
+  padding: 0.75rem 0.85rem;
+  font-family: var(--display);
+  font-stretch: condensed;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.74rem;
+  letter-spacing: 0.13em;
+  color: var(--ink-2);
+  text-decoration: none;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+}
+
+.nav a:hover,
+.nav a:focus-visible { color: var(--ink); border-bottom-color: var(--gold-dim); }
+
+/* --- stat tiles ---------------------------------------------------------- */
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin-bottom: 2.5rem;
+}
+
+.tile {
+  background: var(--panel);
+  padding: 1.15rem 1.1rem 1.25rem;
+  box-shadow: var(--shadow);
+}
+
+.tile .label {
+  font-family: var(--data);
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--ink-3);
+}
+
+.stat-value {
+  font-size: clamp(2rem, 5.5vw, 2.9rem);
+  line-height: 1;
+  margin: 0.4rem 0 0.2rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--gold);
+  letter-spacing: -0.01em;
+}
+
+.tile .sub {
+  font-family: var(--data);
+  font-size: 0.72rem;
+  color: var(--ink-2);
+  line-height: 1.45;
+}
+
+/* --- tables -------------------------------------------------------------- */
+
+.scroll { overflow-x: auto; }
+
+table.sheet {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--data);
+  font-size: 0.79rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.sheet th {
+  text-align: left;
+  padding: 0.45rem 0.7rem 0.45rem 0;
+  font-weight: 400;
+  font-size: 0.64rem;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  color: var(--ink-3);
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+
+.sheet td {
+  padding: 0.5rem 0.7rem 0.5rem 0;
+  border-bottom: 1px solid var(--line-soft);
+  vertical-align: middle;
+}
+
+.sheet tr:last-child td { border-bottom: none; }
+.sheet tbody tr:hover td { background: var(--panel); }
+
+.sheet .r { text-align: right; }
+.sheet .name { font-family: var(--display); font-stretch: condensed; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.03em; font-size: 0.92rem; white-space: nowrap; }
+.sheet .dim { color: var(--ink-3); }
+.sheet .big { color: var(--gold); font-weight: 600; }
+.sheet .cool { color: var(--cool); font-weight: 600; }
+.stat-value.cool { color: var(--cool); }
+
+.rank {
+  color: var(--ink-3);
+  font-size: 0.9rem;
+  width: 2ch;
+}
+
+.pill {
+  display: inline-block;
+  padding: 0.05rem 0.4rem;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-2);
+  text-transform: uppercase;
+}
+
+.pill.gold { border-color: var(--gold-dim); color: var(--gold); }
+
+/* --- bars ---------------------------------------------------------------- */
+
+/* Diverging: warm right of the centre line, cool left. Every bar is directly
+   labelled, so colour is never the only encoding. */
+.diverge { display: grid; gap: 1px; }
+
+.diverge-row {
+  display: grid;
+  grid-template-columns: minmax(7rem, 1fr) 3fr minmax(4rem, auto);
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.28rem 0;
+}
+
+.diverge-row .who {
+  font-family: var(--display);
+  font-stretch: condensed;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  overflow-wrap: anywhere;
+}
+
+.track {
+  position: relative;
+  height: 15px;
+  background: var(--panel);
+  border-left: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+}
+
+.track::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -2px;
+  bottom: -2px;
+  width: 1px;
+  background: var(--mid);
+}
+
+.track .fill {
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  border-radius: 2px;
+}
+
+.fill.pos { left: 50%; background: var(--warm); }
+.fill.neg { right: 50%; background: var(--cool); }
+
+.diverge-row .val {
+  font-family: var(--data);
+  font-size: 0.76rem;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  color: var(--ink-2);
+}
+
+/* Single-hue magnitude meter, used inside table cells. */
+.meter {
+  position: relative;
+  height: 6px;
+  min-width: 60px;
+  background: var(--panel-2);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.meter span {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: var(--warm);
+  border-radius: 3px;
+}
+
+/* Range strip: floor — average — ceiling, one row per manager. */
+.range-row {
+  display: grid;
+  grid-template-columns: minmax(7rem, 1fr) 3fr minmax(9rem, auto);
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.3rem 0;
+}
+
+.range-track {
+  position: relative;
+  height: 16px;
+  background: var(--panel);
+  border-radius: 2px;
+}
+
+.range-span {
+  position: absolute;
+  top: 6px;
+  height: 4px;
+  background: var(--mid);
+  border-radius: 2px;
+  opacity: 0.55;
+}
+
+.range-dot {
+  position: absolute;
+  top: 3px;
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  border-radius: 50%;
+  background: var(--warm);
+  box-shadow: 0 0 0 2px var(--panel);
+}
+
+/* --- record string ------------------------------------------------------- */
+
+.record {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 1px;
+  font-family: var(--data);
+  font-size: 0.58rem;
+  line-height: 1;
+}
+
+.record i {
+  display: grid;
+  place-items: center;
+  width: 11px;
+  height: 13px;
+  font-style: normal;
+  color: var(--ink-3);
+  background: var(--panel-2);
+}
+
+.record i.w { color: var(--ground); background: var(--gold); font-weight: 700; }
+
+/* --- cards --------------------------------------------------------------- */
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 1rem;
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  padding: 1rem 1.1rem 1.1rem;
+}
+
+.card h4 {
+  margin: 0 0 0.5rem;
+  font-family: var(--display);
+  font-stretch: condensed;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+}
+
+.card .meta {
+  font-family: var(--data);
+  font-size: 0.7rem;
+  color: var(--ink-3);
+  margin-bottom: 0.6rem;
+}
+
+.bidlist { list-style: none; margin: 0; padding: 0; font-family: var(--data); font-size: 0.74rem; }
+.bidlist li { display: flex; justify-content: space-between; gap: 1rem;
+  padding: 0.22rem 0; border-bottom: 1px solid var(--line-soft); }
+.bidlist li:last-child { border-bottom: none; }
+.bidlist .winner { color: var(--gold); }
+.bidlist .flag { color: var(--cool); }
+
+/* --- nicknames ----------------------------------------------------------- */
+
+.nick-group { margin-bottom: 1.75rem; }
+
+.nick-group > .who {
+  font-family: var(--display);
+  font-stretch: condensed;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 1.05rem;
+  letter-spacing: 0.05em;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 0.7rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.nick-group > .who span { font-family: var(--data); font-size: 0.66rem;
+  color: var(--ink-3); font-weight: 400; letter-spacing: 0.1em; }
+
+.nicks { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+.nick {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  padding: 0.35rem 0.6rem;
+  max-width: 100%;
+}
+
+.nick b {
+  display: block;
+  font-family: var(--body);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 0.94rem;
+  color: var(--gold);
+  overflow-wrap: anywhere;
+}
+
+.nick span {
+  font-family: var(--data);
+  font-size: 0.63rem;
+  color: var(--ink-3);
+  overflow-wrap: anywhere;
+}
+
+/* --- timeline ------------------------------------------------------------ */
+
+.timeline { display: grid; gap: 0.55rem; }
+
+.timeline-row {
+  display: grid;
+  grid-template-columns: minmax(6.5rem, auto) 1fr;
+  gap: 1rem;
+  align-items: start;
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.timeline-row .who {
+  font-family: var(--display);
+  font-stretch: condensed;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.88rem;
+  letter-spacing: 0.03em;
+  overflow-wrap: anywhere;
+}
+
+.names { display: flex; flex-wrap: wrap; gap: 0.3rem 0.55rem;
+  font-family: var(--data); font-size: 0.73rem; }
+
+.names em { font-style: normal; color: var(--ink-3); }
+.names s { text-decoration: none; color: var(--ink-2); }
+.names .now { color: var(--gold); }
+
+/* --- matrix -------------------------------------------------------------- */
+
+table.matrix { border-collapse: collapse; font-family: var(--data);
+  font-size: 0.68rem; font-variant-numeric: tabular-nums; }
+
+.matrix th {
+  font-weight: 400;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.3rem 0.35rem;
+  white-space: nowrap;
+}
+
+.matrix th.side { text-align: right; }
+
+.matrix th.top {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  height: 8.5rem;
+  vertical-align: bottom;
+  padding: 0.3rem 0.1rem;
+}
+
+.matrix td {
+  padding: 0.28rem 0.35rem;
+  text-align: center;
+  border: 1px solid var(--line-soft);
+  min-width: 2.8rem;
+}
+
+.matrix td.self { background: var(--panel-2); color: var(--ink-3); }
+.matrix td.up { color: var(--warm); }
+.matrix td.down { color: var(--cool); }
+.matrix td.none { color: var(--ink-3); }
+
+/* --- footer -------------------------------------------------------------- */
+
+.foot {
+  padding: 3rem 0 4rem;
+  border-top: 1px solid var(--line);
+  color: var(--ink-3);
+}
+
+.foot .note { max-width: 78ch; }
+
+a { color: var(--gold); }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+
+html { scroll-behavior: smooth; }

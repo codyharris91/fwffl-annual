@@ -1,7 +1,7 @@
 [project]
 name = "fwffl-annual"
 version = "0.1.0"
-description = "Add your description here"
+description = "Six seasons of the FWFFL Sleeper league, rebuilt into a single-page record book"
 readme = "README.md"
 authors = [
     { name = "Cody Harris", email = "31891287+codyharris91@users.noreply.github.com" }
@@ -14,8 +14,16 @@ dependencies = [
 ]
 
 [project.scripts]
-fwffl-annual = "fwffl_annual:main"
+fwffl-annual = "fwffl_annual.__main__:main"
 
 [build-system]
 requires = ["uv_build>=0.12.1,<0.13.0"]
 build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

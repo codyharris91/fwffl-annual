@@ -1,0 +1,1166 @@
+<title>The FWFFL Annual</title>
+<style>{{ css }}</style>
+
+{% macro week_table(rows, margin=False, limit=10) %}
+<div class="scroll">
+  <table class="sheet">
+    <thead>
+      <tr>
+        <th></th><th>Season</th><th>Wk</th><th>Manager</th>
+        <th class="r">Score</th><th>Opponent</th><th class="r">Opp</th>
+        {% if margin %}<th class="r">Margin</th>{% endif %}
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for r in rows[:limit] %}
+      <tr>
+        <td class="rank">{{ loop.index }}</td>
+        <td class="dim">{{ r.season }}</td>
+        <td class="dim">{{ r.week }}</td>
+        <td class="name">{{ r.manager }}</td>
+        <td class="r big">{{ "%.2f"|format(r.points) }}</td>
+        <td class="dim">{{ r.opp_manager }}</td>
+        <td class="r">{{ "%.2f"|format(r.opp_points) }}</td>
+        {% if margin %}<td class="r">{{ "%.2f"|format(r.margin|abs) }}</td>{% endif %}
+        <td>{% if r.is_playoff %}<span class="pill gold">Playoff</span>{% endif %}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endmacro %}
+
+{% macro diverging(rows, key, scale, unit="", digits=1) %}
+<div class="diverge">
+  {% for r in rows %}
+  {% set v = r[key] %}
+  <div class="diverge-row">
+    <div class="who">{{ r.manager }}</div>
+    <div class="track">
+      <div class="fill {{ 'pos' if v >= 0 else 'neg' }}"
+           style="width: {{ ((v|abs) / scale * 50)|round(2) }}%"></div>
+    </div>
+    <div class="val">{{ "%+.*f"|format(digits, v) }}{{ unit }}</div>
+  </div>
+  {% endfor %}
+</div>
+{% endmacro %}
+
+<main>
+
+<!-- ══ HERO ══ -->
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">{{ meta.completed_seasons|first }}–{{ meta.completed_seasons|last }} · Sleeper League {{ meta.league_id }}</div>
+    <h1>The {{ meta.league_name }}<br>Annual</h1>
+    <p class="lede" style="margin-top:1.5rem">
+      Six seasons of {{ meta.league_name }}, reconstructed from every box score, every
+      draft pick, and every waiver bid the league ever placed — including the ones
+      that lost.
+    </p>
+    <div class="hero-meta">
+      <span><b>{{ meta.dataset.team_weeks }}</b> team-weeks</span>
+      <span><b>{{ meta.dataset.player_weeks }}</b> player-weeks</span>
+      <span><b>{{ meta.dataset.draft_picks }}</b> draft picks</span>
+      <span><b>{{ meta.dataset.transactions }}</b> transactions</span>
+      <span><b>{{ meta.managers_all_time }}</b> managers</span>
+    </div>
+
+    <div class="banners">
+      {% for s in ledger.seasons %}
+      <div class="banner">
+        <div class="year">{{ s.year }}</div>
+        <div class="who">{{ s.champion }}</div>
+        <div class="team">{{ s.champion_team }}</div>
+      </div>
+      {% endfor %}
+      <div class="banner pending">
+        <div class="year">{{ meta.current_season }}</div>
+        <div class="who">?</div>
+        <div class="team">{{ meta.current_status|replace("_", " ") }}</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<nav class="nav" aria-label="Chapters">
+  <div class="wrap">
+    <ul>
+      <li><a href="#ledger">The Ledger</a></li>
+      <li><a href="#luck">Luck</a></li>
+      <li><a href="#records">Record Book</a></li>
+      <li><a href="#coaching">Coaching</a></li>
+      <li><a href="#draft">The Draft</a></li>
+      <li><a href="#waivers">The Wire</a></li>
+      <li><a href="#rivalries">Rivalries</a></li>
+      <li><a href="#comedy">The Human Record</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ══ 1. LEDGER ══ -->
+<section class="chapter" id="ledger">
+  <div class="wrap">
+    <div class="chapter-head">
+      <div class="eyebrow">Chapter One</div>
+      <h2>The All-Time Ledger</h2>
+      <p class="lede">Every head-to-head game ever played, by everyone who ever played one.</p>
+    </div>
+
+    {% set lifers = ledger.tenure.lifers %}
+    <div class="tiles">
+      <div class="tile">
+        <div class="label">Seasons on record</div>
+        <div class="stat-value">{{ meta.completed_seasons|length }}</div>
+        <div class="sub">{{ meta.completed_seasons|first }}–{{ meta.completed_seasons|last }}, plus {{ meta.current_season }} in progress</div>
+      </div>
+      <div class="tile">
+        <div class="label">Different champions</div>
+        <div class="stat-value">{{ ledger.seasons|map(attribute='champion')|unique|list|length }}</div>
+        <div class="sub">from {{ ledger.seasons|length }} titles</div>
+      </div>
+      <div class="tile">
+        <div class="label">Lifers</div>
+        <div class="stat-value">{{ lifers|length }}</div>
+        <div class="sub">{{ lifers|map(attribute='manager')|join(", ") }}</div>
+      </div>
+      <div class="tile">
+        <div class="label">League size</div>
+        <div class="stat-value">{{ meta.team_counts[meta.current_season] }}</div>
+        <div class="sub">grew from {{ meta.team_counts[meta.completed_seasons|first] }} in {{ meta.completed_seasons|first }}</div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <h3>Career Record</h3>
+        <p class="note">Head-to-head games only. The league's official record also counts a
+          weekly game against the league median, which is why these win totals are smaller.</p>
+      </div>
+      <div class="scroll">
+        <table class="sheet">
+          <thead>
+            <tr>
+              <th></th><th>Manager</th><th class="r">Sea</th><th class="r">W</th><th class="r">L</th>
+              <th class="r">Win%</th><th class="r">PF</th><th class="r">PA</th>
+              <th class="r">Avg</th><th class="r">Best</th><th class="r">Titles</th><th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for r in ledger.all_time %}
+            <tr>
+              <td class="rank">{{ loop.index }}</td>
+              <td class="name">{{ r.manager }}</td>
+              <td class="r dim">{{ r.seasons }}</td>
+              <td class="r">{{ r.wins }}</td>
+              <td class="r">{{ r.losses }}</td>
+              <td class="r big">{{ "%.1f"|format(r.win_pct) }}</td>
+              <td class="r dim">{{ "%.0f"|format(r.points_for) }}</td>
+              <td class="r dim">{{ "%.0f"|format(r.points_against) }}</td>
+              <td class="r">{{ "%.1f"|format(r.average) }}</td>
+              <td class="r">{{ "%.1f"|format(r.best) }}</td>
+              <td class="r">{% if r.titles %}<span class="big">{{ "★" * r.titles }}</span>{% else %}<span class="dim">—</span>{% endif %}</td>
+              <td>{% if not r.active %}<span class="pill">Departed</span>{% endif %}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <h3>Season by Season</h3>
+        <p class="note">Official standings, including median-match results from {{ meta.completed_seasons[1] }} onward.</p>
+      </div>
+      <div class="grid-2">
+        {% for s in ledger.seasons %}
+        <div>
+          <div class="block-head">
+            <h3 style="color:var(--gold)">{{ s.year }} · {{ s.champion }}</h3>
+            <p class="note">{{ s.teams }} teams · runner-up {{ s.runner_up }}</p>
+          </div>
+          <div class="scroll">
+            <table class="sheet">
+              <thead>
+                <tr><th></th><th>Manager</th><th class="r">W</th><th class="r">L</th><th class="r">PF</th><th class="r">Eff</th><th></th></tr>
+              </thead>
+              <tbody>
+                {% for t in s.standings %}
+                <tr>
+                  <td class="rank">{{ loop.index }}</td>
+                  <td class="name">{{ t.manager }}</td>
+                  <td class="r">{{ t.wins }}</td>
+                  <td class="r">{{ t.losses }}</td>
+                  <td class="r dim">{{ "%.0f"|format(t.points_for) }}</td>
+                  <td class="r dim">{{ "%.0f"|format(t.efficiency) }}%</td>
+                  <td>
+                    {% if t.champion %}<span class="pill gold">Champion</span>
+                    {% elif t.runner_up %}<span class="pill">Final</span>
+                    {% elif t.made_playoffs %}<span class="pill">Playoffs</span>{% endif %}
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <h3>Playoff Record</h3>
+        <p class="note">Appearances against seasons eligible. Drought counts completed
+          seasons since a manager last reached the bracket.</p>
+      </div>
+      <div class="scroll">
+        <table class="sheet">
+          <thead>
+            <tr><th></th><th>Manager</th><th class="r">Apps</th><th class="r">Of</th><th class="r">Rate</th>
+              <th class="r">Finals</th><th class="r">Titles</th><th class="r">Drought</th><th>Years</th></tr>
+          </thead>
+          <tbody>
+            {% for r in ledger.playoffs %}
+            <tr>
+              <td class="rank">{{ loop.index }}</td>
+              <td class="name">{{ r.manager }}</td>
+              <td class="r big">{{ r.appearances }}</td>
+              <td class="r dim">{{ r.eligible }}</td>
+              <td class="r">{{ "%.0f"|format(r.rate) }}%</td>
+              <td class="r">{{ r.finals }}</td>
+              <td class="r">{{ r.titles }}</td>
+              <td class="r">{{ r.drought if r.drought else "—" }}</td>
+              <td class="dim">{{ r.years|join(" ") if r.years else "never" }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 2. LUCK ══ -->
+<section class="chapter" id="luck">
+  <div class="wrap">
+    <div class="chapter-head">
+      <div class="eyebrow">Chapter Two</div>
+      <h2>Luck &amp; Injustice</h2>
+      <p class="lede">
+        The schedule decides a lot of this. An <em>all-play</em> record asks what your
+        record would be if you played every other team every week instead of the one
+        the schedule handed you. The gap between that and reality is luck.
+      </p>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <h3>The Luck Index</h3>
+        <p class="note">Actual win% minus all-play win%, regular season only.
+          Warm bars won more than they deserved; cool bars less.</p>
+      </div>
+      {{ diverging(luck.all_play, "luck", scales.luck, unit="") }}
+      <div class="scroll" style="margin-top:1.5rem">
+        <table class="sheet">
+          <thead>
+            <tr><th>Manager</th><th class="r">All-play</th><th class="r">Actual</th>
+              <th class="r">Luck</th><th class="r">Wins swing</th><th class="r">Games</th></tr>
+          </thead>
+          <tbody>
+            {% for r in luck.all_play %}
+            <tr>
+              <td class="name">{{ r.manager }}</td>
+              <td class="r dim">{{ "%.1f"|format(r.all_play_pct) }}%</td>
+              <td class="r">{{ "%.1f"|format(r.actual_pct) }}%</td>
+              <td class="r {{ 'big' if r.luck >= 0 else 'cool' }}">{{ "%+.1f"|format(r.luck) }}</td>
+              <td class="r">{{ "%+.1f"|format(r.wins_swing) }}</td>
+              <td class="r dim">{{ r.games }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-head"><h3>Robbed — Highest Scores That Still Lost</h3></div>
+      {{ week_table(luck.unlucky_losses, limit=8) }}
+    </div>
+
+    <div class="block">
+      <div class="block-head"><h3>Stolen — Lowest Scores That Still Won</h3></div>
+      {{ week_table(luck.lucky_wins, limit=8) }}
+    </div>
+
+    <div class="grid-2 block">
+      <div>
+        <div class="block-head"><h3>Nail-Biters</h3></div>
+        {{ week_table(luck.nail_biters, margin=True, limit=8) }}
+      </div>
+      <div>
+        <div class="block-head"><h3>Beatdowns</h3></div>
+        {{ week_table(luck.blowouts, margin=True, limit=8) }}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 3. RECORD BOOK ══ -->
+<section class="chapter" id="records">
+  <div class="wrap">
+    <div class="chapter-head">
+      <div class="eyebrow">Chapter Three</div>
+      <h2>The Record Book</h2>
+      <p class="lede">The numbers that still stand.</p>
+    </div>
+
+    {% set top = records.highest_weeks[0] %}
+    {% set bestplayer = records.best_player_weeks[0] %}
+    <div class="tiles">
+      <div class="tile">
+        <div class="label">Highest score ever</div>
+        <div class="stat-value">{{ "%.2f"|format(top.points) }}</div>
+        <div class="sub">{{ top.manager }} · {{ top.season }} week {{ top.week }}</div>
+      </div>
+      <div class="tile">
+        <div class="label">Best single player</div>
+        <div class="stat-value">{{ "%.1f"|format(bestplayer.points) }}</div>
+        <div class="sub">{{ bestplayer.player }} · {{ bestplayer.season }} week {{ bestplayer.week }}</div>
+      </div>
+      <div class="tile">
+        <div class="label">Most weekly high scores</div>
+        <div class="stat-value">{{ records.crowns.high[0].count }}</div>
+        <div class="sub">{{ records.crowns.high[0].manager }}</div>
+      </div>
+      <div class="tile">
+        <div class="label">Most weekly low scores</div>
+        <div class="stat-value">{{ records.crowns.low[0].count }}</div>
+        <div class="sub">{{ records.crowns.low[0].manager }}</div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-head"><h3>Highest Weeks</h3></div>
+      {{ week_table(records.highest_weeks, limit=12) }}
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <h3>Lowest Weeks</h3>
+        <p class="note">Real matchups only — weeks with no opponent are excluded, since
+          nobody sets a lineup for a game that is not being played.</p>
+      </div>
+      {{ week_table(records.lowest_weeks, limit=8) }}
+    </div>
+
+    <div class="block">
+      <div class="block-head"><h3>Biggest Individual Performances</h3></div>
+      <div class="scroll">
+        <table class="sheet">
+          <thead>
+            <tr><th></th><th>Season</th><th>Wk</th><th>Player</th><th>Pos</th>
+              <th class="r">Points</th><th>Rostered by</th><th></th></tr>
+          </thead>
+          <tbody>
+            {% for r in records.best_player_weeks[:12] %}
+            <tr>
+              <td class="rank">{{ loop.index }}</td>
+              <td class="dim">{{ r.season }}</td>
+              <td class="dim">{{ r.week }}</td>
+              <td class="name">{{ r.player }}</td>
+              <td class="dim">{{ r.position }}</td>
+              <td class="r big">{{ "%.2f"|format(r.points) }}</td>
+              <td>{{ r.manager }}</td>
+              <td>{% if not r.started %}<span class="pill">Benched</span>{% endif %}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <h3>Scoring Range</h3>
+        <p class="note">Floor to ceiling across every regular-season week, with the
+          average marked. Regular season only.</p>
+      </div>
+      {% set span = scales.ceiling - scales.floor %}
+      {% for r in records.volatility %}
+      <div class="range-row">
+        <div class="who" style="font-family:var(--display);font-stretch:condensed;font-weight:700;text-transform:uppercase;font-size:0.85rem">{{ r.manager }}</div>
+        <div class="range-track">
+          <div class="range-span"
+               style="left: {{ ((r.floor - scales.floor) / span * 100)|round(2) }}%;
+                      width: {{ ((r.ceiling - r.floor) / span * 100)|round(2) }}%"></div>
+          <div class="range-dot"
+               style="left: {{ ((r.average - scales.floor) / span * 100)|round(2) }}%"
+               title="{{ r.manager }} average {{ r.average }}"></div>
+        </div>
+        <div class="val num" style="font-size:0.72rem;color:var(--ink-2);text-align:right">
+          {{ "%.0f"|format(r.floor) }} · <b style="color:var(--gold)">{{ "%.0f"|format(r.average) }}</b> · {{ "%.0f"|format(r.ceiling) }}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="grid-2 block">
+      <div>
+        <div class="block-head">
+          <h3>Weekly Crowns</h3>
+          <p class="note">Weeks as the league's top scorer.</p>
+        </div>
+        <table class="sheet">
+          <thead><tr><th>Manager</th><th class="r">Highs</th><th class="r">Rate</th></tr></thead>
+          <tbody>
+            {% for r in records.crowns.high[:8] %}
+            <tr><td class="name">{{ r.manager }}</td><td class="r big">{{ r.count }}</td>
+              <td class="r dim">{{ "%.1f"|format(r.rate) }}%</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="block-head">
+          <h3>Weekly Cellar</h3>
+          <p class="note">Weeks as the league's worst scorer.</p>
+        </div>
+        <table class="sheet">
+          <thead><tr><th>Manager</th><th class="r">Lows</th><th class="r">Rate</th></tr></thead>
+          <tbody>
+            {% for r in records.crowns.low[:8] %}
+            <tr><td class="name">{{ r.manager }}</td><td class="r big">{{ r.count }}</td>
+              <td class="r dim">{{ "%.1f"|format(r.rate) }}%</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <h3>Fast Starters &amp; Closers</h3>
+        <p class="note">Second-half scoring average minus first-half, regular season.</p>
+      </div>
+      {{ diverging(records.splits, "delta", scales.split, unit=" pts") }}
+    </div>
+  </div>
+</section>
+
+<!-- ══ 4. COACHING ══ -->
+<section class="chapter" id="coaching">
+  <div class="wrap">
+    <div class="chapter-head">
+      <div class="eyebrow">Chapter Four</div>
+      <h2>Start / Sit</h2>
+      <p class="lede">
+        Lineup efficiency is points scored as a share of the best legal lineup that
+        roster could have fielded. It is the one number here that is purely about
+        managing — not about who you drafted, and not about who you played.
+      </p>
+    </div>
+
+    <div class="block">
+      <div class="block-head"><h3>Lineup Efficiency</h3></div>
+      <div class="scroll">
+        <table class="sheet">
+          <thead>
+            <tr><th></th><th>Manager</th><th class="r">Eff</th><th style="width:30%"></th>
+              <th class="r">Left/wk</th><th class="r">Total left</th><th class="r">Perfect</th></tr>
+          </thead>
+          <tbody>
+            {% for r in coaching.efficiency %}
+            <tr>
+              <td class="rank">{{ loop.index }}</td>
+              <td class="name">{{ r.manager }}</td>
+              <td class="r big">{{ "%.1f"|format(r.efficiency) }}%</td>
+              <td>
+                <div class="meter" title="{{ r.manager }} {{ r.efficiency }}% efficient">
+                  <span style="width: {{ ((r.efficiency - 75) / 25 * 100)|round(1) }}%"></span>
+                </div>
+              </td>
+              <td class="r">{{ "%.1f"|format(r.left_per_week) }}</td>
+              <td class="r dim">{{ "%.0f"|format(r.left_total) }}</td>
+              <td class="r">{{ r.perfect_weeks if r.perfect_weeks else "—" }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <p class="note" style="margin-top:0.6rem">Meter runs 75–100%. "Perfect" weeks are
+        those where no better lineup existed.</p>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <h3>Bench Disasters</h3>
+        <p class="note">The most points ever left sitting in a single week.</p>
+      </div>
+      <div class="scroll">
+        <table class="sheet">
+          <thead>
+            <tr><th></th><th>Season</th><th>Wk</th><th>Manager</th><th class="r">Scored</th>
+              <th class="r">Possible</th><th class="r">Left</th><th>Biggest miss</th><th class="r">Pts</th><th></th></tr>
+          </thead>
+          <tbody>
+            {% for r in coaching.bench_disasters[:10] %}
+            <tr>
+              <td class="rank">{{ loop.index }}</td>
+              <td class="dim">{{ r.season }}</td>
+              <td class="dim">{{ r.week }}</td>
+              <td class="name">{{ r.manager }}</td>
+              <td class="r">{{ "%.2f"|format(r.points) }}</td>
+              <td class="r dim">{{ "%.2f"|format(r.optimal) }}</td>
+              <td class="r big">{{ "%.2f"|format(r.left) }}</td>
+              <td>{{ r.biggest_miss or "—" }}</td>
+              <td class="r">{{ "%.1f"|format(r.miss_points) }}</td>
+              <td>{% if r.cost_the_game %}<span class="pill gold">Cost the game</span>{% endif %}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="grid-2 block">
+      <div>
+        <div class="block-head">
+          <h3>Coaching Losses</h3>
+          <p class="note">Losses the manager's own best lineup would have won — decided
+            by the start/sit call, not the roster.</p>
+        </div>
+        <div class="scroll">
+          <table class="sheet">
+            <thead><tr><th>Manager</th><th class="r">Blown</th><th class="r">Losses</th><th class="r">Share</th></tr></thead>
+            <tbody>
+              {% for r in coaching.coaching_losses.by_manager[:10] %}
+              <tr>
+                <td class="name">{{ r.manager }}</td>
+                <td class="r big">{{ r.count }}</td>
+                <td class="r dim">{{ r.losses }}</td>
+                <td class="r">{{ "%.0f"|format(r.share) }}%</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <div class="block-head">
+          <h3>The Worst of Them</h3>
+          <p class="note">Games lost with the answer on the bench.</p>
+        </div>
+        <div class="scroll">
+          <table class="sheet">
+            <thead><tr><th>Season</th><th>Wk</th><th>Manager</th><th class="r">Scored</th><th class="r">Needed</th><th>Benched</th></tr></thead>
+            <tbody>
+              {% for r in coaching.coaching_losses.worst[:8] %}
+              <tr>
+                <td class="dim">{{ r.season }}</td>
+                <td class="dim">{{ r.week }}</td>
+                <td class="name">{{ r.manager }}</td>
+                <td class="r">{{ "%.1f"|format(r.points) }}</td>
+                <td class="r big">{{ "%.1f"|format(r.opp_points) }}</td>
+                <td>{{ r.biggest_miss or "—" }} <span class="dim">{{ "%.1f"|format(r.miss_points) }}</span></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 5. DRAFT ══ -->
+<section class="chapter" id="draft">
+  <div class="wrap">
+    <div class="chapter-head">
+      <div class="eyebrow">Chapter Five</div>
+      <h2>The Draft</h2>
+      <p class="lede">
+        Judging a pick needs a fair baseline. Ranking a player's finish against the
+        whole league punishes injuries absurdly; comparing every pick to the average
+        pick at that slot just crowns every late quarterback. So each pick is measured
+        against <em>its own position at its own slot</em> — a 17th-round quarterback
+        against other 17th-round quarterbacks.
+      </p>
+    </div>
+
+    {% set steal = draft.steals[0] %}
+    {% set bust = draft.busts[0] %}
+    <div class="tiles">
+      <div class="tile">
+        <div class="label">Greatest steal</div>
+        <div class="stat-value">{{ "%+.0f"|format(steal.value) }}</div>
+        <div class="sub">{{ steal.player }} · {{ steal.manager }} · {{ steal.season }} pick {{ steal.label }}</div>
+      </div>
+      <div class="tile">
+        <div class="label">Worst bust</div>
+        <div class="stat-value cool">{{ "%.0f"|format(bust.value) }}</div>
+        <div class="sub">{{ bust.player }} · {{ bust.manager }} · {{ bust.season }} pick {{ bust.label }}</div>
+      </div>
+      <div class="tile">
+        <div class="label">First-overall titles</div>
+        <div class="stat-value">0</div>
+        <div class="sub">{{ draft.first_overall|length }} number-one picks, no championships</div>
+      </div>
+      <div class="tile">
+        <div class="label">Best undrafted</div>
+        <div class="stat-value">{{ "%.0f"|format(draft.undrafted|map(attribute='points')|max) }}</div>
+        <div class="sub">points from a player nobody drafted</div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div>
+        <div class="block-head"><h3>Steals</h3></div>
+        <div class="scroll">
+          <table class="sheet">
+            <thead><tr><th></th><th>Sea</th><th>Pick</th><th>Player</th><th>Pos</th>
+              <th class="r">Pts</th><th class="r">Exp</th><th class="r">+/−</th><th>Manager</th></tr></thead>
+            <tbody>
+              {% for r in draft.steals[:10] %}
+              <tr>
+                <td class="rank">{{ loop.index }}</td>
+                <td class="dim">{{ r.season }}</td>
+                <td class="dim">{{ r.label }}</td>
+                <td class="name">{{ r.player }}</td>
+                <td class="dim">{{ r.position }}</td>
+                <td class="r">{{ "%.0f"|format(r.points) }}</td>
+                <td class="r dim">{{ "%.0f"|format(r.expected) }}</td>
+                <td class="r big">{{ "%+.0f"|format(r.value) }}</td>
+                <td>{{ r.manager }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div style="margin-top:2.75rem">
+        <div class="block-head"><h3>Busts</h3></div>
+        <div class="scroll">
+          <table class="sheet">
+            <thead><tr><th></th><th>Sea</th><th>Pick</th><th>Player</th><th>Pos</th>
+              <th class="r">Pts</th><th class="r">Exp</th><th class="r">+/−</th><th>Manager</th></tr></thead>
+            <tbody>
+              {% for r in draft.busts[:10] %}
+              <tr>
+                <td class="rank">{{ loop.index }}</td>
+                <td class="dim">{{ r.season }}</td>
+                <td class="dim">{{ r.label }}</td>
+                <td class="name">{{ r.player }}</td>
+                <td class="dim">{{ r.position }}</td>
+                <td class="r">{{ "%.0f"|format(r.points) }}</td>
+                <td class="r dim">{{ "%.0f"|format(r.expected) }}</td>
+                <td class="r cool">{{ "%.0f"|format(r.value) }}</td>
+                <td>{{ r.manager }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2 block">
+      <div>
+        <div class="block-head">
+          <h3>The First-Overall Curse</h3>
+          <p class="note">Five number-one picks. Zero titles.</p>
+        </div>
+        <table class="sheet">
+          <thead><tr><th>Season</th><th>Manager</th><th>Player</th><th class="r">Pts</th><th class="r">Pos rank</th></tr></thead>
+          <tbody>
+            {% for r in draft.first_overall %}
+            <tr>
+              <td class="dim">{{ r.season }}</td>
+              <td class="name">{{ r.manager }}</td>
+              <td>{{ r.player }}</td>
+              <td class="r">{{ "%.0f"|format(r.points) }}</td>
+              <td class="r big">{{ r.position }}{{ r.position_rank }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="block-head">
+          <h3>The Best Player Nobody Drafted</h3>
+          <p class="note">Scored under this league's settings, including players no
+            team ever rostered.</p>
+        </div>
+        <table class="sheet">
+          <thead><tr><th>Season</th><th>Player</th><th>Pos</th><th class="r">Pts</th><th class="r">Finish</th><th>Scooped by</th></tr></thead>
+          <tbody>
+            {% for r in draft.undrafted %}
+            <tr>
+              <td class="dim">{{ r.season }}</td>
+              <td class="name">{{ r.player }}</td>
+              <td class="dim">{{ r.position }}</td>
+              <td class="r big">{{ "%.0f"|format(r.points) }}</td>
+              <td class="r">#{{ r.overall_finish }}</td>
+              <td>{{ r.claimed_by or "nobody" }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <h3>Draft Grades</h3>
+        <p class="note">Average points above or below expectation per pick, across every
+          draft a manager has made.</p>
+      </div>
+      {{ diverging(draft.grades, "value_per_pick", scales.draft_value, unit=" pts") }}
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <h3>Draft DNA</h3>
+        <p class="note">Revealed habits: what they take in round one, how the first five
+          rounds break down, and when they finally take a quarterback.</p>
+      </div>
+      <div class="scroll">
+        <table class="sheet">
+          <thead><tr><th>Manager</th><th class="r">Drafts</th><th>Round 1 goes</th><th>Rounds 1–5 mix</th><th class="r">First QB</th></tr></thead>
+          <tbody>
+            {% for r in draft.dna %}
+            <tr>
+              <td class="name">{{ r.manager }}</td>
+              <td class="r dim">{{ r.drafts }}</td>
+              <td>
+                {% for pos, n in r.first_round.items() %}
+                <span class="pill{{ ' gold' if pos == r.favourite_first else '' }}">{{ pos }} ×{{ n }}</span>
+                {% endfor %}
+              </td>
+              <td class="dim">
+                {% for pos, pct in r.early_mix.items() %}{{ pos }} {{ pct }}%{{ " · " if not loop.last }}{% endfor %}
+              </td>
+              <td class="r">{{ "R%.1f"|format(r.first_qb_round) if r.first_qb_round else "—" }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 6. WAIVERS ══ -->
+<section class="chapter" id="waivers">
+  <div class="wrap">
+    <div class="chapter-head">
+      <div class="eyebrow">Chapter Six</div>
+      <h2>The Wire</h2>
+      <p class="lede">
+        FAAB is ${{ meta.faab_budget }} a season, which makes the bids legible: an
+        ${{ waivers.biggest_bids[0].bid }} bid is
+        {{ "%.0f"|format(waivers.biggest_bids[0].share) }}% of a manager's entire year
+        of ammunition spent on one player. Sleeper keeps the losing bids too, so every
+        bidding war can be reconstructed.
+      </p>
+    </div>
+
+    <div class="block">
+      <div class="block-head"><h3>Bidding Wars</h3></div>
+      <div class="cards">
+        {% for w in waivers.bidding_wars[:6] %}
+        <div class="card">
+          <h4>{{ w.player }}</h4>
+          <div class="meta">{{ w.season }} · week {{ w.week }} · {{ w.contenders }} bidders · ${{ w.total_bid }} on the table</div>
+          <ul class="bidlist">
+            <li><span class="winner">{{ w.winner }}</span><span class="winner">${{ w.winning_bid }}</span></li>
+            {% for l in w.losers %}
+            <li>
+              <span>{{ l.manager }}</span>
+              <span>${{ l.bid }}{% if l.bid > w.winning_bid %} <span class="flag">✱</span>{% endif %}</span>
+            </li>
+            {% endfor %}
+          </ul>
+          {% if w.overbid_but_failed %}
+          <p class="note" style="margin-top:0.6rem">
+            ✱ {{ w.overbid_but_failed|map(attribute='manager')|join(", ") }} bid more and
+            still lost — a claim over your remaining budget is rejected outright.
+          </p>
+          {% elif w.margin is not none %}
+          <p class="note" style="margin-top:0.6rem">Won by ${{ w.margin }}.</p>
+          {% endif %}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="grid-2 block">
+      <div>
+        <div class="block-head"><h3>Biggest Bids</h3></div>
+        <div class="scroll">
+          <table class="sheet">
+            <thead><tr><th></th><th>Sea</th><th>Wk</th><th>Manager</th><th>Player</th><th class="r">Bid</th><th style="width:20%"></th></tr></thead>
+            <tbody>
+              {% for r in waivers.biggest_bids[:10] %}
+              <tr>
+                <td class="rank">{{ loop.index }}</td>
+                <td class="dim">{{ r.season }}</td>
+                <td class="dim">{{ r.week }}</td>
+                <td class="name">{{ r.manager }}</td>
+                <td>{{ r.player }}</td>
+                <td class="r big">${{ r.bid }}</td>
+                <td>
+                  <div class="meter" title="{{ r.share }}% of season budget">
+                    <span style="width: {{ (r.bid / scales.bid * 100)|round(1) }}%"></span>
+                  </div>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <div class="block-head">
+          <h3>The One That Got Away</h3>
+          <p class="note">Players dropped, and what they scored afterwards.</p>
+        </div>
+        <div class="scroll">
+          <table class="sheet">
+            <thead><tr><th></th><th>Sea</th><th>Wk</th><th>Manager</th><th>Dropped</th><th class="r">Pts after</th></tr></thead>
+            <tbody>
+              {% for r in waivers.got_away[:10] %}
+              <tr>
+                <td class="rank">{{ loop.index }}</td>
+                <td class="dim">{{ r.season }}</td>
+                <td class="dim">{{ r.week }}</td>
+                <td class="name">{{ r.manager }}</td>
+                <td>{{ r.player }} <span class="dim">{{ r.position }}</span></td>
+                <td class="r big">{{ "%.0f"|format(r.points_after) }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <h3>Who Works the Wire</h3>
+        <p class="note">Completed adds and claims per season, plus career trades.</p>
+      </div>
+      <div class="scroll">
+        <table class="sheet">
+          <thead><tr><th></th><th>Manager</th><th class="r">Moves/season</th><th class="r">Total</th><th class="r">Seasons</th><th class="r">Trades</th></tr></thead>
+          <tbody>
+            {% for r in waivers.activity %}
+            <tr>
+              <td class="rank">{{ loop.index }}</td>
+              <td class="name">{{ r.manager }}</td>
+              <td class="r big">{{ "%.1f"|format(r.per_season) }}</td>
+              <td class="r">{{ r.moves }}</td>
+              <td class="r dim">{{ r.seasons }}</td>
+              <td class="r">{{ r.trades }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 7. RIVALRIES ══ -->
+<section class="chapter" id="rivalries">
+  <div class="wrap">
+    <div class="chapter-head">
+      <div class="eyebrow">Chapter Seven</div>
+      <h2>Rivalries &amp; Villains</h2>
+      <p class="lede">Who owns who, and which players have spent six years ruining
+        specific people's weekends.</p>
+    </div>
+
+    <div class="grid-2">
+      <div>
+        <div class="block-head">
+          <h3>Ownership</h3>
+          <p class="note">Minimum {{ 5 }} meetings.</p>
+        </div>
+        <table class="sheet">
+          <thead><tr><th></th><th>Manager</th><th></th><th>Victim</th><th class="r">Record</th></tr></thead>
+          <tbody>
+            {% for r in rivalries.lopsided[:10] %}
+            <tr>
+              <td class="rank">{{ loop.index }}</td>
+              <td class="name">{{ r.manager }}</td>
+              <td class="dim">owns</td>
+              <td class="name" style="color:var(--ink-2)">{{ r.victim }}</td>
+              <td class="r big">{{ r.wins }}–{{ r.losses }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="block-head">
+          <h3>Personal Nemesis</h3>
+          <p class="note">The player who has scored the most points against each manager.</p>
+        </div>
+        <table class="sheet">
+          <thead><tr><th>Manager</th><th>Tormentor</th><th>Pos</th><th class="r">Pts vs</th></tr></thead>
+          <tbody>
+            {% for r in rivalries.nemesis[:10] %}
+            <tr>
+              <td class="name">{{ r.manager }}</td>
+              <td>{{ r.player }}</td>
+              <td class="dim">{{ r.position }}</td>
+              <td class="r big">{{ "%.1f"|format(r.points_against) }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <h3>Head-to-Head Grid</h3>
+        <p class="note">Row manager's record against each column. Warm means a winning
+          record, cool means losing. Current league only.</p>
+      </div>
+      <div class="scroll">
+        <table class="matrix">
+          <thead>
+            <tr>
+              <th></th>
+              {% for m in rivalries.matrix.managers %}
+              <th class="top">{{ m.manager }}</th>
+              {% endfor %}
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in rivalries.matrix.managers %}
+            <tr>
+              <th class="side">{{ row.manager }}</th>
+              {% for col in rivalries.matrix.managers %}
+                {% if row.uid == col.uid %}
+                <td class="self">—</td>
+                {% else %}
+                  {% set cell = rivalries.matrix.grid[row.uid].get(col.uid) %}
+                  {% if cell %}
+                  <td class="{{ 'up' if cell.w > cell.l else ('down' if cell.w < cell.l else 'none') }}">{{ cell.w }}–{{ cell.l }}</td>
+                  {% else %}
+                  <td class="none">·</td>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 8. THE HUMAN RECORD ══ -->
+<section class="chapter" id="comedy">
+  <div class="wrap">
+    <div class="chapter-head">
+      <div class="eyebrow">Chapter Eight</div>
+      <h2>The Human Record</h2>
+      <p class="lede">
+        Sleeper quietly stores every player nickname a manager has ever set, in roster
+        metadata, and then never shows most of them again. There are
+        {{ comedy.nicknames.unique }} in here going back to
+        {{ meta.completed_seasons|first }}.
+      </p>
+    </div>
+
+    <div class="block">
+      <div class="block-head"><h3>The Nickname Archive</h3></div>
+      {% for g in comedy.nicknames.by_manager %}
+      <div class="nick-group">
+        <div class="who">{{ g.manager }} <span>{{ g.count }} named</span></div>
+        <div class="nicks">
+          {% for n in g.entries %}
+          <div class="nick">
+            <b>{{ n.nickname }}</b>
+            <span>{{ n.player }} · {{ n.position }} · {{ n.first_seen }}</span>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    {% if comedy.irony %}
+    <div class="block">
+      <div class="block-head"><h3>Aged Poorly</h3></div>
+      <div class="cards">
+        {% for r in comedy.irony %}
+        <div class="card">
+          <h4>“{{ r.team_name|trim }}”</h4>
+          <div class="meta">{{ r.manager }} · {{ r.year }}</div>
+          <p class="note" style="margin:0">
+            Championships won: <b style="color:var(--gold)">{{ r.titles }}</b>.
+            {% if r.finals_lost %}Finals lost: {{ r.finals_lost }}.{% endif %}
+          </p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+    <div class="block">
+      <div class="block-head">
+        <h3>Rebrands</h3>
+        <p class="note">Every team name each manager has used. Current name in gold.</p>
+      </div>
+      <div class="timeline">
+        {% for r in comedy.team_names %}
+        <div class="timeline-row">
+          <div class="who">{{ r.manager }}</div>
+          <div class="names">
+            {% for n in r.names %}
+            <span>
+              <em>{{ n.year }}</em>
+              <s class="{{ 'now' if loop.last }}">{{ n.name|trim }}</s>
+            </span>
+            {% endfor %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="grid-2 block">
+      <div>
+        <div class="block-head">
+          <h3>Ride or Die</h3>
+          <p class="note">Players a manager keeps going back to.</p>
+        </div>
+        <table class="sheet">
+          <thead><tr><th>Manager</th><th>Player</th><th class="r">Drafted</th><th class="r">Weeks held</th></tr></thead>
+          <tbody>
+            {% for r in comedy.ride_or_die[:10] %}
+            <tr>
+              <td class="name">{{ r.manager }}</td>
+              <td>{{ r.player }} <span class="dim">{{ r.position }}</span></td>
+              <td class="r big">{{ r.times_drafted }}×</td>
+              <td class="r">{{ r.weeks_rostered }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="block-head">
+          <h3>Longest Marriages</h3>
+          <p class="note">Most weeks a player has spent on one manager's roster.</p>
+        </div>
+        <table class="sheet">
+          <thead><tr><th>Manager</th><th>Player</th><th class="r">Weeks</th></tr></thead>
+          <tbody>
+            {% for r in comedy.tenures[:10] %}
+            <tr>
+              <td class="name">{{ r.manager }}</td>
+              <td>{{ r.player }} <span class="dim">{{ r.position }}</span></td>
+              <td class="r big">{{ r.weeks }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <h3>The Wall of Shame</h3>
+        <p class="note">Worst seasons on record, with the official result string —
+          gold is a win, including the weekly game against the league median.</p>
+      </div>
+      <div class="scroll">
+        <table class="sheet">
+          <thead><tr><th></th><th>Season</th><th>Manager</th><th>Team</th><th class="r">Record</th><th>Result string</th></tr></thead>
+          <tbody>
+            {% for r in comedy.shame.worst_seasons[:8] %}
+            <tr>
+              <td class="rank">{{ loop.index }}</td>
+              <td class="dim">{{ r.season }}</td>
+              <td class="name">{{ r.manager }}</td>
+              <td class="dim">{{ r.team_name|trim }}</td>
+              <td class="r big">{{ r.wins }}–{{ r.losses }}</td>
+              <td>
+                <span class="record">
+                  {% for c in r.record_string|record %}<i class="{{ 'w' if c == 'W' else 'l' }}">{{ c }}</i>{% endfor %}
+                </span>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="grid-2 block">
+      <div>
+        <div class="block-head"><h3>Longest Losing Streaks</h3></div>
+        <table class="sheet">
+          <thead><tr><th>Season</th><th>Manager</th><th class="r">Straight losses</th></tr></thead>
+          <tbody>
+            {% for r in comedy.shame.streaks[:8] %}
+            <tr><td class="dim">{{ r.season }}</td><td class="name">{{ r.manager }}</td>
+              <td class="r big">{{ r.longest_losing }}</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="block-head"><h3>Longest Winning Streaks</h3></div>
+        <table class="sheet">
+          <thead><tr><th>Season</th><th>Manager</th><th class="r">Straight wins</th></tr></thead>
+          <tbody>
+            {% for r in comedy.shame.win_streaks[:8] %}
+            <tr><td class="dim">{{ r.season }}</td><td class="name">{{ r.manager }}</td>
+              <td class="r big">{{ r.longest_winning }}</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="eyebrow">Method</div>
+    <p class="note" style="margin-top:0.8rem">
+      Built from the Sleeper API: {{ meta.dataset.team_weeks }} team-weeks,
+      {{ meta.dataset.player_weeks }} rostered player-weeks,
+      {{ meta.dataset.draft_picks }} draft picks and
+      {{ meta.dataset.transactions }} transactions across
+      {{ meta.completed_seasons|length }} completed seasons. Every player is scored
+      under this league's own settings ({{ meta.scoring.ppr }} PPR,
+      {{ meta.scoring.te_bonus }} TE bonus, {{ meta.scoring.pass_td }}-point passing
+      touchdowns, {{ meta.scoring.rec_first_down }} per first down), which reproduces
+      Sleeper's published totals exactly — so players no team ever rostered can be
+      scored too.
+    </p>
+    <p class="note">
+      Head-to-head records exclude the weekly median game; official standings include
+      it. Rate statistics use regular-season weeks only, because Sleeper still scores
+      eliminated teams during the playoffs. Draft value compares each pick to its own
+      position at its own slot.
+    </p>
+    <p class="note">
+      Not available anywhere in the API, and therefore not here: league chat, and
+      per-pick draft timestamps.
+    </p>
+  </div>
+</footer>
+
+</main>

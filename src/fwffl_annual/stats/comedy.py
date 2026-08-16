@@ -41,7 +41,7 @@ def nicknames(arc: Archive) -> dict[str, Any]:
     out = []
     for entry in by_manager.values():
         items = sorted(entry["nicknames"].values(), key=lambda d: d["first_seen"])
-        out.append({"uid": entry["uid"], "manager": entry["manager"], "items": items,
+        out.append({"uid": entry["uid"], "manager": entry["manager"], "entries": items,
                     "count": len(items)})
     out.sort(key=lambda d: -d["count"])
     return {"by_manager": out, "total_set": total, "unique": sum(d["count"] for d in out)}
