@@ -29,6 +29,7 @@
   --mid: #6b7a7e;     /* neutral midpoint */
 
   --shadow: 0 1px 0 rgb(255 255 255 / 4%) inset;
+  --edge: rgb(0 0 0 / 35%);   /* scroll-affordance shadow */
 
   --measure: 66ch;
   --gutter: clamp(1rem, 4vw, 2.75rem);
@@ -74,6 +75,7 @@
   --cool: #1e7cb8;
   --mid: #7b8a8e;
   --shadow: 0 1px 0 rgb(16 25 23 / 4%) inset;
+  --edge: rgb(16 25 23 / 22%);
 }
 
 * { box-sizing: border-box; }
@@ -341,7 +343,31 @@ p { margin: 0 0 1rem; max-width: var(--measure); }
 
 /* --- tables -------------------------------------------------------------- */
 
-.scroll { overflow-x: auto; }
+/* Grid and flex children default to min-width:auto, which lets a wide table
+   push the whole page wider than the viewport — the classic cause of a page
+   that scrolls sideways on a phone. Every container that can hold a table has
+   to be told it may shrink. */
+.grid-2 > *,
+.tiles > *,
+.cards > *,
+.diverge-row > *,
+.range-row > *,
+.timeline-row > *,
+.block > *,
+.block-head > * { min-width: 0; }
+
+.scroll {
+  overflow-x: auto;
+  max-width: 100%;
+  -webkit-overflow-scrolling: touch;
+  /* Edge shadows that appear only when there is more table to reach. The
+     `local` layers mask the `scroll` layers once you hit either end. */
+  background:
+    linear-gradient(to right, var(--ground), transparent) left / 28px 100% no-repeat local,
+    linear-gradient(to left, var(--ground), transparent) right / 28px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, var(--edge), transparent) left / 12px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, var(--edge), transparent) right / 12px 100% no-repeat scroll;
+}
 
 table.sheet {
   width: 100%;
@@ -376,6 +402,7 @@ table.sheet {
 .sheet .name { font-family: var(--display); font-stretch: condensed; font-weight: 700;
   text-transform: uppercase; letter-spacing: 0.03em; font-size: 0.92rem; white-space: nowrap; }
 .sheet .dim { color: var(--ink-3); }
+.sheet .when { white-space: nowrap; }
 .sheet .big { color: var(--gold); font-weight: 600; }
 .sheet .cool { color: var(--cool); font-weight: 600; }
 .stat-value.cool { color: var(--cool); }
@@ -700,6 +727,84 @@ table.matrix { border-collapse: collapse; font-family: var(--data);
 
 a { color: var(--gold); }
 :focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+/* ==========================================================================
+   Phones. This is where the page is actually read, so it gets real layout
+   decisions rather than a scaled-down desktop: the least important columns
+   leave, the two chart forms stack their label above the bar, and anything
+   still too wide keeps its identity column pinned while the rest scrolls.
+   ========================================================================== */
+
+@media (max-width: 720px) {
+  body { font-size: 16px; }
+
+  .chapter { padding: 3rem 0; }
+  .block { margin-top: 2rem; }
+  .grid-2 { gap: 2rem; }
+
+  /* Columns marked optional carry detail, not the point of the table. */
+  .sheet .opt { display: none; }
+
+  .sheet { font-size: 0.72rem; }
+  .sheet th, .sheet td { padding-right: 0.45rem; }
+  .sheet .name { font-size: 0.82rem; }
+
+  /* Opponent names are the one field long enough to push a score off-screen.
+     Clipping the name keeps the scoreline — the point of the row — visible. */
+  .sheet .opp {
+    max-width: 9ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* No sticky identity column here: `.name` is rarely the first cell, so
+     pinning it would slide it over the columns to its left. Trimming the
+     optional columns above is what keeps these tables inside the screen. */
+
+  .tiles { grid-template-columns: repeat(auto-fit, minmax(min(100%, 140px), 1fr)); }
+  .tile { padding: 0.9rem 0.85rem 1rem; }
+  .stat-value { font-size: clamp(1.7rem, 9vw, 2.3rem); }
+
+  .banners { grid-template-columns: repeat(auto-fit, minmax(105px, 1fr)); gap: 0.5rem; }
+  .banner { padding: 0.8rem 0.5rem 1.7rem; }
+  .banner .year { font-size: 1.2rem; }
+  .banner .who { font-size: 0.78rem; }
+
+  /* Bigger tap targets, and the rail snaps so chapters land cleanly. */
+  .nav ul { scroll-snap-type: x proximity; }
+  .nav a { padding: 0.95rem 0.8rem; scroll-snap-align: start; }
+
+  .matrix th.side {
+    position: sticky;
+    left: 0;
+    background: var(--ground);
+    z-index: 2;
+    box-shadow: 1px 0 0 var(--line-soft);
+  }
+  .matrix th.top { height: 7rem; }
+  .matrix td { min-width: 2.4rem; padding: 0.25rem 0.2rem; }
+
+  .nick-group > .who { font-size: 0.95rem; }
+  .timeline-row { grid-template-columns: 1fr; gap: 0.25rem; }
+}
+
+/* Both chart forms put the label and value on one line, the bar on the next,
+   so the bar keeps its full width instead of being squeezed into a third. */
+@media (max-width: 620px) {
+  .diverge-row,
+  .range-row {
+    grid-template-columns: 1fr auto;
+    grid-template-areas: "who val" "track track";
+    row-gap: 0.3rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--line-soft);
+  }
+
+  .diverge-row .who, .range-row .who { grid-area: who; }
+  .diverge-row .val, .range-row .val { grid-area: val; }
+  .diverge-row .track, .range-row .range-track { grid-area: track; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }

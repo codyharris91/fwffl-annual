@@ -1,4 +1,5 @@
 <title>The FWFFL Annual</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>{{ css }}</style>
 
 {% macro week_table(rows, margin=False, limit=10) %}
@@ -6,24 +7,23 @@
   <table class="sheet">
     <thead>
       <tr>
-        <th></th><th>Season</th><th>Wk</th><th>Manager</th>
+        <th></th><th>When</th><th>Manager</th>
         <th class="r">Score</th><th>Opponent</th><th class="r">Opp</th>
         {% if margin %}<th class="r">Margin</th>{% endif %}
-        <th></th>
+        <th class="opt"></th>
       </tr>
     </thead>
     <tbody>
       {% for r in rows[:limit] %}
       <tr>
         <td class="rank">{{ loop.index }}</td>
-        <td class="dim">{{ r.season }}</td>
-        <td class="dim">{{ r.week }}</td>
+        <td class="dim when">{{ r.season }} wk{{ r.week }}</td>
         <td class="name">{{ r.manager }}</td>
         <td class="r big">{{ "%.2f"|format(r.points) }}</td>
-        <td class="dim">{{ r.opp_manager }}</td>
+        <td class="dim opp">{{ r.opp_manager }}</td>
         <td class="r">{{ "%.2f"|format(r.opp_points) }}</td>
         {% if margin %}<td class="r">{{ "%.2f"|format(r.margin|abs) }}</td>{% endif %}
-        <td>{% if r.is_playoff %}<span class="pill gold">Playoff</span>{% endif %}</td>
+        <td class="opt">{% if r.is_playoff %}<span class="pill gold">Playoff</span>{% endif %}</td>
       </tr>
       {% endfor %}
     </tbody>
@@ -89,6 +89,7 @@
     <ul>
       <li><a href="#ledger">The Ledger</a></li>
       <li><a href="#luck">Luck</a></li>
+      <li><a href="#median">The Median</a></li>
       <li><a href="#records">Record Book</a></li>
       <li><a href="#coaching">Coaching</a></li>
       <li><a href="#draft">The Draft</a></li>
@@ -142,9 +143,9 @@
         <table class="sheet">
           <thead>
             <tr>
-              <th></th><th>Manager</th><th class="r">Sea</th><th class="r">W</th><th class="r">L</th>
-              <th class="r">Win%</th><th class="r">PF</th><th class="r">PA</th>
-              <th class="r">Avg</th><th class="r">Best</th><th class="r">Titles</th><th></th>
+              <th></th><th>Manager</th><th class="r opt">Sea</th><th class="r">W</th><th class="r">L</th>
+              <th class="r">Win%</th><th class="r opt">PF</th><th class="r opt">PA</th>
+              <th class="r">Avg</th><th class="r opt">Best</th><th class="r">Titles</th><th class="opt"></th>
             </tr>
           </thead>
           <tbody>
@@ -152,16 +153,16 @@
             <tr>
               <td class="rank">{{ loop.index }}</td>
               <td class="name">{{ r.manager }}</td>
-              <td class="r dim">{{ r.seasons }}</td>
+              <td class="r dim opt">{{ r.seasons }}</td>
               <td class="r">{{ r.wins }}</td>
               <td class="r">{{ r.losses }}</td>
               <td class="r big">{{ "%.1f"|format(r.win_pct) }}</td>
-              <td class="r dim">{{ "%.0f"|format(r.points_for) }}</td>
-              <td class="r dim">{{ "%.0f"|format(r.points_against) }}</td>
+              <td class="r dim opt">{{ "%.0f"|format(r.points_for) }}</td>
+              <td class="r dim opt">{{ "%.0f"|format(r.points_against) }}</td>
               <td class="r">{{ "%.1f"|format(r.average) }}</td>
-              <td class="r">{{ "%.1f"|format(r.best) }}</td>
+              <td class="r opt">{{ "%.1f"|format(r.best) }}</td>
               <td class="r">{% if r.titles %}<span class="big">{{ "★" * r.titles }}</span>{% else %}<span class="dim">—</span>{% endif %}</td>
-              <td>{% if not r.active %}<span class="pill">Departed</span>{% endif %}</td>
+              <td class="opt">{% if not r.active %}<span class="pill">Departed</span>{% endif %}</td>
             </tr>
             {% endfor %}
           </tbody>
@@ -219,8 +220,8 @@
       <div class="scroll">
         <table class="sheet">
           <thead>
-            <tr><th></th><th>Manager</th><th class="r">Apps</th><th class="r">Of</th><th class="r">Rate</th>
-              <th class="r">Finals</th><th class="r">Titles</th><th class="r">Drought</th><th>Years</th></tr>
+            <tr><th></th><th>Manager</th><th class="r">Apps</th><th class="r opt">Of</th><th class="r">Rate</th>
+              <th class="r opt">Finals</th><th class="r">Titles</th><th class="r">Drought</th><th class="opt">Years</th></tr>
           </thead>
           <tbody>
             {% for r in ledger.playoffs %}
@@ -228,12 +229,12 @@
               <td class="rank">{{ loop.index }}</td>
               <td class="name">{{ r.manager }}</td>
               <td class="r big">{{ r.appearances }}</td>
-              <td class="r dim">{{ r.eligible }}</td>
+              <td class="r dim opt">{{ r.eligible }}</td>
               <td class="r">{{ "%.0f"|format(r.rate) }}%</td>
-              <td class="r">{{ r.finals }}</td>
+              <td class="r opt">{{ r.finals }}</td>
               <td class="r">{{ r.titles }}</td>
               <td class="r">{{ r.drought if r.drought else "—" }}</td>
-              <td class="dim">{{ r.years|join(" ") if r.years else "never" }}</td>
+              <td class="dim opt">{{ r.years|join(" ") if r.years else "never" }}</td>
             </tr>
             {% endfor %}
           </tbody>
@@ -308,11 +309,242 @@
   </div>
 </section>
 
-<!-- ══ 3. RECORD BOOK ══ -->
-<section class="chapter" id="records">
+<!-- ══ 3. THE MEDIAN GAME ══ -->
+<section class="chapter" id="median">
   <div class="wrap">
     <div class="chapter-head">
       <div class="eyebrow">Chapter Three</div>
+      <h2>The Median Game</h2>
+      <p class="lede">
+        Since {{ median.first_season }} the league plays twice a week: your opponent,
+        and the league median. It is the format's best idea, because it puts a floor
+        under bad luck — you can lose to the highest score of the week and still bank
+        a win for being good. Everything here is checked against Sleeper's own result
+        strings, which record both games.
+      </p>
+    </div>
+
+    {% set best = median.records[0] %}
+    {% set sweeper = median.double_weeks[0] %}
+    {% set closest = median.near_misses.just_missed[0] %}
+    {% set flips = median.impact|map(attribute='flips')|map('length')|sum %}
+    <div class="tiles">
+      <div class="tile">
+        <div class="label">Best against the median</div>
+        <div class="stat-value">{{ "%.0f"|format(best.median_pct) }}%</div>
+        <div class="sub">{{ best.manager }} · {{ best.median_wins }}–{{ best.median_losses }}</div>
+      </div>
+      <div class="tile">
+        <div class="label">Most 2–0 weeks</div>
+        <div class="stat-value">{{ sweeper.swept }}</div>
+        <div class="sub">{{ sweeper.manager }} · beat opponent and median</div>
+      </div>
+      <div class="tile">
+        <div class="label">Cruellest near miss</div>
+        <div class="stat-value cool">{{ "%.2f"|format(closest.distance|abs) }}</div>
+        <div class="sub">{{ closest.manager }} · {{ closest.season }} week {{ closest.week }}</div>
+      </div>
+      <div class="tile">
+        <div class="label">Playoff spots changed</div>
+        <div class="stat-value">{{ flips }}</div>
+        <div class="sub">seeds the median game made or broke</div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <h3>Two Ledgers</h3>
+        <p class="note">Every manager keeps two records at once. A positive rescue
+          means they scored better than their matchups showed, and the median game
+          handed back wins the schedule had taken.</p>
+      </div>
+      <div class="scroll">
+        <table class="sheet">
+          <thead>
+            <tr><th></th><th>Manager</th><th class="r">vs Median</th><th class="r">Median%</th>
+              <th class="r opt">Head-to-head</th><th class="r">H2H%</th>
+              <th class="r">Rescue</th><th class="r opt">Weeks</th></tr>
+          </thead>
+          <tbody>
+            {% for r in median.records %}
+            <tr>
+              <td class="rank">{{ loop.index }}</td>
+              <td class="name">{{ r.manager }}</td>
+              <td class="r">{{ r.median_wins }}–{{ r.median_losses }}</td>
+              <td class="r big">{{ "%.1f"|format(r.median_pct) }}</td>
+              <td class="r dim opt">{{ r.h2h_wins }}–{{ r.h2h_losses }}</td>
+              <td class="r dim">{{ "%.1f"|format(r.h2h_pct) }}</td>
+              <td class="r {{ 'big' if r.rescue >= 0 else 'cool' }}">{{ "%+.1f"|format(r.rescue) }}</td>
+              <td class="r dim opt">{{ r.weeks }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <h3>What the Median Changed</h3>
+        <p class="note">Seeds recomputed from head-to-head results alone, against the
+          official standings. Gold made the playoffs; cool missed them.</p>
+      </div>
+      <div class="cards">
+        {% for s in median.impact %}
+        <div class="card">
+          <h4>{{ s.season }}</h4>
+          <div class="meta">
+            {% if s.flips %}{{ s.flips|length }} playoff spot{{ "s" if s.flips|length != 1 }} changed hands{% else %}no playoff spots changed{% endif %}
+          </div>
+          {% if s.moves %}
+          <ul class="bidlist">
+            {% for m in s.moves %}
+            <li>
+              <span class="{{ 'winner' if m.made_playoffs }}">{{ m.manager }}</span>
+              <span class="{{ 'winner' if m.change > 0 else 'flag' }}">
+                {{ m.h2h_seed }} → {{ m.official_seed }}
+                {% if m in s.flips %}{{ "in" if m.made_playoffs else "out" }}{% endif %}
+              </span>
+            </li>
+            {% endfor %}
+          </ul>
+          {% else %}
+          <p class="note" style="margin:0">Every seed landed where head-to-head alone would have put it.</p>
+          {% endif %}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <h3>How Each Week Broke</h3>
+        <p class="note">Sweeps won both games; wipeouts lost both. Rescued means the
+          matchup was lost but the median still paid — the whole point of the format.</p>
+      </div>
+      <div class="scroll">
+        <table class="sheet">
+          <thead>
+            <tr><th></th><th>Manager</th><th class="r">Swept 2–0</th><th class="r">Wiped 0–2</th>
+              <th class="r">Rescued</th><th class="r">Flattered</th><th class="r opt">Weeks</th></tr>
+          </thead>
+          <tbody>
+            {% for r in median.double_weeks %}
+            <tr>
+              <td class="rank">{{ loop.index }}</td>
+              <td class="name">{{ r.manager }}</td>
+              <td class="r big">{{ r.swept }}</td>
+              <td class="r cool">{{ r.wiped }}</td>
+              <td class="r">{{ r.rescued }}</td>
+              <td class="r dim">{{ r.flattered }}</td>
+              <td class="r dim opt">{{ r.weeks }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="grid-2 block">
+      <div>
+        <div class="block-head">
+          <h3>Missed by That Much</h3>
+          <p class="note">Closest losses to the median line.</p>
+        </div>
+        <div class="scroll">
+          <table class="sheet">
+            <thead><tr><th>Sea</th><th>Wk</th><th>Manager</th><th class="r">Score</th>
+              <th class="r opt">Median</th><th class="r">Short by</th></tr></thead>
+            <tbody>
+              {% for r in median.near_misses.just_missed %}
+              <tr>
+                <td class="dim">{{ r.season }}</td>
+                <td class="dim">{{ r.week }}</td>
+                <td class="name">{{ r.manager }}</td>
+                <td class="r">{{ "%.2f"|format(r.points) }}</td>
+                <td class="r dim opt">{{ "%.2f"|format(r.median) }}</td>
+                <td class="r cool">{{ "%.2f"|format(r.distance|abs) }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <div class="block-head">
+          <h3>Scraped Over the Line</h3>
+          <p class="note">Narrowest median wins.</p>
+        </div>
+        <div class="scroll">
+          <table class="sheet">
+            <thead><tr><th>Sea</th><th>Wk</th><th>Manager</th><th class="r">Score</th>
+              <th class="r opt">Median</th><th class="r">Clear by</th></tr></thead>
+            <tbody>
+              {% for r in median.near_misses.just_made_it %}
+              <tr>
+                <td class="dim">{{ r.season }}</td>
+                <td class="dim">{{ r.week }}</td>
+                <td class="name">{{ r.manager }}</td>
+                <td class="r">{{ "%.2f"|format(r.points) }}</td>
+                <td class="r dim opt">{{ "%.2f"|format(r.median) }}</td>
+                <td class="r big">{{ "%.2f"|format(r.distance) }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2 block">
+      <div>
+        <div class="block-head">
+          <h3>Where the Bar Has Sat</h3>
+          <p class="note">The weekly median, by season.</p>
+        </div>
+        <table class="sheet">
+          <thead><tr><th>Season</th><th class="r">Average</th><th class="r">Lowest</th>
+            <th class="r">Highest</th><th class="r opt">Teams</th></tr></thead>
+          <tbody>
+            {% for r in median.line %}
+            <tr>
+              <td class="name">{{ r.season }}</td>
+              <td class="r big">{{ "%.1f"|format(r.average) }}</td>
+              <td class="r dim">{{ "%.2f"|format(r.low) }}</td>
+              <td class="r dim">{{ "%.2f"|format(r.high) }}</td>
+              <td class="r dim opt">{{ r.teams }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="block-head">
+          <h3>Distance From Average</h3>
+          <p class="note">Mean points above or below the median line each week.</p>
+        </div>
+        <table class="sheet">
+          <thead><tr><th>Manager</th><th class="r">Margin</th><th class="r opt">Spread</th></tr></thead>
+          <tbody>
+            {% for r in median.consistency %}
+            <tr>
+              <td class="name">{{ r.manager }}</td>
+              <td class="r {{ 'big' if r.average_margin >= 0 else 'cool' }}">{{ "%+.1f"|format(r.average_margin) }}</td>
+              <td class="r dim opt">{{ "%.1f"|format(r.spread) }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 4. RECORD BOOK ══ -->
+<section class="chapter" id="records">
+  <div class="wrap">
+    <div class="chapter-head">
+      <div class="eyebrow">Chapter Four</div>
       <h2>The Record Book</h2>
       <p class="lede">The numbers that still stand.</p>
     </div>
@@ -361,20 +593,19 @@
       <div class="scroll">
         <table class="sheet">
           <thead>
-            <tr><th></th><th>Season</th><th>Wk</th><th>Player</th><th>Pos</th>
-              <th class="r">Points</th><th>Rostered by</th><th></th></tr>
+            <tr><th></th><th>When</th><th>Player</th><th class="opt">Pos</th>
+              <th class="r">Points</th><th>Rostered by</th><th class="opt"></th></tr>
           </thead>
           <tbody>
             {% for r in records.best_player_weeks[:12] %}
             <tr>
               <td class="rank">{{ loop.index }}</td>
-              <td class="dim">{{ r.season }}</td>
-              <td class="dim">{{ r.week }}</td>
+              <td class="dim when">{{ r.season }} wk{{ r.week }}</td>
               <td class="name">{{ r.player }}</td>
-              <td class="dim">{{ r.position }}</td>
+              <td class="dim opt">{{ r.position }}</td>
               <td class="r big">{{ "%.2f"|format(r.points) }}</td>
               <td>{{ r.manager }}</td>
-              <td>{% if not r.started %}<span class="pill">Benched</span>{% endif %}</td>
+              <td class="opt">{% if not r.started %}<span class="pill">Benched</span>{% endif %}</td>
             </tr>
             {% endfor %}
           </tbody>
@@ -454,7 +685,7 @@
 <section class="chapter" id="coaching">
   <div class="wrap">
     <div class="chapter-head">
-      <div class="eyebrow">Chapter Four</div>
+      <div class="eyebrow">Chapter Five</div>
       <h2>Start / Sit</h2>
       <p class="lede">
         Lineup efficiency is points scored as a share of the best legal lineup that
@@ -469,7 +700,7 @@
         <table class="sheet">
           <thead>
             <tr><th></th><th>Manager</th><th class="r">Eff</th><th style="width:30%"></th>
-              <th class="r">Left/wk</th><th class="r">Total left</th><th class="r">Perfect</th></tr>
+              <th class="r">Left/wk</th><th class="r opt">Total left</th><th class="r">Perfect</th></tr>
           </thead>
           <tbody>
             {% for r in coaching.efficiency %}
@@ -483,7 +714,7 @@
                 </div>
               </td>
               <td class="r">{{ "%.1f"|format(r.left_per_week) }}</td>
-              <td class="r dim">{{ "%.0f"|format(r.left_total) }}</td>
+              <td class="r dim opt">{{ "%.0f"|format(r.left_total) }}</td>
               <td class="r">{{ r.perfect_weeks if r.perfect_weeks else "—" }}</td>
             </tr>
             {% endfor %}
@@ -502,22 +733,22 @@
       <div class="scroll">
         <table class="sheet">
           <thead>
-            <tr><th></th><th>Season</th><th>Wk</th><th>Manager</th><th class="r">Scored</th>
-              <th class="r">Possible</th><th class="r">Left</th><th>Biggest miss</th><th class="r">Pts</th><th></th></tr>
+            <tr><th></th><th class="opt">Season</th><th class="opt">Wk</th><th>Manager</th><th class="r">Scored</th>
+              <th class="r opt">Possible</th><th class="r">Left</th><th>Biggest miss</th><th class="r opt">Pts</th><th class="opt"></th></tr>
           </thead>
           <tbody>
             {% for r in coaching.bench_disasters[:10] %}
             <tr>
               <td class="rank">{{ loop.index }}</td>
-              <td class="dim">{{ r.season }}</td>
-              <td class="dim">{{ r.week }}</td>
+              <td class="dim opt">{{ r.season }}</td>
+              <td class="dim opt">{{ r.week }}</td>
               <td class="name">{{ r.manager }}</td>
               <td class="r">{{ "%.2f"|format(r.points) }}</td>
-              <td class="r dim">{{ "%.2f"|format(r.optimal) }}</td>
+              <td class="r dim opt">{{ "%.2f"|format(r.optimal) }}</td>
               <td class="r big">{{ "%.2f"|format(r.left) }}</td>
               <td>{{ r.biggest_miss or "—" }}</td>
-              <td class="r">{{ "%.1f"|format(r.miss_points) }}</td>
-              <td>{% if r.cost_the_game %}<span class="pill gold">Cost the game</span>{% endif %}</td>
+              <td class="r opt">{{ "%.1f"|format(r.miss_points) }}</td>
+              <td class="opt">{% if r.cost_the_game %}<span class="pill gold">Cost the game</span>{% endif %}</td>
             </tr>
             {% endfor %}
           </tbody>
@@ -579,7 +810,7 @@
 <section class="chapter" id="draft">
   <div class="wrap">
     <div class="chapter-head">
-      <div class="eyebrow">Chapter Five</div>
+      <div class="eyebrow">Chapter Six</div>
       <h2>The Draft</h2>
       <p class="lede">
         Judging a pick needs a fair baseline. Ranking a player's finish against the
@@ -620,18 +851,18 @@
         <div class="block-head"><h3>Steals</h3></div>
         <div class="scroll">
           <table class="sheet">
-            <thead><tr><th></th><th>Sea</th><th>Pick</th><th>Player</th><th>Pos</th>
-              <th class="r">Pts</th><th class="r">Exp</th><th class="r">+/−</th><th>Manager</th></tr></thead>
+            <thead><tr><th></th><th class="opt">Sea</th><th>Pick</th><th>Player</th><th class="opt">Pos</th>
+              <th class="r opt">Pts</th><th class="r opt">Exp</th><th class="r">+/−</th><th>Manager</th></tr></thead>
             <tbody>
               {% for r in draft.steals[:10] %}
               <tr>
                 <td class="rank">{{ loop.index }}</td>
-                <td class="dim">{{ r.season }}</td>
+                <td class="dim opt">{{ r.season }}</td>
                 <td class="dim">{{ r.label }}</td>
                 <td class="name">{{ r.player }}</td>
-                <td class="dim">{{ r.position }}</td>
-                <td class="r">{{ "%.0f"|format(r.points) }}</td>
-                <td class="r dim">{{ "%.0f"|format(r.expected) }}</td>
+                <td class="dim opt">{{ r.position }}</td>
+                <td class="r opt">{{ "%.0f"|format(r.points) }}</td>
+                <td class="r dim opt">{{ "%.0f"|format(r.expected) }}</td>
                 <td class="r big">{{ "%+.0f"|format(r.value) }}</td>
                 <td>{{ r.manager }}</td>
               </tr>
@@ -644,18 +875,18 @@
         <div class="block-head"><h3>Busts</h3></div>
         <div class="scroll">
           <table class="sheet">
-            <thead><tr><th></th><th>Sea</th><th>Pick</th><th>Player</th><th>Pos</th>
-              <th class="r">Pts</th><th class="r">Exp</th><th class="r">+/−</th><th>Manager</th></tr></thead>
+            <thead><tr><th></th><th class="opt">Sea</th><th>Pick</th><th>Player</th><th class="opt">Pos</th>
+              <th class="r opt">Pts</th><th class="r opt">Exp</th><th class="r">+/−</th><th>Manager</th></tr></thead>
             <tbody>
               {% for r in draft.busts[:10] %}
               <tr>
                 <td class="rank">{{ loop.index }}</td>
-                <td class="dim">{{ r.season }}</td>
+                <td class="dim opt">{{ r.season }}</td>
                 <td class="dim">{{ r.label }}</td>
                 <td class="name">{{ r.player }}</td>
-                <td class="dim">{{ r.position }}</td>
-                <td class="r">{{ "%.0f"|format(r.points) }}</td>
-                <td class="r dim">{{ "%.0f"|format(r.expected) }}</td>
+                <td class="dim opt">{{ r.position }}</td>
+                <td class="r opt">{{ "%.0f"|format(r.points) }}</td>
+                <td class="r dim opt">{{ "%.0f"|format(r.expected) }}</td>
                 <td class="r cool">{{ "%.0f"|format(r.value) }}</td>
                 <td>{{ r.manager }}</td>
               </tr>
@@ -728,18 +959,18 @@
       </div>
       <div class="scroll">
         <table class="sheet">
-          <thead><tr><th>Manager</th><th class="r">Drafts</th><th>Round 1 goes</th><th>Rounds 1–5 mix</th><th class="r">First QB</th></tr></thead>
+          <thead><tr><th>Manager</th><th class="r opt">Drafts</th><th>Round 1 goes</th><th class="opt">Rounds 1–5 mix</th><th class="r">First QB</th></tr></thead>
           <tbody>
             {% for r in draft.dna %}
             <tr>
               <td class="name">{{ r.manager }}</td>
-              <td class="r dim">{{ r.drafts }}</td>
+              <td class="r dim opt">{{ r.drafts }}</td>
               <td>
                 {% for pos, n in r.first_round.items() %}
                 <span class="pill{{ ' gold' if pos == r.favourite_first else '' }}">{{ pos }} ×{{ n }}</span>
                 {% endfor %}
               </td>
-              <td class="dim">
+              <td class="dim opt">
                 {% for pos, pct in r.early_mix.items() %}{{ pos }} {{ pct }}%{{ " · " if not loop.last }}{% endfor %}
               </td>
               <td class="r">{{ "R%.1f"|format(r.first_qb_round) if r.first_qb_round else "—" }}</td>
@@ -756,7 +987,7 @@
 <section class="chapter" id="waivers">
   <div class="wrap">
     <div class="chapter-head">
-      <div class="eyebrow">Chapter Six</div>
+      <div class="eyebrow">Chapter Seven</div>
       <h2>The Wire</h2>
       <p class="lede">
         FAAB is ${{ meta.faab_budget }} a season, which makes the bids legible: an
@@ -854,7 +1085,7 @@
       </div>
       <div class="scroll">
         <table class="sheet">
-          <thead><tr><th></th><th>Manager</th><th class="r">Moves/season</th><th class="r">Total</th><th class="r">Seasons</th><th class="r">Trades</th></tr></thead>
+          <thead><tr><th></th><th>Manager</th><th class="r">Moves/season</th><th class="r">Total</th><th class="r opt">Seasons</th><th class="r">Trades</th></tr></thead>
           <tbody>
             {% for r in waivers.activity %}
             <tr>
@@ -862,7 +1093,7 @@
               <td class="name">{{ r.manager }}</td>
               <td class="r big">{{ "%.1f"|format(r.per_season) }}</td>
               <td class="r">{{ r.moves }}</td>
-              <td class="r dim">{{ r.seasons }}</td>
+              <td class="r dim opt">{{ r.seasons }}</td>
               <td class="r">{{ r.trades }}</td>
             </tr>
             {% endfor %}
@@ -877,7 +1108,7 @@
 <section class="chapter" id="rivalries">
   <div class="wrap">
     <div class="chapter-head">
-      <div class="eyebrow">Chapter Seven</div>
+      <div class="eyebrow">Chapter Eight</div>
       <h2>Rivalries &amp; Villains</h2>
       <p class="lede">Who owns who, and which players have spent six years ruining
         specific people's weekends.</p>
@@ -970,7 +1201,7 @@
 <section class="chapter" id="comedy">
   <div class="wrap">
     <div class="chapter-head">
-      <div class="eyebrow">Chapter Eight</div>
+      <div class="eyebrow">Chapter Nine</div>
       <h2>The Human Record</h2>
       <p class="lede">
         Sleeper quietly stores every player nickname a manager has ever set, in roster

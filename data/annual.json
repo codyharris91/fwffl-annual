@@ -2515,6 +2515,865 @@
       }
     ]
   },
+  "median": {
+    "seasons": [
+      "2022",
+      "2023",
+      "2024",
+      "2025"
+    ],
+    "first_season": "2022",
+    "records": [
+      {
+        "uid": "1131318989990379520",
+        "manager": "clappincheeks69",
+        "weeks": 14,
+        "median_wins": 10,
+        "median_losses": 4,
+        "median_pct": 71.4,
+        "h2h_wins": 9,
+        "h2h_losses": 5,
+        "h2h_pct": 64.3,
+        "rescue": 7.1
+      },
+      {
+        "uid": "737361961427296256",
+        "manager": "Mangondala",
+        "weeks": 56,
+        "median_wins": 35,
+        "median_losses": 21,
+        "median_pct": 62.5,
+        "h2h_wins": 31,
+        "h2h_losses": 25,
+        "h2h_pct": 55.4,
+        "rescue": 7.1
+      },
+      {
+        "uid": "993996540970668032",
+        "manager": "Cadengetdabag",
+        "weeks": 42,
+        "median_wins": 26,
+        "median_losses": 16,
+        "median_pct": 61.9,
+        "h2h_wins": 22,
+        "h2h_losses": 20,
+        "h2h_pct": 52.4,
+        "rescue": 9.5
+      },
+      {
+        "uid": "727954847688630272",
+        "manager": "Pxesto",
+        "weeks": 56,
+        "median_wins": 33,
+        "median_losses": 23,
+        "median_pct": 58.9,
+        "h2h_wins": 31,
+        "h2h_losses": 25,
+        "h2h_pct": 55.4,
+        "rescue": 3.6
+      },
+      {
+        "uid": "728392183681548288",
+        "manager": "datboyp",
+        "weeks": 56,
+        "median_wins": 32,
+        "median_losses": 24,
+        "median_pct": 57.1,
+        "h2h_wins": 33,
+        "h2h_losses": 23,
+        "h2h_pct": 58.9,
+        "rescue": -1.8
+      },
+      {
+        "uid": "739174898471157760",
+        "manager": "GmanToTuff",
+        "weeks": 56,
+        "median_wins": 31,
+        "median_losses": 25,
+        "median_pct": 55.4,
+        "h2h_wins": 33,
+        "h2h_losses": 23,
+        "h2h_pct": 58.9,
+        "rescue": -3.6
+      },
+      {
+        "uid": "737362282971062272",
+        "manager": "Nickpapi69",
+        "weeks": 56,
+        "median_wins": 30,
+        "median_losses": 26,
+        "median_pct": 53.6,
+        "h2h_wins": 31,
+        "h2h_losses": 25,
+        "h2h_pct": 55.4,
+        "rescue": -1.8
+      },
+      {
+        "uid": "871109847192621056",
+        "manager": "kodikat",
+        "weeks": 56,
+        "median_wins": 29,
+        "median_losses": 27,
+        "median_pct": 51.8,
+        "h2h_wins": 33,
+        "h2h_losses": 23,
+        "h2h_pct": 58.9,
+        "rescue": -7.1
+      },
+      {
+        "uid": "994339367600615424",
+        "manager": "Huntermeek4",
+        "weeks": 42,
+        "median_wins": 21,
+        "median_losses": 21,
+        "median_pct": 50.0,
+        "h2h_wins": 21,
+        "h2h_losses": 21,
+        "h2h_pct": 50.0,
+        "rescue": 0.0
+      },
+      {
+        "uid": "739175215237586944",
+        "manager": "Cumball",
+        "weeks": 56,
+        "median_wins": 25,
+        "median_losses": 31,
+        "median_pct": 44.6,
+        "h2h_wins": 30,
+        "h2h_losses": 26,
+        "h2h_pct": 53.6,
+        "rescue": -8.9
+      },
+      {
+        "uid": "868975711417946112",
+        "manager": "DicklesPickles",
+        "weeks": 56,
+        "median_wins": 25,
+        "median_losses": 31,
+        "median_pct": 44.6,
+        "h2h_wins": 25,
+        "h2h_losses": 31,
+        "h2h_pct": 44.6,
+        "rescue": 0.0
+      },
+      {
+        "uid": "735566877086048256",
+        "manager": "emcwill12",
+        "weeks": 14,
+        "median_wins": 5,
+        "median_losses": 9,
+        "median_pct": 35.7,
+        "h2h_wins": 3,
+        "h2h_losses": 11,
+        "h2h_pct": 21.4,
+        "rescue": 14.3
+      },
+      {
+        "uid": "738069619088216064",
+        "manager": "StevetheDog",
+        "weeks": 42,
+        "median_wins": 13,
+        "median_losses": 29,
+        "median_pct": 31.0,
+        "h2h_wins": 15,
+        "h2h_losses": 27,
+        "h2h_pct": 35.7,
+        "rescue": -4.8
+      },
+      {
+        "uid": "993993310521942016",
+        "manager": "echenozz",
+        "weeks": 28,
+        "median_wins": 6,
+        "median_losses": 22,
+        "median_pct": 21.4,
+        "h2h_wins": 5,
+        "h2h_losses": 23,
+        "h2h_pct": 17.9,
+        "rescue": 3.6
+      },
+      {
+        "uid": "468905201722454016",
+        "manager": "ProfessorSell",
+        "weeks": 14,
+        "median_wins": 1,
+        "median_losses": 13,
+        "median_pct": 7.1,
+        "h2h_wins": 0,
+        "h2h_losses": 14,
+        "h2h_pct": 0.0,
+        "rescue": 7.1
+      }
+    ],
+    "double_weeks": [
+      {
+        "uid": "728392183681548288",
+        "manager": "datboyp",
+        "weeks": 56,
+        "swept": 26,
+        "wiped": 17,
+        "rescued": 6,
+        "flattered": 7,
+        "sweep_rate": 46.4
+      },
+      {
+        "uid": "727954847688630272",
+        "manager": "Pxesto",
+        "weeks": 56,
+        "swept": 25,
+        "wiped": 17,
+        "rescued": 8,
+        "flattered": 6,
+        "sweep_rate": 44.6
+      },
+      {
+        "uid": "739174898471157760",
+        "manager": "GmanToTuff",
+        "weeks": 56,
+        "swept": 25,
+        "wiped": 17,
+        "rescued": 6,
+        "flattered": 8,
+        "sweep_rate": 44.6
+      },
+      {
+        "uid": "871109847192621056",
+        "manager": "kodikat",
+        "weeks": 56,
+        "swept": 25,
+        "wiped": 19,
+        "rescued": 4,
+        "flattered": 8,
+        "sweep_rate": 44.6
+      },
+      {
+        "uid": "737361961427296256",
+        "manager": "Mangondala",
+        "weeks": 56,
+        "swept": 24,
+        "wiped": 14,
+        "rescued": 11,
+        "flattered": 7,
+        "sweep_rate": 42.9
+      },
+      {
+        "uid": "737362282971062272",
+        "manager": "Nickpapi69",
+        "weeks": 56,
+        "swept": 23,
+        "wiped": 18,
+        "rescued": 7,
+        "flattered": 8,
+        "sweep_rate": 41.1
+      },
+      {
+        "uid": "868975711417946112",
+        "manager": "DicklesPickles",
+        "weeks": 56,
+        "swept": 22,
+        "wiped": 28,
+        "rescued": 3,
+        "flattered": 3,
+        "sweep_rate": 39.3
+      },
+      {
+        "uid": "739175215237586944",
+        "manager": "Cumball",
+        "weeks": 56,
+        "swept": 18,
+        "wiped": 19,
+        "rescued": 7,
+        "flattered": 12,
+        "sweep_rate": 32.1
+      },
+      {
+        "uid": "993996540970668032",
+        "manager": "Cadengetdabag",
+        "weeks": 42,
+        "swept": 18,
+        "wiped": 12,
+        "rescued": 8,
+        "flattered": 4,
+        "sweep_rate": 42.9
+      },
+      {
+        "uid": "994339367600615424",
+        "manager": "Huntermeek4",
+        "weeks": 42,
+        "swept": 17,
+        "wiped": 17,
+        "rescued": 4,
+        "flattered": 4,
+        "sweep_rate": 40.5
+      },
+      {
+        "uid": "738069619088216064",
+        "manager": "StevetheDog",
+        "weeks": 42,
+        "swept": 10,
+        "wiped": 24,
+        "rescued": 3,
+        "flattered": 5,
+        "sweep_rate": 23.8
+      },
+      {
+        "uid": "1131318989990379520",
+        "manager": "clappincheeks69",
+        "weeks": 14,
+        "swept": 7,
+        "wiped": 2,
+        "rescued": 3,
+        "flattered": 2,
+        "sweep_rate": 50.0
+      },
+      {
+        "uid": "993993310521942016",
+        "manager": "echenozz",
+        "weeks": 28,
+        "swept": 4,
+        "wiped": 21,
+        "rescued": 2,
+        "flattered": 1,
+        "sweep_rate": 14.3
+      },
+      {
+        "uid": "735566877086048256",
+        "manager": "emcwill12",
+        "weeks": 14,
+        "swept": 2,
+        "wiped": 8,
+        "rescued": 3,
+        "flattered": 1,
+        "sweep_rate": 14.3
+      },
+      {
+        "uid": "468905201722454016",
+        "manager": "ProfessorSell",
+        "weeks": 14,
+        "swept": 0,
+        "wiped": 13,
+        "rescued": 1,
+        "flattered": 0,
+        "sweep_rate": 0.0
+      }
+    ],
+    "near_misses": {
+      "just_missed": [
+        {
+          "season": "2024",
+          "week": 5,
+          "manager": "GmanToTuff",
+          "points": 132.58,
+          "median": 132.67,
+          "distance": -0.09
+        },
+        {
+          "season": "2024",
+          "week": 3,
+          "manager": "kodikat",
+          "points": 126.76,
+          "median": 127.14,
+          "distance": -0.38
+        },
+        {
+          "season": "2022",
+          "week": 14,
+          "manager": "StevetheDog",
+          "points": 118.51,
+          "median": 119.07,
+          "distance": -0.56
+        },
+        {
+          "season": "2023",
+          "week": 7,
+          "manager": "echenozz",
+          "points": 119.0,
+          "median": 119.6,
+          "distance": -0.6
+        },
+        {
+          "season": "2022",
+          "week": 13,
+          "manager": "Nickpapi69",
+          "points": 122.59,
+          "median": 123.25,
+          "distance": -0.66
+        },
+        {
+          "season": "2024",
+          "week": 7,
+          "manager": "Pxesto",
+          "points": 115.52,
+          "median": 116.21,
+          "distance": -0.69
+        },
+        {
+          "season": "2022",
+          "week": 1,
+          "manager": "datboyp",
+          "points": 131.72,
+          "median": 132.43,
+          "distance": -0.71
+        },
+        {
+          "season": "2022",
+          "week": 10,
+          "manager": "Mangondala",
+          "points": 118.84,
+          "median": 119.59,
+          "distance": -0.75
+        }
+      ],
+      "just_made_it": [
+        {
+          "season": "2024",
+          "week": 5,
+          "manager": "StevetheDog",
+          "points": 132.76,
+          "median": 132.67,
+          "distance": 0.09
+        },
+        {
+          "season": "2024",
+          "week": 3,
+          "manager": "Pxesto",
+          "points": 127.52,
+          "median": 127.14,
+          "distance": 0.38
+        },
+        {
+          "season": "2022",
+          "week": 14,
+          "manager": "kodikat",
+          "points": 119.63,
+          "median": 119.07,
+          "distance": 0.56
+        },
+        {
+          "season": "2023",
+          "week": 7,
+          "manager": "DicklesPickles",
+          "points": 120.2,
+          "median": 119.6,
+          "distance": 0.6
+        },
+        {
+          "season": "2022",
+          "week": 13,
+          "manager": "Cumball",
+          "points": 123.9,
+          "median": 123.25,
+          "distance": 0.66
+        },
+        {
+          "season": "2024",
+          "week": 7,
+          "manager": "kodikat",
+          "points": 116.9,
+          "median": 116.21,
+          "distance": 0.69
+        },
+        {
+          "season": "2022",
+          "week": 1,
+          "manager": "Nickpapi69",
+          "points": 133.13,
+          "median": 132.43,
+          "distance": 0.7
+        },
+        {
+          "season": "2022",
+          "week": 10,
+          "manager": "kodikat",
+          "points": 120.34,
+          "median": 119.59,
+          "distance": 0.75
+        }
+      ]
+    },
+    "line": [
+      {
+        "season": "2022",
+        "average": 125.5,
+        "low": 112.78,
+        "high": 138.85,
+        "teams": 10
+      },
+      {
+        "season": "2023",
+        "average": 116.3,
+        "low": 104.7,
+        "high": 129.77,
+        "teams": 12
+      },
+      {
+        "season": "2024",
+        "average": 126.9,
+        "low": 116.21,
+        "high": 137.74,
+        "teams": 12
+      },
+      {
+        "season": "2025",
+        "average": 126.0,
+        "low": 112.49,
+        "high": 137.19,
+        "teams": 12
+      }
+    ],
+    "consistency": [
+      {
+        "uid": "728392183681548288",
+        "manager": "datboyp",
+        "average_margin": 13.2,
+        "spread": 31.1,
+        "weeks": 56
+      },
+      {
+        "uid": "1131318989990379520",
+        "manager": "clappincheeks69",
+        "average_margin": 12.6,
+        "spread": 25.4,
+        "weeks": 14
+      },
+      {
+        "uid": "993996540970668032",
+        "manager": "Cadengetdabag",
+        "average_margin": 11.8,
+        "spread": 27.9,
+        "weeks": 42
+      },
+      {
+        "uid": "737361961427296256",
+        "manager": "Mangondala",
+        "average_margin": 7.3,
+        "spread": 18.8,
+        "weeks": 56
+      },
+      {
+        "uid": "727954847688630272",
+        "manager": "Pxesto",
+        "average_margin": 5.2,
+        "spread": 25.2,
+        "weeks": 56
+      },
+      {
+        "uid": "737362282971062272",
+        "manager": "Nickpapi69",
+        "average_margin": 4.5,
+        "spread": 27.3,
+        "weeks": 56
+      },
+      {
+        "uid": "739174898471157760",
+        "manager": "GmanToTuff",
+        "average_margin": 3.1,
+        "spread": 24.3,
+        "weeks": 56
+      },
+      {
+        "uid": "871109847192621056",
+        "manager": "kodikat",
+        "average_margin": 2.3,
+        "spread": 25.3,
+        "weeks": 56
+      },
+      {
+        "uid": "994339367600615424",
+        "manager": "Huntermeek4",
+        "average_margin": 1.2,
+        "spread": 23.6,
+        "weeks": 42
+      },
+      {
+        "uid": "739175215237586944",
+        "manager": "Cumball",
+        "average_margin": -2.9,
+        "spread": 25.0,
+        "weeks": 56
+      },
+      {
+        "uid": "868975711417946112",
+        "manager": "DicklesPickles",
+        "average_margin": -6.2,
+        "spread": 28.0,
+        "weeks": 56
+      },
+      {
+        "uid": "738069619088216064",
+        "manager": "StevetheDog",
+        "average_margin": -9.1,
+        "spread": 19.1,
+        "weeks": 42
+      },
+      {
+        "uid": "735566877086048256",
+        "manager": "emcwill12",
+        "average_margin": -9.6,
+        "spread": 22.8,
+        "weeks": 14
+      },
+      {
+        "uid": "993993310521942016",
+        "manager": "echenozz",
+        "average_margin": -11.5,
+        "spread": 27.3,
+        "weeks": 28
+      },
+      {
+        "uid": "468905201722454016",
+        "manager": "ProfessorSell",
+        "average_margin": -21.4,
+        "spread": 21.9,
+        "weeks": 14
+      }
+    ],
+    "impact": [
+      {
+        "season": "2022",
+        "moves": [
+          {
+            "uid": "737361961427296256",
+            "manager": "Mangondala",
+            "h2h_seed": 7,
+            "official_seed": 4,
+            "change": 3,
+            "made_playoffs": true,
+            "would_have": false
+          },
+          {
+            "uid": "728392183681548288",
+            "manager": "datboyp",
+            "h2h_seed": 4,
+            "official_seed": 7,
+            "change": -3,
+            "made_playoffs": false,
+            "would_have": true
+          }
+        ],
+        "flips": [
+          {
+            "uid": "737361961427296256",
+            "manager": "Mangondala",
+            "h2h_seed": 7,
+            "official_seed": 4,
+            "change": 3,
+            "made_playoffs": true,
+            "would_have": false
+          },
+          {
+            "uid": "728392183681548288",
+            "manager": "datboyp",
+            "h2h_seed": 4,
+            "official_seed": 7,
+            "change": -3,
+            "made_playoffs": false,
+            "would_have": true
+          }
+        ]
+      },
+      {
+        "season": "2023",
+        "moves": [
+          {
+            "uid": "727954847688630272",
+            "manager": "Pxesto",
+            "h2h_seed": 5,
+            "official_seed": 2,
+            "change": 3,
+            "made_playoffs": true,
+            "would_have": true
+          },
+          {
+            "uid": "728392183681548288",
+            "manager": "datboyp",
+            "h2h_seed": 3,
+            "official_seed": 5,
+            "change": -2,
+            "made_playoffs": true,
+            "would_have": true
+          },
+          {
+            "uid": "994339367600615424",
+            "manager": "Huntermeek4",
+            "h2h_seed": 6,
+            "official_seed": 8,
+            "change": -2,
+            "made_playoffs": false,
+            "would_have": true
+          },
+          {
+            "uid": "739175215237586944",
+            "manager": "Cumball",
+            "h2h_seed": 2,
+            "official_seed": 3,
+            "change": -1,
+            "made_playoffs": true,
+            "would_have": true
+          },
+          {
+            "uid": "993996540970668032",
+            "manager": "Cadengetdabag",
+            "h2h_seed": 7,
+            "official_seed": 6,
+            "change": 1,
+            "made_playoffs": true,
+            "would_have": false
+          },
+          {
+            "uid": "737361961427296256",
+            "manager": "Mangondala",
+            "h2h_seed": 8,
+            "official_seed": 7,
+            "change": 1,
+            "made_playoffs": false,
+            "would_have": false
+          }
+        ],
+        "flips": [
+          {
+            "uid": "994339367600615424",
+            "manager": "Huntermeek4",
+            "h2h_seed": 6,
+            "official_seed": 8,
+            "change": -2,
+            "made_playoffs": false,
+            "would_have": true
+          },
+          {
+            "uid": "993996540970668032",
+            "manager": "Cadengetdabag",
+            "h2h_seed": 7,
+            "official_seed": 6,
+            "change": 1,
+            "made_playoffs": true,
+            "would_have": false
+          }
+        ]
+      },
+      {
+        "season": "2024",
+        "moves": [
+          {
+            "uid": "994339367600615424",
+            "manager": "Huntermeek4",
+            "h2h_seed": 5,
+            "official_seed": 4,
+            "change": 1,
+            "made_playoffs": true,
+            "would_have": true
+          },
+          {
+            "uid": "739175215237586944",
+            "manager": "Cumball",
+            "h2h_seed": 4,
+            "official_seed": 5,
+            "change": -1,
+            "made_playoffs": true,
+            "would_have": true
+          },
+          {
+            "uid": "728392183681548288",
+            "manager": "datboyp",
+            "h2h_seed": 9,
+            "official_seed": 8,
+            "change": 1,
+            "made_playoffs": false,
+            "would_have": false
+          },
+          {
+            "uid": "727954847688630272",
+            "manager": "Pxesto",
+            "h2h_seed": 8,
+            "official_seed": 9,
+            "change": -1,
+            "made_playoffs": false,
+            "would_have": false
+          }
+        ],
+        "flips": []
+      },
+      {
+        "season": "2025",
+        "moves": [
+          {
+            "uid": "739174898471157760",
+            "manager": "GmanToTuff",
+            "h2h_seed": 4,
+            "official_seed": 8,
+            "change": -4,
+            "made_playoffs": false,
+            "would_have": true
+          },
+          {
+            "uid": "993996540970668032",
+            "manager": "Cadengetdabag",
+            "h2h_seed": 8,
+            "official_seed": 5,
+            "change": 3,
+            "made_playoffs": true,
+            "would_have": false
+          },
+          {
+            "uid": "727954847688630272",
+            "manager": "Pxesto",
+            "h2h_seed": 6,
+            "official_seed": 4,
+            "change": 2,
+            "made_playoffs": true,
+            "would_have": true
+          },
+          {
+            "uid": "871109847192621056",
+            "manager": "kodikat",
+            "h2h_seed": 5,
+            "official_seed": 6,
+            "change": -1,
+            "made_playoffs": true,
+            "would_have": true
+          },
+          {
+            "uid": "737362282971062272",
+            "manager": "Nickpapi69",
+            "h2h_seed": 11,
+            "official_seed": 10,
+            "change": 1,
+            "made_playoffs": false,
+            "would_have": false
+          },
+          {
+            "uid": "739175215237586944",
+            "manager": "Cumball",
+            "h2h_seed": 10,
+            "official_seed": 11,
+            "change": -1,
+            "made_playoffs": false,
+            "would_have": false
+          }
+        ],
+        "flips": [
+          {
+            "uid": "739174898471157760",
+            "manager": "GmanToTuff",
+            "h2h_seed": 4,
+            "official_seed": 8,
+            "change": -4,
+            "made_playoffs": false,
+            "would_have": true
+          },
+          {
+            "uid": "993996540970668032",
+            "manager": "Cadengetdabag",
+            "h2h_seed": 8,
+            "official_seed": 5,
+            "change": 3,
+            "made_playoffs": true,
+            "would_have": false
+          }
+        ]
+      }
+    ]
+  },
   "records": {
     "highest_weeks": [
       {

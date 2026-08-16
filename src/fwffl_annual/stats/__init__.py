@@ -5,11 +5,12 @@ from __future__ import annotations
 from typing import Any
 
 from ..archive import Archive
-from . import coaching, comedy, draft, ledger, luck, records, rivalries, waivers
+from . import coaching, comedy, draft, ledger, luck, median, records, rivalries, waivers
 
 CATEGORIES = {
     "ledger": ledger,
     "luck": luck,
+    "median": median,
     "records": records,
     "coaching": coaching,
     "draft": draft,

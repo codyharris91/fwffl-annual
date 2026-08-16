@@ -38,9 +38,18 @@ templates/       Jinja page + stylesheet
 `build` and `render` are deliberately separate: the numbers can be inspected,
 diffed between runs, and tested without going near HTML.
 
-## Three decisions worth knowing
+## Four decisions worth knowing
 
 Most of the work here was picking baselines that don't lie.
+
+**The median game.** From 2022 the league plays twice a week — an opponent and
+the league median — so every manager keeps two records at once. Sleeper encodes
+both results in each roster's `record` string, two characters per week,
+interleaved `[head-to-head, median]`. That string is an exact oracle, including
+how Sleeper resolves the median of an even number of teams, and
+`tests/test_median.py` reconstructs it for all 54 manager-seasons and demands a
+character-for-character match. Recomputing seeds from head-to-head alone shows
+what the format actually changed: six playoff spots across four seasons.
 
 **Scoring.** Every player is scored under the league's own settings rather than a
 public half-PPR board — first downs, a TE reception bonus, and 5-point passing
@@ -61,6 +70,24 @@ against its own position at its own slot.
 
 Head-to-head records exclude the weekly median game; the official standings
 include it. Both appear on the page, labelled.
+
+## The page is built for a phone
+
+That is where it gets read, so the small screen gets real layout decisions
+rather than a scaled-down desktop:
+
+- Secondary columns are marked `.opt` and leave below 720px, so the tables fit
+  the screen instead of scrolling sideways.
+- Both chart forms stack — label and value on one line, full-width bar beneath —
+  rather than squeezing the bar into a third of the width.
+- Season and week collapse into one `2021 wk5` column, and opponent names
+  ellipsize, so the scoreline survives.
+
+Grid and flex children are given `min-width: 0` throughout: their `auto` default
+lets one wide table push the whole document wider than the viewport, which is the
+usual cause of a page that scrolls sideways on a phone. Verified at a true 390px
+viewport — `scrollWidth` equals the viewport, with nothing overflowing outside a
+deliberate scroll container.
 
 ## Caching
 

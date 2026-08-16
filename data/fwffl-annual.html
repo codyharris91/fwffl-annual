@@ -1,4 +1,5 @@
 <title>The FWFFL Annual</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <style>/* ==========================================================================
    FWFFL Annual — two materials, one page.
 
@@ -30,6 +31,7 @@
   --mid: #6b7a7e;     /* neutral midpoint */
 
   --shadow: 0 1px 0 rgb(255 255 255 / 4%) inset;
+  --edge: rgb(0 0 0 / 35%);   /* scroll-affordance shadow */
 
   --measure: 66ch;
   --gutter: clamp(1rem, 4vw, 2.75rem);
@@ -75,6 +77,7 @@
   --cool: #1e7cb8;
   --mid: #7b8a8e;
   --shadow: 0 1px 0 rgb(16 25 23 / 4%) inset;
+  --edge: rgb(16 25 23 / 22%);
 }
 
 * { box-sizing: border-box; }
@@ -342,7 +345,31 @@ p { margin: 0 0 1rem; max-width: var(--measure); }
 
 /* --- tables -------------------------------------------------------------- */
 
-.scroll { overflow-x: auto; }
+/* Grid and flex children default to min-width:auto, which lets a wide table
+   push the whole page wider than the viewport — the classic cause of a page
+   that scrolls sideways on a phone. Every container that can hold a table has
+   to be told it may shrink. */
+.grid-2 > *,
+.tiles > *,
+.cards > *,
+.diverge-row > *,
+.range-row > *,
+.timeline-row > *,
+.block > *,
+.block-head > * { min-width: 0; }
+
+.scroll {
+  overflow-x: auto;
+  max-width: 100%;
+  -webkit-overflow-scrolling: touch;
+  /* Edge shadows that appear only when there is more table to reach. The
+     `local` layers mask the `scroll` layers once you hit either end. */
+  background:
+    linear-gradient(to right, var(--ground), transparent) left / 28px 100% no-repeat local,
+    linear-gradient(to left, var(--ground), transparent) right / 28px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, var(--edge), transparent) left / 12px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, var(--edge), transparent) right / 12px 100% no-repeat scroll;
+}
 
 table.sheet {
   width: 100%;
@@ -377,6 +404,7 @@ table.sheet {
 .sheet .name { font-family: var(--display); font-stretch: condensed; font-weight: 700;
   text-transform: uppercase; letter-spacing: 0.03em; font-size: 0.92rem; white-space: nowrap; }
 .sheet .dim { color: var(--ink-3); }
+.sheet .when { white-space: nowrap; }
 .sheet .big { color: var(--gold); font-weight: 600; }
 .sheet .cool { color: var(--cool); font-weight: 600; }
 .stat-value.cool { color: var(--cool); }
@@ -702,6 +730,84 @@ table.matrix { border-collapse: collapse; font-family: var(--data);
 a { color: var(--gold); }
 :focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 
+/* ==========================================================================
+   Phones. This is where the page is actually read, so it gets real layout
+   decisions rather than a scaled-down desktop: the least important columns
+   leave, the two chart forms stack their label above the bar, and anything
+   still too wide keeps its identity column pinned while the rest scrolls.
+   ========================================================================== */
+
+@media (max-width: 720px) {
+  body { font-size: 16px; }
+
+  .chapter { padding: 3rem 0; }
+  .block { margin-top: 2rem; }
+  .grid-2 { gap: 2rem; }
+
+  /* Columns marked optional carry detail, not the point of the table. */
+  .sheet .opt { display: none; }
+
+  .sheet { font-size: 0.72rem; }
+  .sheet th, .sheet td { padding-right: 0.45rem; }
+  .sheet .name { font-size: 0.82rem; }
+
+  /* Opponent names are the one field long enough to push a score off-screen.
+     Clipping the name keeps the scoreline — the point of the row — visible. */
+  .sheet .opp {
+    max-width: 9ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* No sticky identity column here: `.name` is rarely the first cell, so
+     pinning it would slide it over the columns to its left. Trimming the
+     optional columns above is what keeps these tables inside the screen. */
+
+  .tiles { grid-template-columns: repeat(auto-fit, minmax(min(100%, 140px), 1fr)); }
+  .tile { padding: 0.9rem 0.85rem 1rem; }
+  .stat-value { font-size: clamp(1.7rem, 9vw, 2.3rem); }
+
+  .banners { grid-template-columns: repeat(auto-fit, minmax(105px, 1fr)); gap: 0.5rem; }
+  .banner { padding: 0.8rem 0.5rem 1.7rem; }
+  .banner .year { font-size: 1.2rem; }
+  .banner .who { font-size: 0.78rem; }
+
+  /* Bigger tap targets, and the rail snaps so chapters land cleanly. */
+  .nav ul { scroll-snap-type: x proximity; }
+  .nav a { padding: 0.95rem 0.8rem; scroll-snap-align: start; }
+
+  .matrix th.side {
+    position: sticky;
+    left: 0;
+    background: var(--ground);
+    z-index: 2;
+    box-shadow: 1px 0 0 var(--line-soft);
+  }
+  .matrix th.top { height: 7rem; }
+  .matrix td { min-width: 2.4rem; padding: 0.25rem 0.2rem; }
+
+  .nick-group > .who { font-size: 0.95rem; }
+  .timeline-row { grid-template-columns: 1fr; gap: 0.25rem; }
+}
+
+/* Both chart forms put the label and value on one line, the bar on the next,
+   so the bar keeps its full width instead of being squeezed into a third. */
+@media (max-width: 620px) {
+  .diverge-row,
+  .range-row {
+    grid-template-columns: 1fr auto;
+    grid-template-areas: "who val" "track track";
+    row-gap: 0.3rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--line-soft);
+  }
+
+  .diverge-row .who, .range-row .who { grid-area: who; }
+  .diverge-row .val, .range-row .val { grid-area: val; }
+  .diverge-row .track, .range-row .range-track { grid-area: track; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
@@ -771,6 +877,7 @@ html { scroll-behavior: smooth; }
     <ul>
       <li><a href="#ledger">The Ledger</a></li>
       <li><a href="#luck">Luck</a></li>
+      <li><a href="#median">The Median</a></li>
       <li><a href="#records">Record Book</a></li>
       <li><a href="#coaching">Coaching</a></li>
       <li><a href="#draft">The Draft</a></li>
@@ -823,235 +930,235 @@ html { scroll-behavior: smooth; }
         <table class="sheet">
           <thead>
             <tr>
-              <th></th><th>Manager</th><th class="r">Sea</th><th class="r">W</th><th class="r">L</th>
-              <th class="r">Win%</th><th class="r">PF</th><th class="r">PA</th>
-              <th class="r">Avg</th><th class="r">Best</th><th class="r">Titles</th><th></th>
+              <th></th><th>Manager</th><th class="r opt">Sea</th><th class="r">W</th><th class="r">L</th>
+              <th class="r">Win%</th><th class="r opt">PF</th><th class="r opt">PA</th>
+              <th class="r">Avg</th><th class="r opt">Best</th><th class="r">Titles</th><th class="opt"></th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td class="rank">1</td>
               <td class="name">clappincheeks69</td>
-              <td class="r dim">1</td>
+              <td class="r dim opt">1</td>
               <td class="r">10</td>
               <td class="r">6</td>
               <td class="r big">62.5</td>
-              <td class="r dim">2227</td>
-              <td class="r dim">2024</td>
+              <td class="r dim opt">2227</td>
+              <td class="r dim opt">2024</td>
               <td class="r">139.2</td>
-              <td class="r">187.0</td>
+              <td class="r opt">187.0</td>
               <td class="r"><span class="dim">—</span></td>
-              <td></td>
+              <td class="opt"></td>
             </tr>
             <tr>
               <td class="rank">2</td>
               <td class="name">GmanToTuff</td>
-              <td class="r dim">5</td>
+              <td class="r dim opt">5</td>
               <td class="r">48</td>
               <td class="r">33</td>
               <td class="r big">59.3</td>
-              <td class="r dim">10483</td>
-              <td class="r dim">10304</td>
+              <td class="r dim opt">10483</td>
+              <td class="r dim opt">10304</td>
               <td class="r">129.4</td>
-              <td class="r">180.2</td>
+              <td class="r opt">180.2</td>
               <td class="r"><span class="dim">—</span></td>
-              <td></td>
+              <td class="opt"></td>
             </tr>
             <tr>
               <td class="rank">3</td>
               <td class="name">kodikat</td>
-              <td class="r dim">4</td>
+              <td class="r dim opt">4</td>
               <td class="r">39</td>
               <td class="r">27</td>
               <td class="r big">59.1</td>
-              <td class="r dim">8394</td>
-              <td class="r dim">8230</td>
+              <td class="r dim opt">8394</td>
+              <td class="r dim opt">8230</td>
               <td class="r">127.2</td>
-              <td class="r">195.0</td>
+              <td class="r opt">195.0</td>
               <td class="r"><span class="big">★</span></td>
-              <td></td>
+              <td class="opt"></td>
             </tr>
             <tr>
               <td class="rank">4</td>
               <td class="name">datboyp</td>
-              <td class="r dim">5</td>
+              <td class="r dim opt">5</td>
               <td class="r">47</td>
               <td class="r">35</td>
               <td class="r big">57.3</td>
-              <td class="r dim">11268</td>
-              <td class="r dim">10486</td>
+              <td class="r dim opt">11268</td>
+              <td class="r dim opt">10486</td>
               <td class="r">137.4</td>
-              <td class="r">212.5</td>
+              <td class="r opt">212.5</td>
               <td class="r"><span class="big">★★</span></td>
-              <td></td>
+              <td class="opt"></td>
             </tr>
             <tr>
               <td class="rank">5</td>
               <td class="name">Nickpapi69</td>
-              <td class="r dim">5</td>
+              <td class="r dim opt">5</td>
               <td class="r">45</td>
               <td class="r">35</td>
               <td class="r big">56.2</td>
-              <td class="r dim">10607</td>
-              <td class="r dim">10086</td>
+              <td class="r dim opt">10607</td>
+              <td class="r dim opt">10086</td>
               <td class="r">132.6</td>
-              <td class="r">223.0</td>
+              <td class="r opt">223.0</td>
               <td class="r"><span class="big">★</span></td>
-              <td></td>
+              <td class="opt"></td>
             </tr>
             <tr>
               <td class="rank">6</td>
               <td class="name">Pxesto</td>
-              <td class="r dim">5</td>
+              <td class="r dim opt">5</td>
               <td class="r">43</td>
               <td class="r">37</td>
               <td class="r big">53.8</td>
-              <td class="r dim">10204</td>
-              <td class="r dim">9707</td>
+              <td class="r dim opt">10204</td>
+              <td class="r dim opt">9707</td>
               <td class="r">127.5</td>
-              <td class="r">203.9</td>
+              <td class="r opt">203.9</td>
               <td class="r"><span class="dim">—</span></td>
-              <td></td>
+              <td class="opt"></td>
             </tr>
             <tr>
               <td class="rank">7</td>
               <td class="name">Cumball</td>
-              <td class="r dim">5</td>
+              <td class="r dim opt">5</td>
               <td class="r">42</td>
               <td class="r">40</td>
               <td class="r big">51.2</td>
-              <td class="r dim">9848</td>
-              <td class="r dim">10145</td>
+              <td class="r dim opt">9848</td>
+              <td class="r dim opt">10145</td>
               <td class="r">120.1</td>
-              <td class="r">197.9</td>
+              <td class="r opt">197.9</td>
               <td class="r"><span class="dim">—</span></td>
-              <td><span class="pill">Departed</span></td>
+              <td class="opt"><span class="pill">Departed</span></td>
             </tr>
             <tr>
               <td class="rank">8</td>
               <td class="name">Mangondala</td>
-              <td class="r dim">5</td>
+              <td class="r dim opt">5</td>
               <td class="r">41</td>
               <td class="r">39</td>
               <td class="r big">51.2</td>
-              <td class="r dim">10444</td>
-              <td class="r dim">10300</td>
+              <td class="r dim opt">10444</td>
+              <td class="r dim opt">10300</td>
               <td class="r">130.6</td>
-              <td class="r">212.2</td>
+              <td class="r opt">212.2</td>
               <td class="r"><span class="big">★</span></td>
-              <td></td>
+              <td class="opt"></td>
             </tr>
             <tr>
               <td class="rank">9</td>
               <td class="name">Cadengetdabag</td>
-              <td class="r dim">3</td>
+              <td class="r dim opt">3</td>
               <td class="r">25</td>
               <td class="r">24</td>
               <td class="r big">51.0</td>
-              <td class="r dim">6672</td>
-              <td class="r dim">6219</td>
+              <td class="r dim opt">6672</td>
+              <td class="r dim opt">6219</td>
               <td class="r">136.2</td>
-              <td class="r">191.9</td>
+              <td class="r opt">191.9</td>
               <td class="r"><span class="dim">—</span></td>
-              <td></td>
+              <td class="opt"></td>
             </tr>
             <tr>
               <td class="rank">10</td>
               <td class="name">speixoto24</td>
-              <td class="r dim">1</td>
+              <td class="r dim opt">1</td>
               <td class="r">8</td>
               <td class="r">8</td>
               <td class="r big">50.0</td>
-              <td class="r dim">2180</td>
-              <td class="r dim">2136</td>
+              <td class="r dim opt">2180</td>
+              <td class="r dim opt">2136</td>
               <td class="r">136.2</td>
-              <td class="r">176.6</td>
+              <td class="r opt">176.6</td>
               <td class="r"><span class="dim">—</span></td>
-              <td><span class="pill">Departed</span></td>
+              <td class="opt"><span class="pill">Departed</span></td>
             </tr>
             <tr>
               <td class="rank">11</td>
               <td class="name">Huntermeek4</td>
-              <td class="r dim">3</td>
+              <td class="r dim opt">3</td>
               <td class="r">23</td>
               <td class="r">26</td>
               <td class="r big">46.9</td>
-              <td class="r dim">6077</td>
-              <td class="r dim">6251</td>
+              <td class="r dim opt">6077</td>
+              <td class="r dim opt">6251</td>
               <td class="r">124.0</td>
-              <td class="r">178.5</td>
+              <td class="r opt">178.5</td>
               <td class="r"><span class="dim">—</span></td>
-              <td></td>
+              <td class="opt"></td>
             </tr>
             <tr>
               <td class="rank">12</td>
               <td class="name">StevetheDog</td>
-              <td class="r dim">4</td>
+              <td class="r dim opt">4</td>
               <td class="r">30</td>
               <td class="r">35</td>
               <td class="r big">46.2</td>
-              <td class="r dim">7948</td>
-              <td class="r dim">8462</td>
+              <td class="r dim opt">7948</td>
+              <td class="r dim opt">8462</td>
               <td class="r">122.3</td>
-              <td class="r">180.0</td>
+              <td class="r opt">180.0</td>
               <td class="r"><span class="dim">—</span></td>
-              <td><span class="pill">Departed</span></td>
+              <td class="opt"><span class="pill">Departed</span></td>
             </tr>
             <tr>
               <td class="rank">13</td>
               <td class="name">DicklesPickles</td>
-              <td class="r dim">4</td>
+              <td class="r dim opt">4</td>
               <td class="r">28</td>
               <td class="r">40</td>
               <td class="r big">41.2</td>
-              <td class="r dim">7897</td>
-              <td class="r dim">8334</td>
+              <td class="r dim opt">7897</td>
+              <td class="r dim opt">8334</td>
               <td class="r">116.1</td>
-              <td class="r">176.0</td>
+              <td class="r opt">176.0</td>
               <td class="r"><span class="dim">—</span></td>
-              <td></td>
+              <td class="opt"></td>
             </tr>
             <tr>
               <td class="rank">14</td>
               <td class="name">echenozz</td>
-              <td class="r dim">2</td>
+              <td class="r dim opt">2</td>
               <td class="r">6</td>
               <td class="r">26</td>
               <td class="r big">18.8</td>
-              <td class="r dim">3530</td>
-              <td class="r dim">4314</td>
+              <td class="r dim opt">3530</td>
+              <td class="r dim opt">4314</td>
               <td class="r">110.3</td>
-              <td class="r">206.4</td>
+              <td class="r opt">206.4</td>
               <td class="r"><span class="dim">—</span></td>
-              <td><span class="pill">Departed</span></td>
+              <td class="opt"><span class="pill">Departed</span></td>
             </tr>
             <tr>
               <td class="rank">15</td>
               <td class="name">emcwill12</td>
-              <td class="r dim">1</td>
+              <td class="r dim opt">1</td>
               <td class="r">3</td>
               <td class="r">13</td>
               <td class="r big">18.8</td>
-              <td class="r dim">1798</td>
-              <td class="r dim">2057</td>
+              <td class="r dim opt">1798</td>
+              <td class="r dim opt">2057</td>
               <td class="r">112.3</td>
-              <td class="r">140.4</td>
+              <td class="r opt">140.4</td>
               <td class="r"><span class="dim">—</span></td>
-              <td><span class="pill">Departed</span></td>
+              <td class="opt"><span class="pill">Departed</span></td>
             </tr>
             <tr>
               <td class="rank">16</td>
               <td class="name">ProfessorSell</td>
-              <td class="r dim">1</td>
+              <td class="r dim opt">1</td>
               <td class="r">1</td>
               <td class="r">15</td>
               <td class="r big">6.2</td>
-              <td class="r dim">1626</td>
-              <td class="r dim">2146</td>
+              <td class="r dim opt">1626</td>
+              <td class="r dim opt">2146</td>
               <td class="r">101.7</td>
-              <td class="r">137.8</td>
+              <td class="r opt">137.8</td>
               <td class="r"><span class="dim">—</span></td>
-              <td><span class="pill">Departed</span></td>
+              <td class="opt"><span class="pill">Departed</span></td>
             </tr>
           </tbody>
         </table>
@@ -1701,185 +1808,185 @@ html { scroll-behavior: smooth; }
       <div class="scroll">
         <table class="sheet">
           <thead>
-            <tr><th></th><th>Manager</th><th class="r">Apps</th><th class="r">Of</th><th class="r">Rate</th>
-              <th class="r">Finals</th><th class="r">Titles</th><th class="r">Drought</th><th>Years</th></tr>
+            <tr><th></th><th>Manager</th><th class="r">Apps</th><th class="r opt">Of</th><th class="r">Rate</th>
+              <th class="r opt">Finals</th><th class="r">Titles</th><th class="r">Drought</th><th class="opt">Years</th></tr>
           </thead>
           <tbody>
             <tr>
               <td class="rank">1</td>
               <td class="name">Pxesto</td>
               <td class="r big">4</td>
-              <td class="r dim">5</td>
+              <td class="r dim opt">5</td>
               <td class="r">80%</td>
-              <td class="r">2</td>
+              <td class="r opt">2</td>
               <td class="r">0</td>
               <td class="r">—</td>
-              <td class="dim">2021 2022 2023 2025</td>
+              <td class="dim opt">2021 2022 2023 2025</td>
             </tr>
             <tr>
               <td class="rank">2</td>
               <td class="name">GmanToTuff</td>
               <td class="r big">4</td>
-              <td class="r dim">5</td>
+              <td class="r dim opt">5</td>
               <td class="r">80%</td>
-              <td class="r">0</td>
+              <td class="r opt">0</td>
               <td class="r">0</td>
               <td class="r">1</td>
-              <td class="dim">2021 2022 2023 2024</td>
+              <td class="dim opt">2021 2022 2023 2024</td>
             </tr>
             <tr>
               <td class="rank">3</td>
               <td class="name">Cadengetdabag</td>
               <td class="r big">3</td>
-              <td class="r dim">3</td>
+              <td class="r dim opt">3</td>
               <td class="r">100%</td>
-              <td class="r">0</td>
+              <td class="r opt">0</td>
               <td class="r">0</td>
               <td class="r">—</td>
-              <td class="dim">2023 2024 2025</td>
+              <td class="dim opt">2023 2024 2025</td>
             </tr>
             <tr>
               <td class="rank">4</td>
               <td class="name">kodikat</td>
               <td class="r big">3</td>
-              <td class="r dim">4</td>
+              <td class="r dim opt">4</td>
               <td class="r">75%</td>
-              <td class="r">1</td>
+              <td class="r opt">1</td>
               <td class="r">1</td>
               <td class="r">—</td>
-              <td class="dim">2022 2024 2025</td>
+              <td class="dim opt">2022 2024 2025</td>
             </tr>
             <tr>
               <td class="rank">5</td>
               <td class="name">Mangondala</td>
               <td class="r big">3</td>
-              <td class="r dim">5</td>
+              <td class="r dim opt">5</td>
               <td class="r">60%</td>
-              <td class="r">1</td>
+              <td class="r opt">1</td>
               <td class="r">1</td>
               <td class="r">—</td>
-              <td class="dim">2022 2024 2025</td>
+              <td class="dim opt">2022 2024 2025</td>
             </tr>
             <tr>
               <td class="rank">6</td>
               <td class="name">Nickpapi69</td>
               <td class="r big">3</td>
-              <td class="r dim">5</td>
+              <td class="r dim opt">5</td>
               <td class="r">60%</td>
-              <td class="r">1</td>
+              <td class="r opt">1</td>
               <td class="r">1</td>
               <td class="r">2</td>
-              <td class="dim">2021 2022 2023</td>
+              <td class="dim opt">2021 2022 2023</td>
             </tr>
             <tr>
               <td class="rank">7</td>
               <td class="name">datboyp</td>
               <td class="r big">2</td>
-              <td class="r dim">5</td>
+              <td class="r dim opt">5</td>
               <td class="r">40%</td>
-              <td class="r">2</td>
+              <td class="r opt">2</td>
               <td class="r">2</td>
               <td class="r">—</td>
-              <td class="dim">2023 2025</td>
+              <td class="dim opt">2023 2025</td>
             </tr>
             <tr>
               <td class="rank">8</td>
               <td class="name">Cumball</td>
               <td class="r big">2</td>
-              <td class="r dim">5</td>
+              <td class="r dim opt">5</td>
               <td class="r">40%</td>
-              <td class="r">1</td>
+              <td class="r opt">1</td>
               <td class="r">0</td>
               <td class="r">1</td>
-              <td class="dim">2023 2024</td>
+              <td class="dim opt">2023 2024</td>
             </tr>
             <tr>
               <td class="rank">9</td>
               <td class="name">clappincheeks69</td>
               <td class="r big">1</td>
-              <td class="r dim">1</td>
+              <td class="r dim opt">1</td>
               <td class="r">100%</td>
-              <td class="r">1</td>
+              <td class="r opt">1</td>
               <td class="r">0</td>
               <td class="r">—</td>
-              <td class="dim">2025</td>
+              <td class="dim opt">2025</td>
             </tr>
             <tr>
               <td class="rank">10</td>
               <td class="name">Huntermeek4</td>
               <td class="r big">1</td>
-              <td class="r dim">3</td>
+              <td class="r dim opt">3</td>
               <td class="r">33%</td>
-              <td class="r">0</td>
+              <td class="r opt">0</td>
               <td class="r">0</td>
               <td class="r">1</td>
-              <td class="dim">2024</td>
+              <td class="dim opt">2024</td>
             </tr>
             <tr>
               <td class="rank">11</td>
               <td class="name">StevetheDog</td>
               <td class="r big">1</td>
-              <td class="r dim">4</td>
+              <td class="r dim opt">4</td>
               <td class="r">25%</td>
-              <td class="r">1</td>
+              <td class="r opt">1</td>
               <td class="r">0</td>
               <td class="r">3</td>
-              <td class="dim">2021</td>
+              <td class="dim opt">2021</td>
             </tr>
             <tr>
               <td class="rank">12</td>
               <td class="name">DicklesPickles</td>
               <td class="r big">1</td>
-              <td class="r dim">4</td>
+              <td class="r dim opt">4</td>
               <td class="r">25%</td>
-              <td class="r">0</td>
+              <td class="r opt">0</td>
               <td class="r">0</td>
               <td class="r">3</td>
-              <td class="dim">2022</td>
+              <td class="dim opt">2022</td>
             </tr>
             <tr>
               <td class="rank">13</td>
               <td class="name">speixoto24</td>
               <td class="r big">0</td>
-              <td class="r dim">1</td>
+              <td class="r dim opt">1</td>
               <td class="r">0%</td>
-              <td class="r">0</td>
+              <td class="r opt">0</td>
               <td class="r">0</td>
               <td class="r">1</td>
-              <td class="dim">never</td>
+              <td class="dim opt">never</td>
             </tr>
             <tr>
               <td class="rank">14</td>
               <td class="name">emcwill12</td>
               <td class="r big">0</td>
-              <td class="r dim">1</td>
+              <td class="r dim opt">1</td>
               <td class="r">0%</td>
-              <td class="r">0</td>
+              <td class="r opt">0</td>
               <td class="r">0</td>
               <td class="r">1</td>
-              <td class="dim">never</td>
+              <td class="dim opt">never</td>
             </tr>
             <tr>
               <td class="rank">15</td>
               <td class="name">echenozz</td>
               <td class="r big">0</td>
-              <td class="r dim">2</td>
+              <td class="r dim opt">2</td>
               <td class="r">0%</td>
-              <td class="r">0</td>
+              <td class="r opt">0</td>
               <td class="r">0</td>
               <td class="r">2</td>
-              <td class="dim">never</td>
+              <td class="dim opt">never</td>
             </tr>
             <tr>
               <td class="rank">16</td>
               <td class="name">ProfessorSell</td>
               <td class="r big">0</td>
-              <td class="r dim">1</td>
+              <td class="r dim opt">1</td>
               <td class="r">0%</td>
-              <td class="r">0</td>
+              <td class="r opt">0</td>
               <td class="r">0</td>
               <td class="r">1</td>
-              <td class="dim">never</td>
+              <td class="dim opt">never</td>
             </tr>
           </tbody>
         </table>
@@ -2184,91 +2291,83 @@ html { scroll-behavior: smooth; }
   <table class="sheet">
     <thead>
       <tr>
-        <th></th><th>Season</th><th>Wk</th><th>Manager</th>
+        <th></th><th>When</th><th>Manager</th>
         <th class="r">Score</th><th>Opponent</th><th class="r">Opp</th>
-        <th></th>
+        <th class="opt"></th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td class="rank">1</td>
-        <td class="dim">2021</td>
-        <td class="dim">16</td>
+        <td class="dim when">2021 wk16</td>
         <td class="name">StevetheDog</td>
         <td class="r big">180.03</td>
-        <td class="dim">Nickpapi69</td>
+        <td class="dim opp">Nickpapi69</td>
         <td class="r">193.06</td>
-        <td><span class="pill gold">Playoff</span></td>
+        <td class="opt"><span class="pill gold">Playoff</span></td>
       </tr>
       <tr>
         <td class="rank">2</td>
-        <td class="dim">2021</td>
-        <td class="dim">14</td>
+        <td class="dim when">2021 wk14</td>
         <td class="name">StevetheDog</td>
         <td class="r big">175.17</td>
-        <td class="dim">Nickpapi69</td>
+        <td class="dim opp">Nickpapi69</td>
         <td class="r">176.72</td>
-        <td></td>
+        <td class="opt"></td>
       </tr>
       <tr>
         <td class="rank">3</td>
-        <td class="dim">2024</td>
-        <td class="dim">17</td>
+        <td class="dim when">2024 wk17</td>
         <td class="name">Cumball</td>
         <td class="r big">174.71</td>
-        <td class="dim">Mangondala</td>
+        <td class="dim opp">Mangondala</td>
         <td class="r">181.94</td>
-        <td><span class="pill gold">Playoff</span></td>
+        <td class="opt"><span class="pill gold">Playoff</span></td>
       </tr>
       <tr>
         <td class="rank">4</td>
-        <td class="dim">2025</td>
-        <td class="dim">5</td>
+        <td class="dim when">2025 wk5</td>
         <td class="name">datboyp</td>
         <td class="r big">162.23</td>
-        <td class="dim">kodikat</td>
+        <td class="dim opp">kodikat</td>
         <td class="r">174.48</td>
-        <td></td>
+        <td class="opt"></td>
       </tr>
       <tr>
         <td class="rank">5</td>
-        <td class="dim">2022</td>
-        <td class="dim">7</td>
+        <td class="dim when">2022 wk7</td>
         <td class="name">datboyp</td>
         <td class="r big">160.99</td>
-        <td class="dim">kodikat</td>
+        <td class="dim opp">kodikat</td>
         <td class="r">162.77</td>
-        <td></td>
+        <td class="opt"></td>
       </tr>
       <tr>
         <td class="rank">6</td>
-        <td class="dim">2023</td>
-        <td class="dim">8</td>
+        <td class="dim when">2023 wk8</td>
         <td class="name">echenozz</td>
         <td class="r big">160.80</td>
-        <td class="dim">DicklesPickles</td>
+        <td class="dim opp">DicklesPickles</td>
         <td class="r">164.92</td>
-        <td></td>
+        <td class="opt"></td>
       </tr>
       <tr>
         <td class="rank">7</td>
-        <td class="dim">2021</td>
-        <td class="dim">5</td>
+        <td class="dim when">2021 wk5</td>
         <td class="name">StevetheDog</td>
         <td class="r big">160.65</td>
-        <td class="dim">speixoto24</td>
+        <td class="dim opp">speixoto24</td>
         <td class="r">164.03</td>
-        <td></td>
+        <td class="opt"></td>
       </tr>
       <tr>
         <td class="rank">8</td>
-        <td class="dim">2024</td>
-        <td class="dim">9</td>
+        <td class="dim when">2024 wk9</td>
         <td class="name">Huntermeek4</td>
         <td class="r big">159.80</td>
-        <td class="dim">Cadengetdabag</td>
+        <td class="dim opp">Cadengetdabag</td>
         <td class="r">191.38</td>
-        <td></td>
+        <td class="opt"></td>
       </tr>
     </tbody>
   </table>
@@ -2282,91 +2381,83 @@ html { scroll-behavior: smooth; }
   <table class="sheet">
     <thead>
       <tr>
-        <th></th><th>Season</th><th>Wk</th><th>Manager</th>
+        <th></th><th>When</th><th>Manager</th>
         <th class="r">Score</th><th>Opponent</th><th class="r">Opp</th>
-        <th></th>
+        <th class="opt"></th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td class="rank">1</td>
-        <td class="dim">2022</td>
-        <td class="dim">16</td>
+        <td class="dim when">2022 wk16</td>
         <td class="name">Cumball</td>
         <td class="r big">84.80</td>
-        <td class="dim">emcwill12</td>
+        <td class="dim opp">emcwill12</td>
         <td class="r">74.00</td>
-        <td><span class="pill gold">Playoff</span></td>
+        <td class="opt"><span class="pill gold">Playoff</span></td>
       </tr>
       <tr>
         <td class="rank">2</td>
-        <td class="dim">2024</td>
-        <td class="dim">3</td>
+        <td class="dim when">2024 wk3</td>
         <td class="name">Huntermeek4</td>
         <td class="r big">85.24</td>
-        <td class="dim">GmanToTuff</td>
+        <td class="dim opp">GmanToTuff</td>
         <td class="r">83.96</td>
-        <td></td>
+        <td class="opt"></td>
       </tr>
       <tr>
         <td class="rank">3</td>
-        <td class="dim">2023</td>
-        <td class="dim">1</td>
+        <td class="dim when">2023 wk1</td>
         <td class="name">Cumball</td>
         <td class="r big">92.16</td>
-        <td class="dim">Cadengetdabag</td>
+        <td class="dim opp">Cadengetdabag</td>
         <td class="r">68.84</td>
-        <td></td>
+        <td class="opt"></td>
       </tr>
       <tr>
         <td class="rank">4</td>
-        <td class="dim">2023</td>
-        <td class="dim">6</td>
+        <td class="dim when">2023 wk6</td>
         <td class="name">kodikat</td>
         <td class="r big">92.44</td>
-        <td class="dim">Nickpapi69</td>
+        <td class="dim opp">Nickpapi69</td>
         <td class="r">86.16</td>
-        <td></td>
+        <td class="opt"></td>
       </tr>
       <tr>
         <td class="rank">5</td>
-        <td class="dim">2025</td>
-        <td class="dim">16</td>
+        <td class="dim when">2025 wk16</td>
         <td class="name">Cumball</td>
         <td class="r big">92.84</td>
-        <td class="dim">DicklesPickles</td>
+        <td class="dim opp">DicklesPickles</td>
         <td class="r">83.96</td>
-        <td><span class="pill gold">Playoff</span></td>
+        <td class="opt"><span class="pill gold">Playoff</span></td>
       </tr>
       <tr>
         <td class="rank">6</td>
-        <td class="dim">2024</td>
-        <td class="dim">12</td>
+        <td class="dim when">2024 wk12</td>
         <td class="name">Cumball</td>
         <td class="r big">92.86</td>
-        <td class="dim">DicklesPickles</td>
+        <td class="dim opp">DicklesPickles</td>
         <td class="r">92.80</td>
-        <td></td>
+        <td class="opt"></td>
       </tr>
       <tr>
         <td class="rank">7</td>
-        <td class="dim">2022</td>
-        <td class="dim">11</td>
+        <td class="dim when">2022 wk11</td>
         <td class="name">DicklesPickles</td>
         <td class="r big">95.15</td>
-        <td class="dim">emcwill12</td>
+        <td class="dim opp">emcwill12</td>
         <td class="r">82.03</td>
-        <td></td>
+        <td class="opt"></td>
       </tr>
       <tr>
         <td class="rank">8</td>
-        <td class="dim">2023</td>
-        <td class="dim">4</td>
+        <td class="dim when">2023 wk4</td>
         <td class="name">StevetheDog</td>
         <td class="r big">96.70</td>
-        <td class="dim">kodikat</td>
+        <td class="dim opp">kodikat</td>
         <td class="r">62.36</td>
-        <td></td>
+        <td class="opt"></td>
       </tr>
     </tbody>
   </table>
@@ -2381,91 +2472,83 @@ html { scroll-behavior: smooth; }
   <table class="sheet">
     <thead>
       <tr>
-        <th></th><th>Season</th><th>Wk</th><th>Manager</th>
+        <th></th><th>When</th><th>Manager</th>
         <th class="r">Score</th><th>Opponent</th><th class="r">Opp</th>
-<th class="r">Margin</th>        <th></th>
+<th class="r">Margin</th>        <th class="opt"></th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td class="rank">1</td>
-        <td class="dim">2021</td>
-        <td class="dim">11</td>
+        <td class="dim when">2021 wk11</td>
         <td class="name">speixoto24</td>
         <td class="r big">129.49</td>
-        <td class="dim">GmanToTuff</td>
+        <td class="dim opp">GmanToTuff</td>
         <td class="r">129.47</td>
-<td class="r">0.02</td>        <td></td>
+<td class="r">0.02</td>        <td class="opt"></td>
       </tr>
       <tr>
         <td class="rank">2</td>
-        <td class="dim">2024</td>
-        <td class="dim">12</td>
+        <td class="dim when">2024 wk12</td>
         <td class="name">Cumball</td>
         <td class="r big">92.86</td>
-        <td class="dim">DicklesPickles</td>
+        <td class="dim opp">DicklesPickles</td>
         <td class="r">92.80</td>
-<td class="r">0.06</td>        <td></td>
+<td class="r">0.06</td>        <td class="opt"></td>
       </tr>
       <tr>
         <td class="rank">3</td>
-        <td class="dim">2025</td>
-        <td class="dim">1</td>
+        <td class="dim when">2025 wk1</td>
         <td class="name">Mangondala</td>
         <td class="r big">135.96</td>
-        <td class="dim">Huntermeek4</td>
+        <td class="dim opp">Huntermeek4</td>
         <td class="r">135.78</td>
-<td class="r">0.18</td>        <td></td>
+<td class="r">0.18</td>        <td class="opt"></td>
       </tr>
       <tr>
         <td class="rank">4</td>
-        <td class="dim">2021</td>
-        <td class="dim">8</td>
+        <td class="dim when">2021 wk8</td>
         <td class="name">speixoto24</td>
         <td class="r big">127.97</td>
-        <td class="dim">Pxesto</td>
+        <td class="dim opp">Pxesto</td>
         <td class="r">127.75</td>
-<td class="r">0.22</td>        <td></td>
+<td class="r">0.22</td>        <td class="opt"></td>
       </tr>
       <tr>
         <td class="rank">5</td>
-        <td class="dim">2021</td>
-        <td class="dim">5</td>
+        <td class="dim when">2021 wk5</td>
         <td class="name">GmanToTuff</td>
         <td class="r big">134.86</td>
-        <td class="dim">Pxesto</td>
+        <td class="dim opp">Pxesto</td>
         <td class="r">134.53</td>
-<td class="r">0.33</td>        <td></td>
+<td class="r">0.33</td>        <td class="opt"></td>
       </tr>
       <tr>
         <td class="rank">6</td>
-        <td class="dim">2022</td>
-        <td class="dim">3</td>
+        <td class="dim when">2022 wk3</td>
         <td class="name">kodikat</td>
         <td class="r big">99.48</td>
-        <td class="dim">Nickpapi69</td>
+        <td class="dim opp">Nickpapi69</td>
         <td class="r">99.07</td>
-<td class="r">0.41</td>        <td></td>
+<td class="r">0.41</td>        <td class="opt"></td>
       </tr>
       <tr>
         <td class="rank">7</td>
-        <td class="dim">2021</td>
-        <td class="dim">12</td>
+        <td class="dim when">2021 wk12</td>
         <td class="name">StevetheDog</td>
         <td class="r big">142.93</td>
-        <td class="dim">speixoto24</td>
+        <td class="dim opp">speixoto24</td>
         <td class="r">142.15</td>
-<td class="r">0.78</td>        <td></td>
+<td class="r">0.78</td>        <td class="opt"></td>
       </tr>
       <tr>
         <td class="rank">8</td>
-        <td class="dim">2022</td>
-        <td class="dim">4</td>
+        <td class="dim when">2022 wk4</td>
         <td class="name">Cumball</td>
         <td class="r big">121.07</td>
-        <td class="dim">emcwill12</td>
+        <td class="dim opp">emcwill12</td>
         <td class="r">120.26</td>
-<td class="r">0.81</td>        <td></td>
+<td class="r">0.81</td>        <td class="opt"></td>
       </tr>
     </tbody>
   </table>
@@ -2478,91 +2561,83 @@ html { scroll-behavior: smooth; }
   <table class="sheet">
     <thead>
       <tr>
-        <th></th><th>Season</th><th>Wk</th><th>Manager</th>
+        <th></th><th>When</th><th>Manager</th>
         <th class="r">Score</th><th>Opponent</th><th class="r">Opp</th>
-<th class="r">Margin</th>        <th></th>
+<th class="r">Margin</th>        <th class="opt"></th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td class="rank">1</td>
-        <td class="dim">2025</td>
-        <td class="dim">7</td>
+        <td class="dim when">2025 wk7</td>
         <td class="name">datboyp</td>
         <td class="r big">204.68</td>
-        <td class="dim">Cumball</td>
+        <td class="dim opp">Cumball</td>
         <td class="r">81.82</td>
-<td class="r">122.86</td>        <td></td>
+<td class="r">122.86</td>        <td class="opt"></td>
       </tr>
       <tr>
         <td class="rank">2</td>
-        <td class="dim">2025</td>
-        <td class="dim">12</td>
+        <td class="dim when">2025 wk12</td>
         <td class="name">datboyp</td>
         <td class="r big">171.26</td>
-        <td class="dim">DicklesPickles</td>
+        <td class="dim opp">DicklesPickles</td>
         <td class="r">52.70</td>
-<td class="r">118.56</td>        <td></td>
+<td class="r">118.56</td>        <td class="opt"></td>
       </tr>
       <tr>
         <td class="rank">3</td>
-        <td class="dim">2022</td>
-        <td class="dim">9</td>
+        <td class="dim when">2022 wk9</td>
         <td class="name">Cumball</td>
         <td class="r big">197.90</td>
-        <td class="dim">Mangondala</td>
+        <td class="dim opp">Mangondala</td>
         <td class="r">81.95</td>
-<td class="r">115.95</td>        <td></td>
+<td class="r">115.95</td>        <td class="opt"></td>
       </tr>
       <tr>
         <td class="rank">4</td>
-        <td class="dim">2025</td>
-        <td class="dim">12</td>
+        <td class="dim when">2025 wk12</td>
         <td class="name">Cadengetdabag</td>
         <td class="r big">191.86</td>
-        <td class="dim">Nickpapi69</td>
+        <td class="dim opp">Nickpapi69</td>
         <td class="r">87.26</td>
-<td class="r">104.60</td>        <td></td>
+<td class="r">104.60</td>        <td class="opt"></td>
       </tr>
       <tr>
         <td class="rank">5</td>
-        <td class="dim">2023</td>
-        <td class="dim">3</td>
+        <td class="dim when">2023 wk3</td>
         <td class="name">Cumball</td>
         <td class="r big">181.20</td>
-        <td class="dim">StevetheDog</td>
+        <td class="dim opp">StevetheDog</td>
         <td class="r">77.06</td>
-<td class="r">104.14</td>        <td></td>
+<td class="r">104.14</td>        <td class="opt"></td>
       </tr>
       <tr>
         <td class="rank">6</td>
-        <td class="dim">2022</td>
-        <td class="dim">2</td>
+        <td class="dim when">2022 wk2</td>
         <td class="name">Nickpapi69</td>
         <td class="r big">182.13</td>
-        <td class="dim">Cumball</td>
+        <td class="dim opp">Cumball</td>
         <td class="r">80.78</td>
-<td class="r">101.35</td>        <td></td>
+<td class="r">101.35</td>        <td class="opt"></td>
       </tr>
       <tr>
         <td class="rank">7</td>
-        <td class="dim">2024</td>
-        <td class="dim">17</td>
+        <td class="dim when">2024 wk17</td>
         <td class="name">datboyp</td>
         <td class="r big">165.53</td>
-        <td class="dim">StevetheDog</td>
+        <td class="dim opp">StevetheDog</td>
         <td class="r">68.60</td>
-<td class="r">96.93</td>        <td><span class="pill gold">Playoff</span></td>
+<td class="r">96.93</td>        <td class="opt"><span class="pill gold">Playoff</span></td>
       </tr>
       <tr>
         <td class="rank">8</td>
-        <td class="dim">2025</td>
-        <td class="dim">12</td>
+        <td class="dim when">2025 wk12</td>
         <td class="name">kodikat</td>
         <td class="r big">145.04</td>
-        <td class="dim">ProfessorSell</td>
+        <td class="dim opp">ProfessorSell</td>
         <td class="r">50.50</td>
-<td class="r">94.54</td>        <td></td>
+<td class="r">94.54</td>        <td class="opt"></td>
       </tr>
     </tbody>
   </table>
@@ -2573,11 +2648,808 @@ html { scroll-behavior: smooth; }
   </div>
 </section>
 
-<!-- ══ 3. RECORD BOOK ══ -->
-<section class="chapter" id="records">
+<!-- ══ 3. THE MEDIAN GAME ══ -->
+<section class="chapter" id="median">
   <div class="wrap">
     <div class="chapter-head">
       <div class="eyebrow">Chapter Three</div>
+      <h2>The Median Game</h2>
+      <p class="lede">
+        Since 2022 the league plays twice a week: your opponent,
+        and the league median. It is the format's best idea, because it puts a floor
+        under bad luck — you can lose to the highest score of the week and still bank
+        a win for being good. Everything here is checked against Sleeper's own result
+        strings, which record both games.
+      </p>
+    </div>
+
+    <div class="tiles">
+      <div class="tile">
+        <div class="label">Best against the median</div>
+        <div class="stat-value">71%</div>
+        <div class="sub">clappincheeks69 · 10–4</div>
+      </div>
+      <div class="tile">
+        <div class="label">Most 2–0 weeks</div>
+        <div class="stat-value">26</div>
+        <div class="sub">datboyp · beat opponent and median</div>
+      </div>
+      <div class="tile">
+        <div class="label">Cruellest near miss</div>
+        <div class="stat-value cool">0.09</div>
+        <div class="sub">GmanToTuff · 2024 week 5</div>
+      </div>
+      <div class="tile">
+        <div class="label">Playoff spots changed</div>
+        <div class="stat-value">6</div>
+        <div class="sub">seeds the median game made or broke</div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <h3>Two Ledgers</h3>
+        <p class="note">Every manager keeps two records at once. A positive rescue
+          means they scored better than their matchups showed, and the median game
+          handed back wins the schedule had taken.</p>
+      </div>
+      <div class="scroll">
+        <table class="sheet">
+          <thead>
+            <tr><th></th><th>Manager</th><th class="r">vs Median</th><th class="r">Median%</th>
+              <th class="r opt">Head-to-head</th><th class="r">H2H%</th>
+              <th class="r">Rescue</th><th class="r opt">Weeks</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="rank">1</td>
+              <td class="name">clappincheeks69</td>
+              <td class="r">10–4</td>
+              <td class="r big">71.4</td>
+              <td class="r dim opt">9–5</td>
+              <td class="r dim">64.3</td>
+              <td class="r big">+7.1</td>
+              <td class="r dim opt">14</td>
+            </tr>
+            <tr>
+              <td class="rank">2</td>
+              <td class="name">Mangondala</td>
+              <td class="r">35–21</td>
+              <td class="r big">62.5</td>
+              <td class="r dim opt">31–25</td>
+              <td class="r dim">55.4</td>
+              <td class="r big">+7.1</td>
+              <td class="r dim opt">56</td>
+            </tr>
+            <tr>
+              <td class="rank">3</td>
+              <td class="name">Cadengetdabag</td>
+              <td class="r">26–16</td>
+              <td class="r big">61.9</td>
+              <td class="r dim opt">22–20</td>
+              <td class="r dim">52.4</td>
+              <td class="r big">+9.5</td>
+              <td class="r dim opt">42</td>
+            </tr>
+            <tr>
+              <td class="rank">4</td>
+              <td class="name">Pxesto</td>
+              <td class="r">33–23</td>
+              <td class="r big">58.9</td>
+              <td class="r dim opt">31–25</td>
+              <td class="r dim">55.4</td>
+              <td class="r big">+3.6</td>
+              <td class="r dim opt">56</td>
+            </tr>
+            <tr>
+              <td class="rank">5</td>
+              <td class="name">datboyp</td>
+              <td class="r">32–24</td>
+              <td class="r big">57.1</td>
+              <td class="r dim opt">33–23</td>
+              <td class="r dim">58.9</td>
+              <td class="r cool">-1.8</td>
+              <td class="r dim opt">56</td>
+            </tr>
+            <tr>
+              <td class="rank">6</td>
+              <td class="name">GmanToTuff</td>
+              <td class="r">31–25</td>
+              <td class="r big">55.4</td>
+              <td class="r dim opt">33–23</td>
+              <td class="r dim">58.9</td>
+              <td class="r cool">-3.6</td>
+              <td class="r dim opt">56</td>
+            </tr>
+            <tr>
+              <td class="rank">7</td>
+              <td class="name">Nickpapi69</td>
+              <td class="r">30–26</td>
+              <td class="r big">53.6</td>
+              <td class="r dim opt">31–25</td>
+              <td class="r dim">55.4</td>
+              <td class="r cool">-1.8</td>
+              <td class="r dim opt">56</td>
+            </tr>
+            <tr>
+              <td class="rank">8</td>
+              <td class="name">kodikat</td>
+              <td class="r">29–27</td>
+              <td class="r big">51.8</td>
+              <td class="r dim opt">33–23</td>
+              <td class="r dim">58.9</td>
+              <td class="r cool">-7.1</td>
+              <td class="r dim opt">56</td>
+            </tr>
+            <tr>
+              <td class="rank">9</td>
+              <td class="name">Huntermeek4</td>
+              <td class="r">21–21</td>
+              <td class="r big">50.0</td>
+              <td class="r dim opt">21–21</td>
+              <td class="r dim">50.0</td>
+              <td class="r big">+0.0</td>
+              <td class="r dim opt">42</td>
+            </tr>
+            <tr>
+              <td class="rank">10</td>
+              <td class="name">Cumball</td>
+              <td class="r">25–31</td>
+              <td class="r big">44.6</td>
+              <td class="r dim opt">30–26</td>
+              <td class="r dim">53.6</td>
+              <td class="r cool">-8.9</td>
+              <td class="r dim opt">56</td>
+            </tr>
+            <tr>
+              <td class="rank">11</td>
+              <td class="name">DicklesPickles</td>
+              <td class="r">25–31</td>
+              <td class="r big">44.6</td>
+              <td class="r dim opt">25–31</td>
+              <td class="r dim">44.6</td>
+              <td class="r big">+0.0</td>
+              <td class="r dim opt">56</td>
+            </tr>
+            <tr>
+              <td class="rank">12</td>
+              <td class="name">emcwill12</td>
+              <td class="r">5–9</td>
+              <td class="r big">35.7</td>
+              <td class="r dim opt">3–11</td>
+              <td class="r dim">21.4</td>
+              <td class="r big">+14.3</td>
+              <td class="r dim opt">14</td>
+            </tr>
+            <tr>
+              <td class="rank">13</td>
+              <td class="name">StevetheDog</td>
+              <td class="r">13–29</td>
+              <td class="r big">31.0</td>
+              <td class="r dim opt">15–27</td>
+              <td class="r dim">35.7</td>
+              <td class="r cool">-4.8</td>
+              <td class="r dim opt">42</td>
+            </tr>
+            <tr>
+              <td class="rank">14</td>
+              <td class="name">echenozz</td>
+              <td class="r">6–22</td>
+              <td class="r big">21.4</td>
+              <td class="r dim opt">5–23</td>
+              <td class="r dim">17.9</td>
+              <td class="r big">+3.6</td>
+              <td class="r dim opt">28</td>
+            </tr>
+            <tr>
+              <td class="rank">15</td>
+              <td class="name">ProfessorSell</td>
+              <td class="r">1–13</td>
+              <td class="r big">7.1</td>
+              <td class="r dim opt">0–14</td>
+              <td class="r dim">0.0</td>
+              <td class="r big">+7.1</td>
+              <td class="r dim opt">14</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <h3>What the Median Changed</h3>
+        <p class="note">Seeds recomputed from head-to-head results alone, against the
+          official standings. Gold made the playoffs; cool missed them.</p>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <h4>2022</h4>
+          <div class="meta">
+2 playoff spots changed hands          </div>
+          <ul class="bidlist">
+            <li>
+              <span class="winner">Mangondala</span>
+              <span class="winner">
+                7 → 4
+in              </span>
+            </li>
+            <li>
+              <span class="">datboyp</span>
+              <span class="flag">
+                4 → 7
+out              </span>
+            </li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>2023</h4>
+          <div class="meta">
+2 playoff spots changed hands          </div>
+          <ul class="bidlist">
+            <li>
+              <span class="winner">Pxesto</span>
+              <span class="winner">
+                5 → 2
+              </span>
+            </li>
+            <li>
+              <span class="winner">datboyp</span>
+              <span class="flag">
+                3 → 5
+              </span>
+            </li>
+            <li>
+              <span class="">Huntermeek4</span>
+              <span class="flag">
+                6 → 8
+out              </span>
+            </li>
+            <li>
+              <span class="winner">Cumball</span>
+              <span class="flag">
+                2 → 3
+              </span>
+            </li>
+            <li>
+              <span class="winner">Cadengetdabag</span>
+              <span class="winner">
+                7 → 6
+in              </span>
+            </li>
+            <li>
+              <span class="">Mangondala</span>
+              <span class="winner">
+                8 → 7
+              </span>
+            </li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>2024</h4>
+          <div class="meta">
+no playoff spots changed          </div>
+          <ul class="bidlist">
+            <li>
+              <span class="winner">Huntermeek4</span>
+              <span class="winner">
+                5 → 4
+              </span>
+            </li>
+            <li>
+              <span class="winner">Cumball</span>
+              <span class="flag">
+                4 → 5
+              </span>
+            </li>
+            <li>
+              <span class="">datboyp</span>
+              <span class="winner">
+                9 → 8
+              </span>
+            </li>
+            <li>
+              <span class="">Pxesto</span>
+              <span class="flag">
+                8 → 9
+              </span>
+            </li>
+          </ul>
+        </div>
+        <div class="card">
+          <h4>2025</h4>
+          <div class="meta">
+2 playoff spots changed hands          </div>
+          <ul class="bidlist">
+            <li>
+              <span class="">GmanToTuff</span>
+              <span class="flag">
+                4 → 8
+out              </span>
+            </li>
+            <li>
+              <span class="winner">Cadengetdabag</span>
+              <span class="winner">
+                8 → 5
+in              </span>
+            </li>
+            <li>
+              <span class="winner">Pxesto</span>
+              <span class="winner">
+                6 → 4
+              </span>
+            </li>
+            <li>
+              <span class="winner">kodikat</span>
+              <span class="flag">
+                5 → 6
+              </span>
+            </li>
+            <li>
+              <span class="">Nickpapi69</span>
+              <span class="winner">
+                11 → 10
+              </span>
+            </li>
+            <li>
+              <span class="">Cumball</span>
+              <span class="flag">
+                10 → 11
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <h3>How Each Week Broke</h3>
+        <p class="note">Sweeps won both games; wipeouts lost both. Rescued means the
+          matchup was lost but the median still paid — the whole point of the format.</p>
+      </div>
+      <div class="scroll">
+        <table class="sheet">
+          <thead>
+            <tr><th></th><th>Manager</th><th class="r">Swept 2–0</th><th class="r">Wiped 0–2</th>
+              <th class="r">Rescued</th><th class="r">Flattered</th><th class="r opt">Weeks</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="rank">1</td>
+              <td class="name">datboyp</td>
+              <td class="r big">26</td>
+              <td class="r cool">17</td>
+              <td class="r">6</td>
+              <td class="r dim">7</td>
+              <td class="r dim opt">56</td>
+            </tr>
+            <tr>
+              <td class="rank">2</td>
+              <td class="name">Pxesto</td>
+              <td class="r big">25</td>
+              <td class="r cool">17</td>
+              <td class="r">8</td>
+              <td class="r dim">6</td>
+              <td class="r dim opt">56</td>
+            </tr>
+            <tr>
+              <td class="rank">3</td>
+              <td class="name">GmanToTuff</td>
+              <td class="r big">25</td>
+              <td class="r cool">17</td>
+              <td class="r">6</td>
+              <td class="r dim">8</td>
+              <td class="r dim opt">56</td>
+            </tr>
+            <tr>
+              <td class="rank">4</td>
+              <td class="name">kodikat</td>
+              <td class="r big">25</td>
+              <td class="r cool">19</td>
+              <td class="r">4</td>
+              <td class="r dim">8</td>
+              <td class="r dim opt">56</td>
+            </tr>
+            <tr>
+              <td class="rank">5</td>
+              <td class="name">Mangondala</td>
+              <td class="r big">24</td>
+              <td class="r cool">14</td>
+              <td class="r">11</td>
+              <td class="r dim">7</td>
+              <td class="r dim opt">56</td>
+            </tr>
+            <tr>
+              <td class="rank">6</td>
+              <td class="name">Nickpapi69</td>
+              <td class="r big">23</td>
+              <td class="r cool">18</td>
+              <td class="r">7</td>
+              <td class="r dim">8</td>
+              <td class="r dim opt">56</td>
+            </tr>
+            <tr>
+              <td class="rank">7</td>
+              <td class="name">DicklesPickles</td>
+              <td class="r big">22</td>
+              <td class="r cool">28</td>
+              <td class="r">3</td>
+              <td class="r dim">3</td>
+              <td class="r dim opt">56</td>
+            </tr>
+            <tr>
+              <td class="rank">8</td>
+              <td class="name">Cumball</td>
+              <td class="r big">18</td>
+              <td class="r cool">19</td>
+              <td class="r">7</td>
+              <td class="r dim">12</td>
+              <td class="r dim opt">56</td>
+            </tr>
+            <tr>
+              <td class="rank">9</td>
+              <td class="name">Cadengetdabag</td>
+              <td class="r big">18</td>
+              <td class="r cool">12</td>
+              <td class="r">8</td>
+              <td class="r dim">4</td>
+              <td class="r dim opt">42</td>
+            </tr>
+            <tr>
+              <td class="rank">10</td>
+              <td class="name">Huntermeek4</td>
+              <td class="r big">17</td>
+              <td class="r cool">17</td>
+              <td class="r">4</td>
+              <td class="r dim">4</td>
+              <td class="r dim opt">42</td>
+            </tr>
+            <tr>
+              <td class="rank">11</td>
+              <td class="name">StevetheDog</td>
+              <td class="r big">10</td>
+              <td class="r cool">24</td>
+              <td class="r">3</td>
+              <td class="r dim">5</td>
+              <td class="r dim opt">42</td>
+            </tr>
+            <tr>
+              <td class="rank">12</td>
+              <td class="name">clappincheeks69</td>
+              <td class="r big">7</td>
+              <td class="r cool">2</td>
+              <td class="r">3</td>
+              <td class="r dim">2</td>
+              <td class="r dim opt">14</td>
+            </tr>
+            <tr>
+              <td class="rank">13</td>
+              <td class="name">echenozz</td>
+              <td class="r big">4</td>
+              <td class="r cool">21</td>
+              <td class="r">2</td>
+              <td class="r dim">1</td>
+              <td class="r dim opt">28</td>
+            </tr>
+            <tr>
+              <td class="rank">14</td>
+              <td class="name">emcwill12</td>
+              <td class="r big">2</td>
+              <td class="r cool">8</td>
+              <td class="r">3</td>
+              <td class="r dim">1</td>
+              <td class="r dim opt">14</td>
+            </tr>
+            <tr>
+              <td class="rank">15</td>
+              <td class="name">ProfessorSell</td>
+              <td class="r big">0</td>
+              <td class="r cool">13</td>
+              <td class="r">1</td>
+              <td class="r dim">0</td>
+              <td class="r dim opt">14</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="grid-2 block">
+      <div>
+        <div class="block-head">
+          <h3>Missed by That Much</h3>
+          <p class="note">Closest losses to the median line.</p>
+        </div>
+        <div class="scroll">
+          <table class="sheet">
+            <thead><tr><th>Sea</th><th>Wk</th><th>Manager</th><th class="r">Score</th>
+              <th class="r opt">Median</th><th class="r">Short by</th></tr></thead>
+            <tbody>
+              <tr>
+                <td class="dim">2024</td>
+                <td class="dim">5</td>
+                <td class="name">GmanToTuff</td>
+                <td class="r">132.58</td>
+                <td class="r dim opt">132.67</td>
+                <td class="r cool">0.09</td>
+              </tr>
+              <tr>
+                <td class="dim">2024</td>
+                <td class="dim">3</td>
+                <td class="name">kodikat</td>
+                <td class="r">126.76</td>
+                <td class="r dim opt">127.14</td>
+                <td class="r cool">0.38</td>
+              </tr>
+              <tr>
+                <td class="dim">2022</td>
+                <td class="dim">14</td>
+                <td class="name">StevetheDog</td>
+                <td class="r">118.51</td>
+                <td class="r dim opt">119.07</td>
+                <td class="r cool">0.56</td>
+              </tr>
+              <tr>
+                <td class="dim">2023</td>
+                <td class="dim">7</td>
+                <td class="name">echenozz</td>
+                <td class="r">119.00</td>
+                <td class="r dim opt">119.60</td>
+                <td class="r cool">0.60</td>
+              </tr>
+              <tr>
+                <td class="dim">2022</td>
+                <td class="dim">13</td>
+                <td class="name">Nickpapi69</td>
+                <td class="r">122.59</td>
+                <td class="r dim opt">123.25</td>
+                <td class="r cool">0.66</td>
+              </tr>
+              <tr>
+                <td class="dim">2024</td>
+                <td class="dim">7</td>
+                <td class="name">Pxesto</td>
+                <td class="r">115.52</td>
+                <td class="r dim opt">116.21</td>
+                <td class="r cool">0.69</td>
+              </tr>
+              <tr>
+                <td class="dim">2022</td>
+                <td class="dim">1</td>
+                <td class="name">datboyp</td>
+                <td class="r">131.72</td>
+                <td class="r dim opt">132.43</td>
+                <td class="r cool">0.71</td>
+              </tr>
+              <tr>
+                <td class="dim">2022</td>
+                <td class="dim">10</td>
+                <td class="name">Mangondala</td>
+                <td class="r">118.84</td>
+                <td class="r dim opt">119.59</td>
+                <td class="r cool">0.75</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <div class="block-head">
+          <h3>Scraped Over the Line</h3>
+          <p class="note">Narrowest median wins.</p>
+        </div>
+        <div class="scroll">
+          <table class="sheet">
+            <thead><tr><th>Sea</th><th>Wk</th><th>Manager</th><th class="r">Score</th>
+              <th class="r opt">Median</th><th class="r">Clear by</th></tr></thead>
+            <tbody>
+              <tr>
+                <td class="dim">2024</td>
+                <td class="dim">5</td>
+                <td class="name">StevetheDog</td>
+                <td class="r">132.76</td>
+                <td class="r dim opt">132.67</td>
+                <td class="r big">0.09</td>
+              </tr>
+              <tr>
+                <td class="dim">2024</td>
+                <td class="dim">3</td>
+                <td class="name">Pxesto</td>
+                <td class="r">127.52</td>
+                <td class="r dim opt">127.14</td>
+                <td class="r big">0.38</td>
+              </tr>
+              <tr>
+                <td class="dim">2022</td>
+                <td class="dim">14</td>
+                <td class="name">kodikat</td>
+                <td class="r">119.63</td>
+                <td class="r dim opt">119.07</td>
+                <td class="r big">0.56</td>
+              </tr>
+              <tr>
+                <td class="dim">2023</td>
+                <td class="dim">7</td>
+                <td class="name">DicklesPickles</td>
+                <td class="r">120.20</td>
+                <td class="r dim opt">119.60</td>
+                <td class="r big">0.60</td>
+              </tr>
+              <tr>
+                <td class="dim">2022</td>
+                <td class="dim">13</td>
+                <td class="name">Cumball</td>
+                <td class="r">123.90</td>
+                <td class="r dim opt">123.25</td>
+                <td class="r big">0.66</td>
+              </tr>
+              <tr>
+                <td class="dim">2024</td>
+                <td class="dim">7</td>
+                <td class="name">kodikat</td>
+                <td class="r">116.90</td>
+                <td class="r dim opt">116.21</td>
+                <td class="r big">0.69</td>
+              </tr>
+              <tr>
+                <td class="dim">2022</td>
+                <td class="dim">1</td>
+                <td class="name">Nickpapi69</td>
+                <td class="r">133.13</td>
+                <td class="r dim opt">132.43</td>
+                <td class="r big">0.70</td>
+              </tr>
+              <tr>
+                <td class="dim">2022</td>
+                <td class="dim">10</td>
+                <td class="name">kodikat</td>
+                <td class="r">120.34</td>
+                <td class="r dim opt">119.59</td>
+                <td class="r big">0.75</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2 block">
+      <div>
+        <div class="block-head">
+          <h3>Where the Bar Has Sat</h3>
+          <p class="note">The weekly median, by season.</p>
+        </div>
+        <table class="sheet">
+          <thead><tr><th>Season</th><th class="r">Average</th><th class="r">Lowest</th>
+            <th class="r">Highest</th><th class="r opt">Teams</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="name">2022</td>
+              <td class="r big">125.5</td>
+              <td class="r dim">112.78</td>
+              <td class="r dim">138.85</td>
+              <td class="r dim opt">10</td>
+            </tr>
+            <tr>
+              <td class="name">2023</td>
+              <td class="r big">116.3</td>
+              <td class="r dim">104.70</td>
+              <td class="r dim">129.77</td>
+              <td class="r dim opt">12</td>
+            </tr>
+            <tr>
+              <td class="name">2024</td>
+              <td class="r big">126.9</td>
+              <td class="r dim">116.21</td>
+              <td class="r dim">137.74</td>
+              <td class="r dim opt">12</td>
+            </tr>
+            <tr>
+              <td class="name">2025</td>
+              <td class="r big">126.0</td>
+              <td class="r dim">112.49</td>
+              <td class="r dim">137.19</td>
+              <td class="r dim opt">12</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="block-head">
+          <h3>Distance From Average</h3>
+          <p class="note">Mean points above or below the median line each week.</p>
+        </div>
+        <table class="sheet">
+          <thead><tr><th>Manager</th><th class="r">Margin</th><th class="r opt">Spread</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="name">datboyp</td>
+              <td class="r big">+13.2</td>
+              <td class="r dim opt">31.1</td>
+            </tr>
+            <tr>
+              <td class="name">clappincheeks69</td>
+              <td class="r big">+12.6</td>
+              <td class="r dim opt">25.4</td>
+            </tr>
+            <tr>
+              <td class="name">Cadengetdabag</td>
+              <td class="r big">+11.8</td>
+              <td class="r dim opt">27.9</td>
+            </tr>
+            <tr>
+              <td class="name">Mangondala</td>
+              <td class="r big">+7.3</td>
+              <td class="r dim opt">18.8</td>
+            </tr>
+            <tr>
+              <td class="name">Pxesto</td>
+              <td class="r big">+5.2</td>
+              <td class="r dim opt">25.2</td>
+            </tr>
+            <tr>
+              <td class="name">Nickpapi69</td>
+              <td class="r big">+4.5</td>
+              <td class="r dim opt">27.3</td>
+            </tr>
+            <tr>
+              <td class="name">GmanToTuff</td>
+              <td class="r big">+3.1</td>
+              <td class="r dim opt">24.3</td>
+            </tr>
+            <tr>
+              <td class="name">kodikat</td>
+              <td class="r big">+2.3</td>
+              <td class="r dim opt">25.3</td>
+            </tr>
+            <tr>
+              <td class="name">Huntermeek4</td>
+              <td class="r big">+1.2</td>
+              <td class="r dim opt">23.6</td>
+            </tr>
+            <tr>
+              <td class="name">Cumball</td>
+              <td class="r cool">-2.9</td>
+              <td class="r dim opt">25.0</td>
+            </tr>
+            <tr>
+              <td class="name">DicklesPickles</td>
+              <td class="r cool">-6.2</td>
+              <td class="r dim opt">28.0</td>
+            </tr>
+            <tr>
+              <td class="name">StevetheDog</td>
+              <td class="r cool">-9.1</td>
+              <td class="r dim opt">19.1</td>
+            </tr>
+            <tr>
+              <td class="name">emcwill12</td>
+              <td class="r cool">-9.6</td>
+              <td class="r dim opt">22.8</td>
+            </tr>
+            <tr>
+              <td class="name">echenozz</td>
+              <td class="r cool">-11.5</td>
+              <td class="r dim opt">27.3</td>
+            </tr>
+            <tr>
+              <td class="name">ProfessorSell</td>
+              <td class="r cool">-21.4</td>
+              <td class="r dim opt">21.9</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 4. RECORD BOOK ══ -->
+<section class="chapter" id="records">
+  <div class="wrap">
+    <div class="chapter-head">
+      <div class="eyebrow">Chapter Four</div>
       <h2>The Record Book</h2>
       <p class="lede">The numbers that still stand.</p>
     </div>
@@ -2611,131 +3483,119 @@ html { scroll-behavior: smooth; }
   <table class="sheet">
     <thead>
       <tr>
-        <th></th><th>Season</th><th>Wk</th><th>Manager</th>
+        <th></th><th>When</th><th>Manager</th>
         <th class="r">Score</th><th>Opponent</th><th class="r">Opp</th>
-        <th></th>
+        <th class="opt"></th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td class="rank">1</td>
-        <td class="dim">2021</td>
-        <td class="dim">5</td>
+        <td class="dim when">2021 wk5</td>
         <td class="name">Nickpapi69</td>
         <td class="r big">223.00</td>
-        <td class="dim">Cumball</td>
+        <td class="dim opp">Cumball</td>
         <td class="r">137.38</td>
-        <td></td>
+        <td class="opt"></td>
       </tr>
       <tr>
         <td class="rank">2</td>
-        <td class="dim">2025</td>
-        <td class="dim">10</td>
+        <td class="dim when">2025 wk10</td>
         <td class="name">datboyp</td>
         <td class="r big">212.50</td>
-        <td class="dim">GmanToTuff</td>
+        <td class="dim opp">GmanToTuff</td>
         <td class="r">126.10</td>
-        <td></td>
+        <td class="opt"></td>
       </tr>
       <tr>
         <td class="rank">3</td>
-        <td class="dim">2024</td>
-        <td class="dim">16</td>
+        <td class="dim when">2024 wk16</td>
         <td class="name">Mangondala</td>
         <td class="r big">212.18</td>
-        <td class="dim">kodikat</td>
+        <td class="dim opp">kodikat</td>
         <td class="r">119.84</td>
-        <td><span class="pill gold">Playoff</span></td>
+        <td class="opt"><span class="pill gold">Playoff</span></td>
       </tr>
       <tr>
         <td class="rank">4</td>
-        <td class="dim">2023</td>
-        <td class="dim">5</td>
+        <td class="dim when">2023 wk5</td>
         <td class="name">echenozz</td>
         <td class="r big">206.36</td>
-        <td class="dim">Cadengetdabag</td>
+        <td class="dim opp">Cadengetdabag</td>
         <td class="r">147.24</td>
-        <td></td>
+        <td class="opt"></td>
       </tr>
       <tr>
         <td class="rank">5</td>
-        <td class="dim">2025</td>
-        <td class="dim">7</td>
+        <td class="dim when">2025 wk7</td>
         <td class="name">datboyp</td>
         <td class="r big">204.68</td>
-        <td class="dim">Cumball</td>
+        <td class="dim opp">Cumball</td>
         <td class="r">81.82</td>
-        <td></td>
+        <td class="opt"></td>
       </tr>
       <tr>
         <td class="rank">6</td>
-        <td class="dim">2022</td>
-        <td class="dim">4</td>
+        <td class="dim when">2022 wk4</td>
         <td class="name">Pxesto</td>
         <td class="r big">203.95</td>
-        <td class="dim">datboyp</td>
+        <td class="dim opp">datboyp</td>
         <td class="r">111.68</td>
-        <td></td>
+        <td class="opt"></td>
       </tr>
       <tr>
         <td class="rank">7</td>
-        <td class="dim">2025</td>
-        <td class="dim">9</td>
+        <td class="dim when">2025 wk9</td>
         <td class="name">datboyp</td>
         <td class="r big">198.40</td>
-        <td class="dim">Cadengetdabag</td>
+        <td class="dim opp">Cadengetdabag</td>
         <td class="r">139.00</td>
-        <td></td>
+        <td class="opt"></td>
       </tr>
       <tr>
         <td class="rank">8</td>
-        <td class="dim">2022</td>
-        <td class="dim">9</td>
+        <td class="dim when">2022 wk9</td>
         <td class="name">Cumball</td>
         <td class="r big">197.90</td>
-        <td class="dim">Mangondala</td>
+        <td class="dim opp">Mangondala</td>
         <td class="r">81.95</td>
-        <td></td>
+        <td class="opt"></td>
       </tr>
       <tr>
         <td class="rank">9</td>
-        <td class="dim">2021</td>
-        <td class="dim">11</td>
+        <td class="dim when">2021 wk11</td>
         <td class="name">Mangondala</td>
         <td class="r big">195.90</td>
-        <td class="dim">Nickpapi69</td>
+        <td class="dim opp">Nickpapi69</td>
         <td class="r">136.91</td>
-        <td></td>
+        <td class="opt"></td>
       </tr>
       <tr>
         <td class="rank">10</td>
-        <td class="dim">2021</td>
-        <td class="dim">4</td>
+        <td class="dim when">2021 wk4</td>
         <td class="name">datboyp</td>
         <td class="r big">195.47</td>
-        <td class="dim">Cumball</td>
+        <td class="dim opp">Cumball</td>
         <td class="r">136.41</td>
-        <td></td>
+        <td class="opt"></td>
       </tr>
       <tr>
         <td class="rank">11</td>
-        <td class="dim">2022</td>
-        <td class="dim">4</td>
+        <td class="dim when">2022 wk4</td>
         <td class="name">kodikat</td>
         <td class="r big">195.01</td>
-        <td class="dim">StevetheDog</td>
+        <td class="dim opp">StevetheDog</td>
         <td class="r">139.01</td>
-        <td></td>
+        <td class="opt"></td>
       </tr>
       <tr>
         <td class="rank">12</td>
-        <td class="dim">2021</td>
-        <td class="dim">16</td>
+        <td class="dim when">2021 wk16</td>
         <td class="name">Nickpapi69</td>
         <td class="r big">193.06</td>
-        <td class="dim">StevetheDog</td>
+        <td class="dim opp">StevetheDog</td>
         <td class="r">180.03</td>
-        <td><span class="pill gold">Playoff</span></td>
+        <td class="opt"><span class="pill gold">Playoff</span></td>
       </tr>
     </tbody>
   </table>
@@ -2753,91 +3613,83 @@ html { scroll-behavior: smooth; }
   <table class="sheet">
     <thead>
       <tr>
-        <th></th><th>Season</th><th>Wk</th><th>Manager</th>
+        <th></th><th>When</th><th>Manager</th>
         <th class="r">Score</th><th>Opponent</th><th class="r">Opp</th>
-        <th></th>
+        <th class="opt"></th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td class="rank">1</td>
-        <td class="dim">2021</td>
-        <td class="dim">14</td>
+        <td class="dim when">2021 wk14</td>
         <td class="name">Mangondala</td>
         <td class="r big">27.36</td>
-        <td class="dim">Pxesto</td>
+        <td class="dim opp">Pxesto</td>
         <td class="r">98.88</td>
-        <td></td>
+        <td class="opt"></td>
       </tr>
       <tr>
         <td class="rank">2</td>
-        <td class="dim">2025</td>
-        <td class="dim">17</td>
+        <td class="dim when">2025 wk17</td>
         <td class="name">ProfessorSell</td>
         <td class="r big">46.34</td>
-        <td class="dim">Cumball</td>
+        <td class="dim opp">Cumball</td>
         <td class="r">130.62</td>
-        <td><span class="pill gold">Playoff</span></td>
+        <td class="opt"><span class="pill gold">Playoff</span></td>
       </tr>
       <tr>
         <td class="rank">3</td>
-        <td class="dim">2025</td>
-        <td class="dim">12</td>
+        <td class="dim when">2025 wk12</td>
         <td class="name">ProfessorSell</td>
         <td class="r big">50.50</td>
-        <td class="dim">kodikat</td>
+        <td class="dim opp">kodikat</td>
         <td class="r">145.04</td>
-        <td></td>
+        <td class="opt"></td>
       </tr>
       <tr>
         <td class="rank">4</td>
-        <td class="dim">2025</td>
-        <td class="dim">12</td>
+        <td class="dim when">2025 wk12</td>
         <td class="name">DicklesPickles</td>
         <td class="r big">52.70</td>
-        <td class="dim">datboyp</td>
+        <td class="dim opp">datboyp</td>
         <td class="r">171.26</td>
-        <td></td>
+        <td class="opt"></td>
       </tr>
       <tr>
         <td class="rank">5</td>
-        <td class="dim">2025</td>
-        <td class="dim">11</td>
+        <td class="dim when">2025 wk11</td>
         <td class="name">ProfessorSell</td>
         <td class="r big">58.04</td>
-        <td class="dim">Cumball</td>
+        <td class="dim opp">Cumball</td>
         <td class="r">102.07</td>
-        <td></td>
+        <td class="opt"></td>
       </tr>
       <tr>
         <td class="rank">6</td>
-        <td class="dim">2023</td>
-        <td class="dim">4</td>
+        <td class="dim when">2023 wk4</td>
         <td class="name">kodikat</td>
         <td class="r big">62.36</td>
-        <td class="dim">StevetheDog</td>
+        <td class="dim opp">StevetheDog</td>
         <td class="r">96.70</td>
-        <td></td>
+        <td class="opt"></td>
       </tr>
       <tr>
         <td class="rank">7</td>
-        <td class="dim">2023</td>
-        <td class="dim">6</td>
+        <td class="dim when">2023 wk6</td>
         <td class="name">echenozz</td>
         <td class="r big">64.20</td>
-        <td class="dim">Mangondala</td>
+        <td class="dim opp">Mangondala</td>
         <td class="r">131.38</td>
-        <td></td>
+        <td class="opt"></td>
       </tr>
       <tr>
         <td class="rank">8</td>
-        <td class="dim">2025</td>
-        <td class="dim">8</td>
+        <td class="dim when">2025 wk8</td>
         <td class="name">DicklesPickles</td>
         <td class="r big">65.62</td>
-        <td class="dim">Cadengetdabag</td>
+        <td class="dim opp">Cadengetdabag</td>
         <td class="r">124.26</td>
-        <td></td>
+        <td class="opt"></td>
       </tr>
     </tbody>
   </table>
@@ -2850,129 +3702,117 @@ html { scroll-behavior: smooth; }
       <div class="scroll">
         <table class="sheet">
           <thead>
-            <tr><th></th><th>Season</th><th>Wk</th><th>Player</th><th>Pos</th>
-              <th class="r">Points</th><th>Rostered by</th><th></th></tr>
+            <tr><th></th><th>When</th><th>Player</th><th class="opt">Pos</th>
+              <th class="r">Points</th><th>Rostered by</th><th class="opt"></th></tr>
           </thead>
           <tbody>
             <tr>
               <td class="rank">1</td>
-              <td class="dim">2021</td>
-              <td class="dim">11</td>
+              <td class="dim when">2021 wk11</td>
               <td class="name">Jonathan Taylor</td>
-              <td class="dim">RB</td>
+              <td class="dim opt">RB</td>
               <td class="r big">60.35</td>
               <td>Mangondala</td>
-              <td></td>
+              <td class="opt"></td>
             </tr>
             <tr>
               <td class="rank">2</td>
-              <td class="dim">2022</td>
-              <td class="dim">9</td>
+              <td class="dim when">2022 wk9</td>
               <td class="name">Joe Mixon</td>
-              <td class="dim">RB</td>
+              <td class="dim opt">RB</td>
               <td class="r big">59.60</td>
               <td>Cumball</td>
-              <td></td>
+              <td class="opt"></td>
             </tr>
             <tr>
               <td class="rank">3</td>
-              <td class="dim">2024</td>
-              <td class="dim">14</td>
+              <td class="dim when">2024 wk14</td>
               <td class="name">Josh Allen</td>
-              <td class="dim">QB</td>
+              <td class="dim opt">QB</td>
               <td class="r big">58.78</td>
               <td>Pxesto</td>
-              <td></td>
+              <td class="opt"></td>
             </tr>
             <tr>
               <td class="rank">4</td>
-              <td class="dim">2024</td>
-              <td class="dim">10</td>
+              <td class="dim when">2024 wk10</td>
               <td class="name">Ja&#39;Marr Chase</td>
-              <td class="dim">WR</td>
+              <td class="dim opt">WR</td>
               <td class="r big">57.10</td>
               <td>Cumball</td>
-              <td></td>
+              <td class="opt"></td>
             </tr>
             <tr>
               <td class="rank">5</td>
-              <td class="dim">2021</td>
-              <td class="dim">2</td>
+              <td class="dim when">2021 wk2</td>
               <td class="name">Derrick Henry</td>
-              <td class="dim">RB</td>
+              <td class="dim opt">RB</td>
               <td class="r big">56.60</td>
               <td>GmanToTuff</td>
-              <td></td>
+              <td class="opt"></td>
             </tr>
             <tr>
               <td class="rank">6</td>
-              <td class="dim">2022</td>
-              <td class="dim">12</td>
+              <td class="dim when">2022 wk12</td>
               <td class="name">Josh Jacobs</td>
-              <td class="dim">RB</td>
+              <td class="dim opt">RB</td>
               <td class="r big">56.20</td>
               <td>kodikat</td>
-              <td></td>
+              <td class="opt"></td>
             </tr>
             <tr>
               <td class="rank">7</td>
-              <td class="dim">2025</td>
-              <td class="dim">12</td>
+              <td class="dim when">2025 wk12</td>
               <td class="name">Jahmyr Gibbs</td>
-              <td class="dim">RB</td>
+              <td class="dim opt">RB</td>
               <td class="r big">56.20</td>
               <td>datboyp</td>
-              <td></td>
+              <td class="opt"></td>
             </tr>
             <tr>
               <td class="rank">8</td>
-              <td class="dim">2021</td>
-              <td class="dim">17</td>
+              <td class="dim when">2021 wk17</td>
               <td class="name">Ja&#39;Marr Chase</td>
-              <td class="dim">WR</td>
+              <td class="dim opt">WR</td>
               <td class="r big">55.10</td>
               <td>Mangondala</td>
-              <td></td>
+              <td class="opt"></td>
             </tr>
             <tr>
               <td class="rank">9</td>
-              <td class="dim">2025</td>
-              <td class="dim">10</td>
+              <td class="dim when">2025 wk10</td>
               <td class="name">Jonathan Taylor</td>
-              <td class="dim">RB</td>
+              <td class="dim opt">RB</td>
               <td class="r big">53.60</td>
               <td>kodikat</td>
-              <td></td>
+              <td class="opt"></td>
             </tr>
             <tr>
               <td class="rank">10</td>
-              <td class="dim">2023</td>
-              <td class="dim">16</td>
+              <td class="dim when">2023 wk16</td>
               <td class="name">Amari Cooper</td>
-              <td class="dim">WR</td>
+              <td class="dim opt">WR</td>
               <td class="r big">52.50</td>
               <td>kodikat</td>
-              <td></td>
+              <td class="opt"></td>
             </tr>
             <tr>
               <td class="rank">11</td>
-              <td class="dim">2023</td>
-              <td class="dim">5</td>
+              <td class="dim when">2023 wk5</td>
               <td class="name">Ja&#39;Marr Chase</td>
-              <td class="dim">WR</td>
+              <td class="dim opt">WR</td>
               <td class="r big">51.80</td>
               <td>Cadengetdabag</td>
-              <td></td>
+              <td class="opt"></td>
             </tr>
             <tr>
               <td class="rank">12</td>
-              <td class="dim">2022</td>
-              <td class="dim">9</td>
+              <td class="dim when">2022 wk9</td>
               <td class="name">Justin Fields</td>
-              <td class="dim">QB</td>
+              <td class="dim opt">QB</td>
               <td class="r big">51.12</td>
               <td>datboyp</td>
-              <td><span class="pill">Benched</span></td>
+              <td class="opt"><span class="pill">Benched</span></td>
             </tr>
           </tbody>
         </table>
@@ -3412,7 +4252,7 @@ html { scroll-behavior: smooth; }
 <section class="chapter" id="coaching">
   <div class="wrap">
     <div class="chapter-head">
-      <div class="eyebrow">Chapter Four</div>
+      <div class="eyebrow">Chapter Five</div>
       <h2>Start / Sit</h2>
       <p class="lede">
         Lineup efficiency is points scored as a share of the best legal lineup that
@@ -3427,7 +4267,7 @@ html { scroll-behavior: smooth; }
         <table class="sheet">
           <thead>
             <tr><th></th><th>Manager</th><th class="r">Eff</th><th style="width:30%"></th>
-              <th class="r">Left/wk</th><th class="r">Total left</th><th class="r">Perfect</th></tr>
+              <th class="r">Left/wk</th><th class="r opt">Total left</th><th class="r">Perfect</th></tr>
           </thead>
           <tbody>
             <tr>
@@ -3440,7 +4280,7 @@ html { scroll-behavior: smooth; }
                 </div>
               </td>
               <td class="r">14.4</td>
-              <td class="r dim">778</td>
+              <td class="r dim opt">778</td>
               <td class="r">7</td>
             </tr>
             <tr>
@@ -3453,7 +4293,7 @@ html { scroll-behavior: smooth; }
                 </div>
               </td>
               <td class="r">14.5</td>
-              <td class="r dim">1305</td>
+              <td class="r dim opt">1305</td>
               <td class="r">10</td>
             </tr>
             <tr>
@@ -3466,7 +4306,7 @@ html { scroll-behavior: smooth; }
                 </div>
               </td>
               <td class="r">17.6</td>
-              <td class="r dim">317</td>
+              <td class="r dim opt">317</td>
               <td class="r">4</td>
             </tr>
             <tr>
@@ -3479,7 +4319,7 @@ html { scroll-behavior: smooth; }
                 </div>
               </td>
               <td class="r">16.2</td>
-              <td class="r dim">1455</td>
+              <td class="r dim opt">1455</td>
               <td class="r">6</td>
             </tr>
             <tr>
@@ -3492,7 +4332,7 @@ html { scroll-behavior: smooth; }
                 </div>
               </td>
               <td class="r">18.1</td>
-              <td class="r dim">1631</td>
+              <td class="r dim opt">1631</td>
               <td class="r">4</td>
             </tr>
             <tr>
@@ -3505,7 +4345,7 @@ html { scroll-behavior: smooth; }
                 </div>
               </td>
               <td class="r">19.0</td>
-              <td class="r dim">1369</td>
+              <td class="r dim opt">1369</td>
               <td class="r">6</td>
             </tr>
             <tr>
@@ -3518,7 +4358,7 @@ html { scroll-behavior: smooth; }
                 </div>
               </td>
               <td class="r">19.8</td>
-              <td class="r dim">1780</td>
+              <td class="r dim opt">1780</td>
               <td class="r">3</td>
             </tr>
             <tr>
@@ -3531,7 +4371,7 @@ html { scroll-behavior: smooth; }
                 </div>
               </td>
               <td class="r">20.1</td>
-              <td class="r dim">1810</td>
+              <td class="r dim opt">1810</td>
               <td class="r">3</td>
             </tr>
             <tr>
@@ -3544,7 +4384,7 @@ html { scroll-behavior: smooth; }
                 </div>
               </td>
               <td class="r">18.3</td>
-              <td class="r dim">1316</td>
+              <td class="r dim opt">1316</td>
               <td class="r">5</td>
             </tr>
             <tr>
@@ -3557,7 +4397,7 @@ html { scroll-behavior: smooth; }
                 </div>
               </td>
               <td class="r">19.2</td>
-              <td class="r dim">1383</td>
+              <td class="r dim opt">1383</td>
               <td class="r">6</td>
             </tr>
             <tr>
@@ -3570,7 +4410,7 @@ html { scroll-behavior: smooth; }
                 </div>
               </td>
               <td class="r">19.6</td>
-              <td class="r dim">1768</td>
+              <td class="r dim opt">1768</td>
               <td class="r">2</td>
             </tr>
             <tr>
@@ -3583,7 +4423,7 @@ html { scroll-behavior: smooth; }
                 </div>
               </td>
               <td class="r">20.6</td>
-              <td class="r dim">1112</td>
+              <td class="r dim opt">1112</td>
               <td class="r">2</td>
             </tr>
             <tr>
@@ -3596,7 +4436,7 @@ html { scroll-behavior: smooth; }
                 </div>
               </td>
               <td class="r">27.2</td>
-              <td class="r dim">490</td>
+              <td class="r dim opt">490</td>
               <td class="r">—</td>
             </tr>
             <tr>
@@ -3609,7 +4449,7 @@ html { scroll-behavior: smooth; }
                 </div>
               </td>
               <td class="r">23.5</td>
-              <td class="r dim">422</td>
+              <td class="r dim opt">422</td>
               <td class="r">—</td>
             </tr>
             <tr>
@@ -3622,7 +4462,7 @@ html { scroll-behavior: smooth; }
                 </div>
               </td>
               <td class="r">24.5</td>
-              <td class="r dim">883</td>
+              <td class="r dim opt">883</td>
               <td class="r">2</td>
             </tr>
             <tr>
@@ -3635,7 +4475,7 @@ html { scroll-behavior: smooth; }
                 </div>
               </td>
               <td class="r">23.3</td>
-              <td class="r dim">419</td>
+              <td class="r dim opt">419</td>
               <td class="r">—</td>
             </tr>
           </tbody>
@@ -3653,129 +4493,129 @@ html { scroll-behavior: smooth; }
       <div class="scroll">
         <table class="sheet">
           <thead>
-            <tr><th></th><th>Season</th><th>Wk</th><th>Manager</th><th class="r">Scored</th>
-              <th class="r">Possible</th><th class="r">Left</th><th>Biggest miss</th><th class="r">Pts</th><th></th></tr>
+            <tr><th></th><th class="opt">Season</th><th class="opt">Wk</th><th>Manager</th><th class="r">Scored</th>
+              <th class="r opt">Possible</th><th class="r">Left</th><th>Biggest miss</th><th class="r opt">Pts</th><th class="opt"></th></tr>
           </thead>
           <tbody>
             <tr>
               <td class="rank">1</td>
-              <td class="dim">2021</td>
-              <td class="dim">18</td>
+              <td class="dim opt">2021</td>
+              <td class="dim opt">18</td>
               <td class="name">StevetheDog</td>
               <td class="r">98.22</td>
-              <td class="r dim">199.79</td>
+              <td class="r dim opt">199.79</td>
               <td class="r big">101.57</td>
               <td>Austin Ekeler</td>
-              <td class="r">30.9</td>
-              <td></td>
+              <td class="r opt">30.9</td>
+              <td class="opt"></td>
             </tr>
             <tr>
               <td class="rank">2</td>
-              <td class="dim">2021</td>
-              <td class="dim">14</td>
+              <td class="dim opt">2021</td>
+              <td class="dim opt">14</td>
               <td class="name">Mangondala</td>
               <td class="r">27.36</td>
-              <td class="r dim">102.04</td>
+              <td class="r dim opt">102.04</td>
               <td class="r big">74.68</td>
               <td>Aaron Rodgers</td>
-              <td class="r">28.9</td>
-              <td><span class="pill gold">Cost the game</span></td>
+              <td class="r opt">28.9</td>
+              <td class="opt"><span class="pill gold">Cost the game</span></td>
             </tr>
             <tr>
               <td class="rank">3</td>
-              <td class="dim">2022</td>
-              <td class="dim">5</td>
+              <td class="dim opt">2022</td>
+              <td class="dim opt">5</td>
               <td class="name">Nickpapi69</td>
               <td class="r">71.54</td>
-              <td class="r dim">143.74</td>
+              <td class="r dim opt">143.74</td>
               <td class="r big">72.20</td>
               <td>Breece Hall</td>
-              <td class="r">32.7</td>
-              <td></td>
+              <td class="r opt">32.7</td>
+              <td class="opt"></td>
             </tr>
             <tr>
               <td class="rank">4</td>
-              <td class="dim">2023</td>
-              <td class="dim">15</td>
+              <td class="dim opt">2023</td>
+              <td class="dim opt">15</td>
               <td class="name">Huntermeek4</td>
               <td class="r">100.56</td>
-              <td class="r dim">167.52</td>
+              <td class="r dim opt">167.52</td>
               <td class="r big">66.96</td>
               <td>Jared Goff</td>
-              <td class="r">36.1</td>
-              <td></td>
+              <td class="r opt">36.1</td>
+              <td class="opt"></td>
             </tr>
             <tr>
               <td class="rank">5</td>
-              <td class="dim">2025</td>
-              <td class="dim">15</td>
+              <td class="dim opt">2025</td>
+              <td class="dim opt">15</td>
               <td class="name">ProfessorSell</td>
               <td class="r">104.20</td>
-              <td class="r dim">170.50</td>
+              <td class="r dim opt">170.50</td>
               <td class="r big">66.30</td>
               <td>Baltimore Ravens</td>
-              <td class="r">26.0</td>
-              <td></td>
+              <td class="r opt">26.0</td>
+              <td class="opt"></td>
             </tr>
             <tr>
               <td class="rank">6</td>
-              <td class="dim">2024</td>
-              <td class="dim">11</td>
+              <td class="dim opt">2024</td>
+              <td class="dim opt">11</td>
               <td class="name">datboyp</td>
               <td class="r">90.94</td>
-              <td class="r dim">156.46</td>
+              <td class="r dim opt">156.46</td>
               <td class="r big">65.52</td>
               <td>Taysom Hill</td>
-              <td class="r">44.5</td>
-              <td><span class="pill gold">Cost the game</span></td>
+              <td class="r opt">44.5</td>
+              <td class="opt"><span class="pill gold">Cost the game</span></td>
             </tr>
             <tr>
               <td class="rank">7</td>
-              <td class="dim">2025</td>
-              <td class="dim">11</td>
+              <td class="dim opt">2025</td>
+              <td class="dim opt">11</td>
               <td class="name">Cumball</td>
               <td class="r">102.07</td>
-              <td class="r dim">166.05</td>
+              <td class="r dim opt">166.05</td>
               <td class="r big">63.98</td>
               <td>Michael Wilson</td>
-              <td class="r">30.5</td>
-              <td></td>
+              <td class="r opt">30.5</td>
+              <td class="opt"></td>
             </tr>
             <tr>
               <td class="rank">8</td>
-              <td class="dim">2024</td>
-              <td class="dim">7</td>
+              <td class="dim opt">2024</td>
+              <td class="dim opt">7</td>
               <td class="name">Nickpapi69</td>
               <td class="r">107.76</td>
-              <td class="r dim">170.56</td>
+              <td class="r dim opt">170.56</td>
               <td class="r big">62.80</td>
               <td>Rachaad White</td>
-              <td class="r">28.1</td>
-              <td><span class="pill gold">Cost the game</span></td>
+              <td class="r opt">28.1</td>
+              <td class="opt"><span class="pill gold">Cost the game</span></td>
             </tr>
             <tr>
               <td class="rank">9</td>
-              <td class="dim">2024</td>
-              <td class="dim">12</td>
+              <td class="dim opt">2024</td>
+              <td class="dim opt">12</td>
               <td class="name">Mangondala</td>
               <td class="r">142.70</td>
-              <td class="r dim">204.00</td>
+              <td class="r dim opt">204.00</td>
               <td class="r big">61.30</td>
               <td>Jordan Addison</td>
-              <td class="r">29.5</td>
-              <td><span class="pill gold">Cost the game</span></td>
+              <td class="r opt">29.5</td>
+              <td class="opt"><span class="pill gold">Cost the game</span></td>
             </tr>
             <tr>
               <td class="rank">10</td>
-              <td class="dim">2021</td>
-              <td class="dim">17</td>
+              <td class="dim opt">2021</td>
+              <td class="dim opt">17</td>
               <td class="name">speixoto24</td>
               <td class="r">120.04</td>
-              <td class="r dim">181.27</td>
+              <td class="r dim opt">181.27</td>
               <td class="r big">61.23</td>
               <td>Rashaad Penny</td>
-              <td class="r">38.8</td>
-              <td></td>
+              <td class="r opt">38.8</td>
+              <td class="opt"></td>
             </tr>
           </tbody>
         </table>
@@ -3942,7 +4782,7 @@ html { scroll-behavior: smooth; }
 <section class="chapter" id="draft">
   <div class="wrap">
     <div class="chapter-head">
-      <div class="eyebrow">Chapter Five</div>
+      <div class="eyebrow">Chapter Six</div>
       <h2>The Draft</h2>
       <p class="lede">
         Judging a pick needs a fair baseline. Ranking a player's finish against the
@@ -3981,116 +4821,116 @@ html { scroll-behavior: smooth; }
         <div class="block-head"><h3>Steals</h3></div>
         <div class="scroll">
           <table class="sheet">
-            <thead><tr><th></th><th>Sea</th><th>Pick</th><th>Player</th><th>Pos</th>
-              <th class="r">Pts</th><th class="r">Exp</th><th class="r">+/−</th><th>Manager</th></tr></thead>
+            <thead><tr><th></th><th class="opt">Sea</th><th>Pick</th><th>Player</th><th class="opt">Pos</th>
+              <th class="r opt">Pts</th><th class="r opt">Exp</th><th class="r">+/−</th><th>Manager</th></tr></thead>
             <tbody>
               <tr>
                 <td class="rank">1</td>
-                <td class="dim">2021</td>
+                <td class="dim opt">2021</td>
                 <td class="dim">6.07</td>
                 <td class="name">Cooper Kupp</td>
-                <td class="dim">WR</td>
-                <td class="r">410</td>
-                <td class="r dim">174</td>
+                <td class="dim opt">WR</td>
+                <td class="r opt">410</td>
+                <td class="r dim opt">174</td>
                 <td class="r big">+237</td>
                 <td>StevetheDog</td>
               </tr>
               <tr>
                 <td class="rank">2</td>
-                <td class="dim">2022</td>
+                <td class="dim opt">2022</td>
                 <td class="dim">6.03</td>
                 <td class="name">Josh Jacobs</td>
-                <td class="dim">RB</td>
-                <td class="r">394</td>
-                <td class="r dim">186</td>
+                <td class="dim opt">RB</td>
+                <td class="r opt">394</td>
+                <td class="r dim opt">186</td>
                 <td class="r big">+209</td>
                 <td>kodikat</td>
               </tr>
               <tr>
                 <td class="rank">3</td>
-                <td class="dim">2021</td>
+                <td class="dim opt">2021</td>
                 <td class="dim">13.08</td>
                 <td class="name">Deebo Samuel</td>
-                <td class="dim">WR</td>
-                <td class="r">342</td>
-                <td class="r dim">135</td>
+                <td class="dim opt">WR</td>
+                <td class="r opt">342</td>
+                <td class="r dim opt">135</td>
                 <td class="r big">+207</td>
                 <td>Nickpapi69</td>
               </tr>
               <tr>
                 <td class="rank">4</td>
-                <td class="dim">2022</td>
+                <td class="dim opt">2022</td>
                 <td class="dim">15.10</td>
                 <td class="name">Jamaal Williams</td>
-                <td class="dim">RB</td>
-                <td class="r">286</td>
-                <td class="r dim">110</td>
+                <td class="dim opt">RB</td>
+                <td class="r opt">286</td>
+                <td class="r dim opt">110</td>
                 <td class="r big">+176</td>
                 <td>Cumball</td>
               </tr>
               <tr>
                 <td class="rank">5</td>
-                <td class="dim">2025</td>
+                <td class="dim opt">2025</td>
                 <td class="dim">17.10</td>
                 <td class="name">Matthew Stafford</td>
-                <td class="dim">QB</td>
-                <td class="r">399</td>
-                <td class="r dim">223</td>
+                <td class="dim opt">QB</td>
+                <td class="r opt">399</td>
+                <td class="r dim opt">223</td>
                 <td class="r big">+175</td>
                 <td>clappincheeks69</td>
               </tr>
               <tr>
                 <td class="rank">6</td>
-                <td class="dim">2023</td>
+                <td class="dim opt">2023</td>
                 <td class="dim">13.09</td>
                 <td class="name">Raheem Mostert</td>
-                <td class="dim">RB</td>
-                <td class="r">274</td>
-                <td class="r dim">108</td>
+                <td class="dim opt">RB</td>
+                <td class="r opt">274</td>
+                <td class="r dim opt">108</td>
                 <td class="r big">+167</td>
                 <td>Nickpapi69</td>
               </tr>
               <tr>
                 <td class="rank">7</td>
-                <td class="dim">2024</td>
+                <td class="dim opt">2024</td>
                 <td class="dim">12.02</td>
                 <td class="name">Baker Mayfield</td>
-                <td class="dim">QB</td>
-                <td class="r">425</td>
-                <td class="r dim">261</td>
+                <td class="dim opt">QB</td>
+                <td class="r opt">425</td>
+                <td class="r dim opt">261</td>
                 <td class="r big">+164</td>
                 <td>Mangondala</td>
               </tr>
               <tr>
                 <td class="rank">8</td>
-                <td class="dim">2024</td>
+                <td class="dim opt">2024</td>
                 <td class="dim">10.12</td>
                 <td class="name">Jayden Daniels</td>
-                <td class="dim">QB</td>
-                <td class="r">417</td>
-                <td class="r dim">258</td>
+                <td class="dim opt">QB</td>
+                <td class="r opt">417</td>
+                <td class="r dim opt">258</td>
                 <td class="r big">+158</td>
                 <td>Pxesto</td>
               </tr>
               <tr>
                 <td class="rank">9</td>
-                <td class="dim">2021</td>
+                <td class="dim opt">2021</td>
                 <td class="dim">6.01</td>
                 <td class="name">Mark Andrews</td>
-                <td class="dim">TE</td>
-                <td class="r">334</td>
-                <td class="r dim">184</td>
+                <td class="dim opt">TE</td>
+                <td class="r opt">334</td>
+                <td class="r dim opt">184</td>
                 <td class="r big">+151</td>
                 <td>Nickpapi69</td>
               </tr>
               <tr>
                 <td class="rank">10</td>
-                <td class="dim">2024</td>
+                <td class="dim opt">2024</td>
                 <td class="dim">11.11</td>
                 <td class="name">Brian Thomas</td>
-                <td class="dim">WR</td>
-                <td class="r">269</td>
-                <td class="r dim">124</td>
+                <td class="dim opt">WR</td>
+                <td class="r opt">269</td>
+                <td class="r dim opt">124</td>
                 <td class="r big">+145</td>
                 <td>Mangondala</td>
               </tr>
@@ -4102,116 +4942,116 @@ html { scroll-behavior: smooth; }
         <div class="block-head"><h3>Busts</h3></div>
         <div class="scroll">
           <table class="sheet">
-            <thead><tr><th></th><th>Sea</th><th>Pick</th><th>Player</th><th>Pos</th>
-              <th class="r">Pts</th><th class="r">Exp</th><th class="r">+/−</th><th>Manager</th></tr></thead>
+            <thead><tr><th></th><th class="opt">Sea</th><th>Pick</th><th>Player</th><th class="opt">Pos</th>
+              <th class="r opt">Pts</th><th class="r opt">Exp</th><th class="r">+/−</th><th>Manager</th></tr></thead>
             <tbody>
               <tr>
                 <td class="rank">1</td>
-                <td class="dim">2023</td>
+                <td class="dim opt">2023</td>
                 <td class="dim">1.02</td>
                 <td class="name">Nick Chubb</td>
-                <td class="dim">RB</td>
-                <td class="r">26</td>
-                <td class="r dim">272</td>
+                <td class="dim opt">RB</td>
+                <td class="r opt">26</td>
+                <td class="r dim opt">272</td>
                 <td class="r cool">-247</td>
                 <td>kodikat</td>
               </tr>
               <tr>
                 <td class="rank">2</td>
-                <td class="dim">2024</td>
+                <td class="dim opt">2024</td>
                 <td class="dim">1.01</td>
                 <td class="name">Christian McCaffrey</td>
-                <td class="dim">RB</td>
-                <td class="r">48</td>
-                <td class="r dim">275</td>
+                <td class="dim opt">RB</td>
+                <td class="r opt">48</td>
+                <td class="r dim opt">275</td>
                 <td class="r cool">-227</td>
                 <td>Pxesto</td>
               </tr>
               <tr>
                 <td class="rank">3</td>
-                <td class="dim">2025</td>
+                <td class="dim opt">2025</td>
                 <td class="dim">3.06</td>
                 <td class="name">Jayden Daniels</td>
-                <td class="dim">QB</td>
-                <td class="r">129</td>
-                <td class="r dim">332</td>
+                <td class="dim opt">QB</td>
+                <td class="r opt">129</td>
+                <td class="r dim opt">332</td>
                 <td class="r cool">-203</td>
                 <td>kodikat</td>
               </tr>
               <tr>
                 <td class="rank">4</td>
-                <td class="dim">2022</td>
+                <td class="dim opt">2022</td>
                 <td class="dim">3.03</td>
                 <td class="name">Javonte Williams</td>
-                <td class="dim">RB</td>
-                <td class="r">47</td>
-                <td class="r dim">249</td>
+                <td class="dim opt">RB</td>
+                <td class="r opt">47</td>
+                <td class="r dim opt">249</td>
                 <td class="r cool">-203</td>
                 <td>DicklesPickles</td>
               </tr>
               <tr>
                 <td class="rank">5</td>
-                <td class="dim">2024</td>
+                <td class="dim opt">2024</td>
                 <td class="dim">3.07</td>
                 <td class="name">Isiah Pacheco</td>
-                <td class="dim">RB</td>
-                <td class="r">59</td>
-                <td class="r dim">234</td>
+                <td class="dim opt">RB</td>
+                <td class="r opt">59</td>
+                <td class="r dim opt">234</td>
                 <td class="r cool">-174</td>
                 <td>kodikat</td>
               </tr>
               <tr>
                 <td class="rank">6</td>
-                <td class="dim">2025</td>
+                <td class="dim opt">2025</td>
                 <td class="dim">3.12</td>
                 <td class="name">Joe Burrow</td>
-                <td class="dim">QB</td>
-                <td class="r">153</td>
-                <td class="r dim">322</td>
+                <td class="dim opt">QB</td>
+                <td class="r opt">153</td>
+                <td class="r dim opt">322</td>
                 <td class="r cool">-169</td>
                 <td>DicklesPickles</td>
               </tr>
               <tr>
                 <td class="rank">7</td>
-                <td class="dim">2025</td>
+                <td class="dim opt">2025</td>
                 <td class="dim">1.12</td>
                 <td class="name">Malik Nabers</td>
-                <td class="dim">WR</td>
-                <td class="r">54</td>
-                <td class="r dim">212</td>
+                <td class="dim opt">WR</td>
+                <td class="r opt">54</td>
+                <td class="r dim opt">212</td>
                 <td class="r cool">-158</td>
                 <td>DicklesPickles</td>
               </tr>
               <tr>
                 <td class="rank">8</td>
-                <td class="dim">2025</td>
+                <td class="dim opt">2025</td>
                 <td class="dim">2.12</td>
                 <td class="name">Tyreek Hill</td>
-                <td class="dim">WR</td>
-                <td class="r">51</td>
-                <td class="r dim">206</td>
+                <td class="dim opt">WR</td>
+                <td class="r opt">51</td>
+                <td class="r dim opt">206</td>
                 <td class="r cool">-154</td>
                 <td>Cumball</td>
               </tr>
               <tr>
                 <td class="rank">9</td>
-                <td class="dim">2023</td>
+                <td class="dim opt">2023</td>
                 <td class="dim">3.11</td>
                 <td class="name">Joe Burrow</td>
-                <td class="dim">QB</td>
-                <td class="r">174</td>
-                <td class="r dim">322</td>
+                <td class="dim opt">QB</td>
+                <td class="r opt">174</td>
+                <td class="r dim opt">322</td>
                 <td class="r cool">-148</td>
                 <td>DicklesPickles</td>
               </tr>
               <tr>
                 <td class="rank">10</td>
-                <td class="dim">2024</td>
+                <td class="dim opt">2024</td>
                 <td class="dim">2.06</td>
                 <td class="name">Brandon Aiyuk</td>
-                <td class="dim">WR</td>
-                <td class="r">60</td>
-                <td class="r dim">204</td>
+                <td class="dim opt">WR</td>
+                <td class="r opt">60</td>
+                <td class="r dim opt">204</td>
                 <td class="r cool">-145</td>
                 <td>kodikat</td>
               </tr>
@@ -4469,175 +5309,175 @@ html { scroll-behavior: smooth; }
       </div>
       <div class="scroll">
         <table class="sheet">
-          <thead><tr><th>Manager</th><th class="r">Drafts</th><th>Round 1 goes</th><th>Rounds 1–5 mix</th><th class="r">First QB</th></tr></thead>
+          <thead><tr><th>Manager</th><th class="r opt">Drafts</th><th>Round 1 goes</th><th class="opt">Rounds 1–5 mix</th><th class="r">First QB</th></tr></thead>
           <tbody>
             <tr>
               <td class="name">Pxesto</td>
-              <td class="r dim">5</td>
+              <td class="r dim opt">5</td>
               <td>
                 <span class="pill">RB ×2</span>
                 <span class="pill gold">WR ×3</span>
               </td>
-              <td class="dim">
+              <td class="dim opt">
 WR 44% · RB 40% · QB 8% · TE 8%              </td>
               <td class="r">R8.4</td>
             </tr>
             <tr>
               <td class="name">datboyp</td>
-              <td class="r dim">5</td>
+              <td class="r dim opt">5</td>
               <td>
                 <span class="pill gold">RB ×3</span>
                 <span class="pill">WR ×2</span>
               </td>
-              <td class="dim">
+              <td class="dim opt">
 WR 52% · RB 24% · QB 12% · TE 12%              </td>
               <td class="r">R5.6</td>
             </tr>
             <tr>
               <td class="name">Mangondala</td>
-              <td class="r dim">5</td>
+              <td class="r dim opt">5</td>
               <td>
                 <span class="pill gold">RB ×3</span>
                 <span class="pill">WR ×2</span>
               </td>
-              <td class="dim">
+              <td class="dim opt">
 RB 32% · WR 32% · TE 20% · QB 16%              </td>
               <td class="r">R4.6</td>
             </tr>
             <tr>
               <td class="name">Nickpapi69</td>
-              <td class="r dim">5</td>
+              <td class="r dim opt">5</td>
               <td>
                 <span class="pill gold">RB ×3</span>
                 <span class="pill">WR ×2</span>
               </td>
-              <td class="dim">
+              <td class="dim opt">
 WR 44% · RB 36% · QB 12% · TE 8%              </td>
               <td class="r">R4.6</td>
             </tr>
             <tr>
               <td class="name">GmanToTuff</td>
-              <td class="r dim">5</td>
+              <td class="r dim opt">5</td>
               <td>
                 <span class="pill">RB ×2</span>
                 <span class="pill gold">WR ×3</span>
               </td>
-              <td class="dim">
+              <td class="dim opt">
 WR 40% · RB 32% · QB 16% · TE 12%              </td>
               <td class="r">R4.2</td>
             </tr>
             <tr>
               <td class="name">Cumball</td>
-              <td class="r dim">5</td>
+              <td class="r dim opt">5</td>
               <td>
                 <span class="pill gold">RB ×3</span>
                 <span class="pill">WR ×2</span>
               </td>
-              <td class="dim">
+              <td class="dim opt">
 WR 40% · RB 32% · QB 16% · TE 12%              </td>
               <td class="r">R4.2</td>
             </tr>
             <tr>
               <td class="name">StevetheDog</td>
-              <td class="r dim">4</td>
+              <td class="r dim opt">4</td>
               <td>
                 <span class="pill gold">RB ×4</span>
               </td>
-              <td class="dim">
+              <td class="dim opt">
 RB 40% · WR 40% · TE 10% · QB 10%              </td>
               <td class="r">R5.2</td>
             </tr>
             <tr>
               <td class="name">DicklesPickles</td>
-              <td class="r dim">4</td>
+              <td class="r dim opt">4</td>
               <td>
                 <span class="pill gold">RB ×2</span>
                 <span class="pill">WR ×2</span>
               </td>
-              <td class="dim">
+              <td class="dim opt">
 WR 40% · RB 30% · TE 15% · QB 15%              </td>
               <td class="r">R4.0</td>
             </tr>
             <tr>
               <td class="name">kodikat</td>
-              <td class="r dim">4</td>
+              <td class="r dim opt">4</td>
               <td>
                 <span class="pill gold">WR ×3</span>
                 <span class="pill">RB ×1</span>
               </td>
-              <td class="dim">
+              <td class="dim opt">
 WR 50% · RB 35% · QB 10% · TE 5%              </td>
               <td class="r">R7.0</td>
             </tr>
             <tr>
               <td class="name">Cadengetdabag</td>
-              <td class="r dim">3</td>
+              <td class="r dim opt">3</td>
               <td>
                 <span class="pill">TE ×1</span>
                 <span class="pill gold">RB ×2</span>
               </td>
-              <td class="dim">
+              <td class="dim opt">
 WR 33% · RB 33% · QB 20% · TE 13%              </td>
               <td class="r">R2.7</td>
             </tr>
             <tr>
               <td class="name">Huntermeek4</td>
-              <td class="r dim">3</td>
+              <td class="r dim opt">3</td>
               <td>
                 <span class="pill gold">RB ×2</span>
                 <span class="pill">WR ×1</span>
               </td>
-              <td class="dim">
+              <td class="dim opt">
 WR 47% · RB 33% · TE 13% · QB 7%              </td>
               <td class="r">R5.7</td>
             </tr>
             <tr>
               <td class="name">echenozz</td>
-              <td class="r dim">2</td>
+              <td class="r dim opt">2</td>
               <td>
                 <span class="pill gold">WR ×2</span>
               </td>
-              <td class="dim">
+              <td class="dim opt">
 WR 50% · RB 30% · TE 10% · QB 10%              </td>
               <td class="r">R7.5</td>
             </tr>
             <tr>
               <td class="name">clappincheeks69</td>
-              <td class="r dim">1</td>
+              <td class="r dim opt">1</td>
               <td>
                 <span class="pill gold">WR ×1</span>
               </td>
-              <td class="dim">
+              <td class="dim opt">
 WR 60% · RB 40%              </td>
               <td class="r">R6.0</td>
             </tr>
             <tr>
               <td class="name">ProfessorSell</td>
-              <td class="r dim">1</td>
+              <td class="r dim opt">1</td>
               <td>
                 <span class="pill gold">RB ×1</span>
               </td>
-              <td class="dim">
+              <td class="dim opt">
 WR 60% · RB 40%              </td>
               <td class="r">R8.0</td>
             </tr>
             <tr>
               <td class="name">speixoto24</td>
-              <td class="r dim">1</td>
+              <td class="r dim opt">1</td>
               <td>
                 <span class="pill gold">RB ×1</span>
               </td>
-              <td class="dim">
+              <td class="dim opt">
 RB 60% · WR 20% · TE 20%              </td>
               <td class="r">R8.0</td>
             </tr>
             <tr>
               <td class="name">emcwill12</td>
-              <td class="r dim">1</td>
+              <td class="r dim opt">1</td>
               <td>
                 <span class="pill gold">RB ×1</span>
               </td>
-              <td class="dim">
+              <td class="dim opt">
 RB 40% · WR 40% · QB 20%              </td>
               <td class="r">R4.0</td>
             </tr>
@@ -4652,7 +5492,7 @@ RB 40% · WR 40% · QB 20%              </td>
 <section class="chapter" id="waivers">
   <div class="wrap">
     <div class="chapter-head">
-      <div class="eyebrow">Chapter Six</div>
+      <div class="eyebrow">Chapter Seven</div>
       <h2>The Wire</h2>
       <p class="lede">
         FAAB is $1000 a season, which makes the bids legible: an
@@ -5055,14 +5895,14 @@ RB 40% · WR 40% · QB 20%              </td>
       </div>
       <div class="scroll">
         <table class="sheet">
-          <thead><tr><th></th><th>Manager</th><th class="r">Moves/season</th><th class="r">Total</th><th class="r">Seasons</th><th class="r">Trades</th></tr></thead>
+          <thead><tr><th></th><th>Manager</th><th class="r">Moves/season</th><th class="r">Total</th><th class="r opt">Seasons</th><th class="r">Trades</th></tr></thead>
           <tbody>
             <tr>
               <td class="rank">1</td>
               <td class="name">Pxesto</td>
               <td class="r big">72.4</td>
               <td class="r">362</td>
-              <td class="r dim">5</td>
+              <td class="r dim opt">5</td>
               <td class="r">18</td>
             </tr>
             <tr>
@@ -5070,7 +5910,7 @@ RB 40% · WR 40% · QB 20%              </td>
               <td class="name">datboyp</td>
               <td class="r big">67.8</td>
               <td class="r">339</td>
-              <td class="r dim">5</td>
+              <td class="r dim opt">5</td>
               <td class="r">16</td>
             </tr>
             <tr>
@@ -5078,7 +5918,7 @@ RB 40% · WR 40% · QB 20%              </td>
               <td class="name">speixoto24</td>
               <td class="r big">60.0</td>
               <td class="r">60</td>
-              <td class="r dim">1</td>
+              <td class="r dim opt">1</td>
               <td class="r">3</td>
             </tr>
             <tr>
@@ -5086,7 +5926,7 @@ RB 40% · WR 40% · QB 20%              </td>
               <td class="name">ProfessorSell</td>
               <td class="r big">45.0</td>
               <td class="r">45</td>
-              <td class="r dim">1</td>
+              <td class="r dim opt">1</td>
               <td class="r">3</td>
             </tr>
             <tr>
@@ -5094,7 +5934,7 @@ RB 40% · WR 40% · QB 20%              </td>
               <td class="name">Nickpapi69</td>
               <td class="r big">32.6</td>
               <td class="r">163</td>
-              <td class="r dim">5</td>
+              <td class="r dim opt">5</td>
               <td class="r">16</td>
             </tr>
             <tr>
@@ -5102,7 +5942,7 @@ RB 40% · WR 40% · QB 20%              </td>
               <td class="name">kodikat</td>
               <td class="r big">26.5</td>
               <td class="r">106</td>
-              <td class="r dim">4</td>
+              <td class="r dim opt">4</td>
               <td class="r">7</td>
             </tr>
             <tr>
@@ -5110,7 +5950,7 @@ RB 40% · WR 40% · QB 20%              </td>
               <td class="name">Mangondala</td>
               <td class="r big">25.6</td>
               <td class="r">128</td>
-              <td class="r dim">5</td>
+              <td class="r dim opt">5</td>
               <td class="r">11</td>
             </tr>
             <tr>
@@ -5118,7 +5958,7 @@ RB 40% · WR 40% · QB 20%              </td>
               <td class="name">Cadengetdabag</td>
               <td class="r big">23.3</td>
               <td class="r">70</td>
-              <td class="r dim">3</td>
+              <td class="r dim opt">3</td>
               <td class="r">6</td>
             </tr>
             <tr>
@@ -5126,7 +5966,7 @@ RB 40% · WR 40% · QB 20%              </td>
               <td class="name">StevetheDog</td>
               <td class="r big">23.2</td>
               <td class="r">93</td>
-              <td class="r dim">4</td>
+              <td class="r dim opt">4</td>
               <td class="r">0</td>
             </tr>
             <tr>
@@ -5134,7 +5974,7 @@ RB 40% · WR 40% · QB 20%              </td>
               <td class="name">Cumball</td>
               <td class="r big">22.4</td>
               <td class="r">112</td>
-              <td class="r dim">5</td>
+              <td class="r dim opt">5</td>
               <td class="r">4</td>
             </tr>
             <tr>
@@ -5142,7 +5982,7 @@ RB 40% · WR 40% · QB 20%              </td>
               <td class="name">DicklesPickles</td>
               <td class="r big">20.8</td>
               <td class="r">83</td>
-              <td class="r dim">4</td>
+              <td class="r dim opt">4</td>
               <td class="r">1</td>
             </tr>
             <tr>
@@ -5150,7 +5990,7 @@ RB 40% · WR 40% · QB 20%              </td>
               <td class="name">Huntermeek4</td>
               <td class="r big">18.7</td>
               <td class="r">56</td>
-              <td class="r dim">3</td>
+              <td class="r dim opt">3</td>
               <td class="r">0</td>
             </tr>
             <tr>
@@ -5158,7 +5998,7 @@ RB 40% · WR 40% · QB 20%              </td>
               <td class="name">GmanToTuff</td>
               <td class="r big">14.2</td>
               <td class="r">71</td>
-              <td class="r dim">5</td>
+              <td class="r dim opt">5</td>
               <td class="r">11</td>
             </tr>
             <tr>
@@ -5166,7 +6006,7 @@ RB 40% · WR 40% · QB 20%              </td>
               <td class="name">clappincheeks69</td>
               <td class="r big">12.0</td>
               <td class="r">12</td>
-              <td class="r dim">1</td>
+              <td class="r dim opt">1</td>
               <td class="r">1</td>
             </tr>
             <tr>
@@ -5174,7 +6014,7 @@ RB 40% · WR 40% · QB 20%              </td>
               <td class="name">echenozz</td>
               <td class="r big">9.0</td>
               <td class="r">18</td>
-              <td class="r dim">2</td>
+              <td class="r dim opt">2</td>
               <td class="r">1</td>
             </tr>
             <tr>
@@ -5182,7 +6022,7 @@ RB 40% · WR 40% · QB 20%              </td>
               <td class="name">emcwill12</td>
               <td class="r big">4.0</td>
               <td class="r">4</td>
-              <td class="r dim">1</td>
+              <td class="r dim opt">1</td>
               <td class="r">0</td>
             </tr>
           </tbody>
@@ -5196,7 +6036,7 @@ RB 40% · WR 40% · QB 20%              </td>
 <section class="chapter" id="rivalries">
   <div class="wrap">
     <div class="chapter-head">
-      <div class="eyebrow">Chapter Seven</div>
+      <div class="eyebrow">Chapter Eight</div>
       <h2>Rivalries &amp; Villains</h2>
       <p class="lede">Who owns who, and which players have spent six years ruining
         specific people's weekends.</p>
@@ -5547,7 +6387,7 @@ RB 40% · WR 40% · QB 20%              </td>
 <section class="chapter" id="comedy">
   <div class="wrap">
     <div class="chapter-head">
-      <div class="eyebrow">Chapter Eight</div>
+      <div class="eyebrow">Chapter Nine</div>
       <h2>The Human Record</h2>
       <p class="lede">
         Sleeper quietly stores every player nickname a manager has ever set, in roster
