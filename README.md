@@ -104,3 +104,19 @@ uv run pytest
 
 They run against the real cached archive rather than fixtures, so they catch
 upstream data changes as well as regressions.
+
+## Publishing
+
+`uv run fwffl-annual` writes two copies of the same page:
+
+| File | For |
+|---|---|
+| `data/fwffl-annual.html` | Claude Artifacts, which supplies its own document skeleton |
+| `docs/index.html` | a complete standalone document, served by GitHub Pages |
+
+Pages serves `main` branch → `/docs`, so publishing an update is just
+`uv run fwffl-annual && git commit && git push`. The page carries real names, so
+it ships with `<meta name="robots" content="noindex, nofollow">` — shareable by
+link, kept out of search results. A `robots.txt` would not help here: crawlers
+only read the one at the domain root, which belongs to the user site rather than
+this repo.
