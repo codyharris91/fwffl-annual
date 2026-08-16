@@ -890,7 +890,8 @@ html { scroll-behavior: smooth; }
       <div class="tile">
         <div class="label">Lifers</div>
         <div class="stat-value">5</div>
-        <div class="sub">Pxesto, datboyp, Mangondala, Nickpapi69, GmanToTuff</div>
+        <div class="sub">present all 6 seasons:
+          Pxesto, datboyp, Mangondala, Nickpapi69, GmanToTuff</div>
       </div>
       <div class="tile">
         <div class="label">League size</div>
@@ -1147,7 +1148,9 @@ html { scroll-behavior: smooth; }
     <div class="block">
       <div class="block-head">
         <h3>Season by Season</h3>
-        <p class="note">Official standings, including median-match results from 2022 onward.</p>
+        <p class="note">Official standings, including median-match results from
+          2022 onward. <b>Eff</b> is points scored as a
+          share of the best lineup that roster could have started all season.</p>
       </div>
       <div class="grid-2">
         <div>
@@ -1781,8 +1784,9 @@ html { scroll-behavior: smooth; }
     <div class="block">
       <div class="block-head">
         <h3>Playoff Record</h3>
-        <p class="note">Appearances against seasons eligible. Drought counts completed
-          seasons since a manager last reached the bracket.</p>
+        <p class="note">Appearances out of the seasons each manager actually played,
+          so a two-year manager is not judged against a six-year one.
+          <b>Drought</b> counts completed seasons since they last reached the bracket.</p>
       </div>
       <div class="scroll">
         <table class="sheet">
@@ -1990,8 +1994,10 @@ html { scroll-behavior: smooth; }
     <div class="block">
       <div class="block-head">
         <h3>The Luck Index</h3>
-        <p class="note">Actual win% minus all-play win%, regular season only.
-          Warm bars won more than they deserved; cool bars less.</p>
+        <p class="note">Actual win% minus all-play win%, in percentage points,
+          regular season only. Warm bars won more than they deserved; cool bars
+          less. <b>Wins swing</b> converts that into whole games — how many wins
+          the schedule handed over or took away.</p>
       </div>
       <div class="diverge">
   <div class="diverge-row">
@@ -2668,9 +2674,12 @@ html { scroll-behavior: smooth; }
     <div class="block">
       <div class="block-head">
         <h3>Two Ledgers</h3>
-        <p class="note">Every manager keeps two records at once. A positive rescue
-          means they scored better than their matchups showed, and the median game
-          handed back wins the schedule had taken.</p>
+        <p class="note">Every manager keeps two records at once. <b>Median%</b> is
+          the share of weeks they outscored the league median; <b>H2H%</b> is the
+          share of matchups they won. <b>Rescue</b> is the gap between them in
+          percentage points — positive means they scored better than their
+          matchups showed, and the median game handed back wins the schedule had
+          taken.</p>
       </div>
       <div class="scroll">
         <table class="sheet">
@@ -2984,8 +2993,11 @@ in              </span>
     <div class="block">
       <div class="block-head">
         <h3>How Each Week Broke</h3>
-        <p class="note">Sweeps won both games; wipeouts lost both. Rescued means the
-          matchup was lost but the median still paid — the whole point of the format.</p>
+        <p class="note">Each week is two games, so it can break four ways.
+          <b>Swept</b> won both; <b>wiped</b> lost both. <b>Rescued</b> lost the
+          matchup but still cleared the median — the whole point of the format.
+          <b>Flattered</b> is the reverse: the matchup was won on a score that
+          did not beat the median.</p>
       </div>
       <div class="scroll">
         <table class="sheet">
@@ -3297,7 +3309,8 @@ in              </span>
       <div>
         <div class="block-head">
           <h3>Where the Bar Has Sat</h3>
-          <p class="note">The weekly median, by season.</p>
+          <p class="note">The score you had to beat to win the median game,
+            averaged across each season's weeks.</p>
         </div>
         <table class="sheet">
           <thead><tr><th>Season</th><th class="r">Average</th><th class="r">Lowest</th>
@@ -3337,7 +3350,9 @@ in              </span>
       <div>
         <div class="block-head">
           <h3>Distance From Average</h3>
-          <p class="note">Mean points above or below the median line each week.</p>
+          <p class="note">Average points above or below the median line each week.
+            <b>Spread</b> is how much that margin swings week to week — a low
+            number means reliably that far from average.</p>
         </div>
         <table class="sheet">
           <thead><tr><th>Manager</th><th class="r">Margin</th><th class="r opt">Spread</th></tr></thead>
@@ -3430,7 +3445,8 @@ in              </span>
     <div class="chapter-head">
       <div class="eyebrow">Chapter Four</div>
       <h2>The Record Book</h2>
-      <p class="lede">The numbers that still stand.</p>
+      <p class="lede">The high and low marks of six seasons — the scores that still
+        stand, and the ones nobody wants their name against.</p>
     </div>
 
     <div class="tiles">
@@ -3677,7 +3693,11 @@ in              </span>
     </div>
 
     <div class="block">
-      <div class="block-head"><h3>Biggest Individual Performances</h3></div>
+      <div class="block-head">
+        <h3>Biggest Individual Performances</h3>
+        <p class="note">The best weeks any single player has put up while on a roster
+          in this league. A <b>benched</b> tag means their manager did not start them.</p>
+      </div>
       <div class="scroll">
         <table class="sheet">
           <thead>
@@ -3801,8 +3821,9 @@ in              </span>
     <div class="block">
       <div class="block-head">
         <h3>Scoring Range</h3>
-        <p class="note">Floor to ceiling across every regular-season week, with the
-          average marked. Regular season only.</p>
+        <p class="note">Each bar runs from a manager's worst regular-season week to
+          their best, with the gold dot marking their average. A long bar is a team
+          you could not predict week to week.</p>
       </div>
       <div class="range-row">
         <div class="who" style="font-family:var(--display);font-stretch:condensed;font-weight:700;text-transform:uppercase;font-size:0.85rem">DicklesPickles</div>
@@ -4034,7 +4055,8 @@ in              </span>
       <div>
         <div class="block-head">
           <h3>Weekly Crowns</h3>
-          <p class="note">Weeks as the league's top scorer.</p>
+          <p class="note">Weeks as the league's top scorer, and how often that is —
+            which matters when managers have played very different numbers of weeks.</p>
         </div>
         <table class="sheet">
           <thead><tr><th>Manager</th><th class="r">Highs</th><th class="r">Rate</th></tr></thead>
@@ -4090,7 +4112,8 @@ in              </span>
     <div class="block">
       <div class="block-head">
         <h3>Fast Starters &amp; Closers</h3>
-        <p class="note">Second-half scoring average minus first-half, regular season.</p>
+        <p class="note">Average score over the back half of the regular season minus
+          the front half. Warm bars finish stronger than they start; cool bars fade.</p>
       </div>
       <div class="diverge">
   <div class="diverge-row">
@@ -4460,8 +4483,9 @@ in              </span>
           </tbody>
         </table>
       </div>
-      <p class="note" style="margin-top:0.6rem">Meter runs 75–100%. "Perfect" weeks are
-        those where no better lineup existed.</p>
+      <p class="note" style="margin-top:0.6rem">The meter runs 75–100%, since nobody
+        lands below that. <b>Left/wk</b> is the average points stranded on the bench
+        each week. <b>Perfect</b> weeks are those where no better lineup existed.</p>
     </div>
 
     <div class="block">
@@ -4606,7 +4630,8 @@ in              </span>
         <div class="block-head">
           <h3>Coaching Losses</h3>
           <p class="note">Losses the manager's own best lineup would have won — decided
-            by the start/sit call, not the roster.</p>
+            by the start/sit call, not the roster. <b>Share</b> is how much of their
+            career losses these account for.</p>
         </div>
         <div class="scroll">
           <table class="sheet">
@@ -4791,13 +4816,19 @@ in              </span>
       <div class="tile">
         <div class="label">Best undrafted</div>
         <div class="stat-value">378</div>
-        <div class="sub">points from a player nobody drafted</div>
+        <div class="sub">Bo Nix · 2024 · went undrafted by all
+          12 teams</div>
       </div>
     </div>
 
     <div class="block">
       <div>
-        <div class="block-head"><h3>Steals</h3></div>
+        <div class="block-head">
+        <h3>Steals</h3>
+        <p class="note"><b>Pts</b> is what the player actually scored;
+          <b>Exp</b> is what that position normally returns at that pick.
+          The difference is the column that matters.</p>
+      </div>
         <div class="scroll">
           <table class="sheet">
             <thead><tr><th></th><th class="opt">Sea</th><th>Pick</th><th>Player</th><th class="opt">Pos</th>
@@ -5090,8 +5121,9 @@ in              </span>
       <div>
         <div class="block-head">
           <h3>The Best Player Nobody Drafted</h3>
-          <p class="note">Scored under this league's settings, including players no
-            team ever rostered.</p>
+          <p class="note">The highest scorer each season that all
+            12 managers passed on in the
+            draft. <b>Scooped by</b> is whoever later picked them up off waivers.</p>
         </div>
         <table class="sheet">
           <thead><tr><th>Season</th><th>Player</th><th>Pos</th><th class="r">Pts</th><th class="r">Finish</th><th>Scooped by</th></tr></thead>
@@ -5283,8 +5315,10 @@ in              </span>
     <div class="block">
       <div class="block-head">
         <h3>Draft DNA</h3>
-        <p class="note">Revealed habits: what they take in round one, how the first five
-          rounds break down, and when they finally take a quarterback.</p>
+        <p class="note">Revealed habits: what they take in round one, how the first
+          five rounds break down, and the round they finally take a quarterback,
+          averaged across their drafts — so <b>R4.6</b> means round four some years,
+          round five others.</p>
       </div>
       <div class="scroll">
         <table class="sheet">
@@ -5633,7 +5667,11 @@ RB 40% · WR 40% · QB 20%              </td>
 
     <div class="grid-2 block">
       <div>
-        <div class="block-head"><h3>Biggest Bids</h3></div>
+        <div class="block-head">
+          <h3>Biggest Bids</h3>
+          <p class="note">The bar is the share of that manager's whole
+            $1000 season budget, spent on one player.</p>
+        </div>
         <div class="scroll">
           <table class="sheet">
             <thead><tr><th></th><th>Sea</th><th>Wk</th><th>Manager</th><th>Player</th><th class="r">Bid</th><th style="width:20%"></th></tr></thead>
@@ -5646,8 +5684,8 @@ RB 40% · WR 40% · QB 20%              </td>
                 <td>De&#39;Von Achane</td>
                 <td class="r big">$820</td>
                 <td>
-                  <div class="meter" title="82.0% of season budget">
-                    <span style="width: 100.0%"></span>
+                  <div class="meter" title="82.0% of the season budget">
+                    <span style="width: 82.0%"></span>
                   </div>
                 </td>
               </tr>
@@ -5659,8 +5697,8 @@ RB 40% · WR 40% · QB 20%              </td>
                 <td>Isaac Guerendo</td>
                 <td class="r big">$701</td>
                 <td>
-                  <div class="meter" title="70.1% of season budget">
-                    <span style="width: 85.5%"></span>
+                  <div class="meter" title="70.1% of the season budget">
+                    <span style="width: 70.1%"></span>
                   </div>
                 </td>
               </tr>
@@ -5672,8 +5710,8 @@ RB 40% · WR 40% · QB 20%              </td>
                 <td>Isaiah Likely</td>
                 <td class="r big">$604</td>
                 <td>
-                  <div class="meter" title="60.4% of season budget">
-                    <span style="width: 73.7%"></span>
+                  <div class="meter" title="60.4% of the season budget">
+                    <span style="width: 60.4%"></span>
                   </div>
                 </td>
               </tr>
@@ -5685,8 +5723,8 @@ RB 40% · WR 40% · QB 20%              </td>
                 <td>Tyler Allgeier</td>
                 <td class="r big">$555</td>
                 <td>
-                  <div class="meter" title="55.5% of season budget">
-                    <span style="width: 67.7%"></span>
+                  <div class="meter" title="55.5% of the season budget">
+                    <span style="width: 55.5%"></span>
                   </div>
                 </td>
               </tr>
@@ -5698,8 +5736,8 @@ RB 40% · WR 40% · QB 20%              </td>
                 <td>Joshua Palmer</td>
                 <td class="r big">$550</td>
                 <td>
-                  <div class="meter" title="55.0% of season budget">
-                    <span style="width: 67.1%"></span>
+                  <div class="meter" title="55.0% of the season budget">
+                    <span style="width: 55.0%"></span>
                   </div>
                 </td>
               </tr>
@@ -5711,8 +5749,8 @@ RB 40% · WR 40% · QB 20%              </td>
                 <td>Tyrone Tracy</td>
                 <td class="r big">$515</td>
                 <td>
-                  <div class="meter" title="51.5% of season budget">
-                    <span style="width: 62.8%"></span>
+                  <div class="meter" title="51.5% of the season budget">
+                    <span style="width: 51.5%"></span>
                   </div>
                 </td>
               </tr>
@@ -5724,8 +5762,8 @@ RB 40% · WR 40% · QB 20%              </td>
                 <td>Darren Waller</td>
                 <td class="r big">$499</td>
                 <td>
-                  <div class="meter" title="49.9% of season budget">
-                    <span style="width: 60.9%"></span>
+                  <div class="meter" title="49.9% of the season budget">
+                    <span style="width: 49.9%"></span>
                   </div>
                 </td>
               </tr>
@@ -5737,8 +5775,8 @@ RB 40% · WR 40% · QB 20%              </td>
                 <td>Carson Steele</td>
                 <td class="r big">$420</td>
                 <td>
-                  <div class="meter" title="42.0% of season budget">
-                    <span style="width: 51.2%"></span>
+                  <div class="meter" title="42.0% of the season budget">
+                    <span style="width: 42.0%"></span>
                   </div>
                 </td>
               </tr>
@@ -5750,8 +5788,8 @@ RB 40% · WR 40% · QB 20%              </td>
                 <td>Andrei Iosivas</td>
                 <td class="r big">$420</td>
                 <td>
-                  <div class="meter" title="42.0% of season budget">
-                    <span style="width: 51.2%"></span>
+                  <div class="meter" title="42.0% of the season budget">
+                    <span style="width: 42.0%"></span>
                   </div>
                 </td>
               </tr>
@@ -5763,8 +5801,8 @@ RB 40% · WR 40% · QB 20%              </td>
                 <td>Jerome Ford</td>
                 <td class="r big">$400</td>
                 <td>
-                  <div class="meter" title="40.0% of season budget">
-                    <span style="width: 48.8%"></span>
+                  <div class="meter" title="40.0% of the season budget">
+                    <span style="width: 40.0%"></span>
                   </div>
                 </td>
               </tr>
@@ -5775,7 +5813,8 @@ RB 40% · WR 40% · QB 20%              </td>
       <div>
         <div class="block-head">
           <h3>The One That Got Away</h3>
-          <p class="note">Players dropped, and what they scored afterwards.</p>
+          <p class="note">Players cut loose, and what they went on to score over the
+            rest of that same season for somebody else.</p>
         </div>
         <div class="scroll">
           <table class="sheet">
@@ -5870,7 +5909,8 @@ RB 40% · WR 40% · QB 20%              </td>
     <div class="block">
       <div class="block-head">
         <h3>Who Works the Wire</h3>
-        <p class="note">Completed adds and claims per season, plus career trades.</p>
+        <p class="note">Successful waiver claims and free-agent adds, averaged per
+          season so short tenures compare fairly. Failed bids are not counted.</p>
       </div>
       <div class="scroll">
         <table class="sheet">
@@ -6025,7 +6065,8 @@ RB 40% · WR 40% · QB 20%              </td>
       <div>
         <div class="block-head">
           <h3>Ownership</h3>
-          <p class="note">Minimum 5 meetings.</p>
+          <p class="note">Ranked by how lopsided the head-to-head record is, among
+            pairs who have met at least five times.</p>
         </div>
         <table class="sheet">
           <thead><tr><th></th><th>Manager</th><th></th><th>Victim</th><th class="r">Record</th></tr></thead>
@@ -6953,7 +6994,11 @@ RB 40% · WR 40% · QB 20%              </td>
     </div>
 
     <div class="block">
-      <div class="block-head"><h3>Aged Poorly</h3></div>
+      <div class="block-head">
+        <h3>Aged Poorly</h3>
+        <p class="note">Team names that claimed a championship the record does not
+          support.</p>
+      </div>
       <div class="cards">
         <div class="card">
           <h4>“24’ 25’ Champ”</h4>
@@ -7457,8 +7502,9 @@ Finals lost: 2.          </p>
     <div class="block">
       <div class="block-head">
         <h3>The Wall of Shame</h3>
-        <p class="note">Worst seasons on record, with the official result string —
-          gold is a win, including the weekly game against the league median.</p>
+        <p class="note">Worst seasons on record, with Sleeper's own result string —
+          gold is a win. From 2022 it runs two marks per week,
+          the matchup then the median game, so a 14-week season leaves 28 marks.</p>
       </div>
       <div class="scroll">
         <table class="sheet">
@@ -7559,7 +7605,11 @@ Finals lost: 2.          </p>
 
     <div class="grid-2 block">
       <div>
-        <div class="block-head"><h3>Longest Losing Streaks</h3></div>
+        <div class="block-head">
+          <h3>Longest Losing Streaks</h3>
+          <p class="note">Consecutive matchups within one season. The median game
+            is not counted here.</p>
+        </div>
         <table class="sheet">
           <thead><tr><th>Season</th><th>Manager</th><th class="r">Straight losses</th></tr></thead>
           <tbody>
