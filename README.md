@@ -82,7 +82,18 @@ attribution.
 
 The unit is the **started point**, not the rostered point. A great pickup nobody
 starts delivered nothing, and using bench points would let a deep bench outrank a
-winning lineup.
+winning lineup. This is load-bearing rather than pedantic — several trade hauls
+lose a third of their raw output to it, and `tests/test_acquisition.py` asserts
+that no benched week ever carries a point.
+
+**FAAB is tradeable here**, and $910 of it has changed hands across eight deals.
+It is reported per side but never converted into points, because turning a waiver
+budget into scoring requires a claim that may never be made. That forces a second
+rule: where one side received *only* budget, the deal is a **cash sale** and sits
+outside the win-loss record. Scoring it on points alone would charge the seller
+for everyone he sent out while treating his actual return as nothing — which had
+Pxesto, the league's FAAB dealer at +$600, looking far worse as a trader than the
+record supports.
 
 One distinction the page turns on: "a bad draft" means two different things.
 `draft_value_rank` asks whether the picks were good; `draft_rank` asks how much of

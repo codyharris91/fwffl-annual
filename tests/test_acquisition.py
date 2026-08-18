@@ -82,3 +82,51 @@ def test_waiver_hits_are_ordered_and_priced(payload):
     for row in payload["waivers"]["bargains"]:
         assert row["bid"] >= 25
         assert row["points_per_100"] == pytest.approx(row["points"] / row["bid"] * 100, abs=0.2)
+
+
+def test_trade_values_count_only_started_points(arc, tables, tagged, payload):
+    """Bench points must never reach a trade verdict.
+
+    A player who arrives and sits delivered nothing. This checks the published
+    side totals against a bench-inclusive recount and demands they differ — if
+    they matched, bench points would be leaking in somewhere.
+    """
+    assert (tagged[~tagged.started].points != 0).sum() == 0, "benched weeks carry points"
+
+    for deal in payload["trades"]:
+        for side in deal["sides"]:
+            haul = tagged[
+                (tagged.txn == deal["txn"])
+                & (tagged.roster_id == side["roster_id"])
+                & tagged.started
+            ]
+            # Published values are rounded to a tenth; bench leakage would be
+            # worth tens of points, so this tolerance still catches it.
+            assert side["points"] == pytest.approx(float(haul.points.sum()), abs=0.06)
+            assert side["starts"] == len(haul)
+
+
+def test_cash_deals_are_kept_out_of_the_win_loss_record(payload):
+    """A side paid in FAAB cannot be scored on points, so it is not a loss.
+
+    Without this, a manager who sells players for waiver budget is charged for
+    everyone he sent out while his actual return is invisible.
+    """
+    cash = [d for d in payload["trades"] if d["cash_deal"]]
+    assert cash, "expected some FAAB-only trades"
+    for deal in cash:
+        assert not deal["decisive"]
+        assert any(not side["received"] for side in deal["sides"])
+
+    for row in payload["trade_ledger"]:
+        assert row["scored"] + row["cash_deals"] == row["trades"]
+        assert row["won"] + row["lost"] + row["washes"] == row["scored"]
+
+
+def test_faab_in_trades_balances(payload):
+    """Every dollar sent in a trade is a dollar received."""
+    sent = sum(r["faab_out"] for r in payload["trade_ledger"])
+    got = sum(r["faab_in"] for r in payload["trade_ledger"])
+    assert sent == got
+    assert sum(r["faab_net"] for r in payload["trade_ledger"]) == 0
+    assert got == sum(d["faab_moved"] for d in payload["faab_trades"])

@@ -2227,7 +2227,9 @@
               }
             ],
             "points": 484.6,
-            "starts": 36
+            "starts": 36,
+            "faab_in": 0,
+            "faab_out": 0
           },
           {
             "roster_id": 8,
@@ -2251,14 +2253,18 @@
               }
             ],
             "points": 197.2,
-            "starts": 15
+            "starts": 15,
+            "faab_in": 0,
+            "faab_out": 0
           }
         ],
         "margin": 287.4,
         "total_points": 681.8,
         "decisive": true,
+        "cash_deal": false,
         "picks_involved": false,
         "faab_involved": false,
+        "faab_moved": 0,
         "players": 6
       },
       {
@@ -2283,7 +2289,9 @@
               }
             ],
             "points": 424.4,
-            "starts": 25
+            "starts": 25,
+            "faab_in": 0,
+            "faab_out": 0
           },
           {
             "roster_id": 11,
@@ -2302,14 +2310,18 @@
               }
             ],
             "points": 150.3,
-            "starts": 12
+            "starts": 12,
+            "faab_in": 0,
+            "faab_out": 0
           }
         ],
         "margin": 274.1,
         "total_points": 574.7,
         "decisive": true,
+        "cash_deal": false,
         "picks_involved": false,
         "faab_involved": false,
+        "faab_moved": 0,
         "players": 4
       },
       {
@@ -2334,7 +2346,9 @@
               }
             ],
             "points": 245.7,
-            "starts": 12
+            "starts": 12,
+            "faab_in": 0,
+            "faab_out": 0
           },
           {
             "roster_id": 3,
@@ -2348,14 +2362,18 @@
               }
             ],
             "points": 23.1,
-            "starts": 1
+            "starts": 1,
+            "faab_in": 0,
+            "faab_out": 0
           }
         ],
         "margin": 222.6,
         "total_points": 268.8,
         "decisive": true,
+        "cash_deal": false,
         "picks_involved": false,
         "faab_involved": false,
+        "faab_moved": 0,
         "players": 3
       },
       {
@@ -2380,7 +2398,9 @@
               }
             ],
             "points": 297.4,
-            "starts": 15
+            "starts": 15,
+            "faab_in": 0,
+            "faab_out": 0
           },
           {
             "roster_id": 4,
@@ -2399,14 +2419,18 @@
               }
             ],
             "points": 77.5,
-            "starts": 11
+            "starts": 11,
+            "faab_in": 0,
+            "faab_out": 0
           }
         ],
         "margin": 219.9,
         "total_points": 374.9,
         "decisive": true,
+        "cash_deal": false,
         "picks_involved": false,
         "faab_involved": false,
+        "faab_moved": 0,
         "players": 4
       },
       {
@@ -2426,7 +2450,9 @@
               }
             ],
             "points": 255.4,
-            "starts": 13
+            "starts": 13,
+            "faab_in": 0,
+            "faab_out": 0
           },
           {
             "roster_id": 2,
@@ -2440,14 +2466,18 @@
               }
             ],
             "points": 42.4,
-            "starts": 5
+            "starts": 5,
+            "faab_in": 0,
+            "faab_out": 0
           }
         ],
         "margin": 213.0,
         "total_points": 297.8,
         "decisive": true,
+        "cash_deal": false,
         "picks_involved": false,
         "faab_involved": false,
+        "faab_moved": 0,
         "players": 2
       },
       {
@@ -2467,7 +2497,9 @@
               }
             ],
             "points": 202.8,
-            "starts": 13
+            "starts": 13,
+            "faab_in": 0,
+            "faab_out": 100
           },
           {
             "roster_id": 8,
@@ -2475,14 +2507,18 @@
             "manager": "datboyp",
             "received": [],
             "points": 0.0,
-            "starts": 0
+            "starts": 0,
+            "faab_in": 100,
+            "faab_out": 0
           }
         ],
         "margin": 202.8,
         "total_points": 202.8,
-        "decisive": true,
+        "decisive": false,
+        "cash_deal": true,
         "picks_involved": false,
         "faab_involved": true,
+        "faab_moved": 100,
         "players": 1
       },
       {
@@ -2512,7 +2548,9 @@
               }
             ],
             "points": 485.7,
-            "starts": 32
+            "starts": 32,
+            "faab_in": 0,
+            "faab_out": 0
           },
           {
             "roster_id": 3,
@@ -2536,14 +2574,18 @@
               }
             ],
             "points": 294.0,
-            "starts": 27
+            "starts": 27,
+            "faab_in": 0,
+            "faab_out": 0
           }
         ],
         "margin": 191.7,
         "total_points": 779.7,
         "decisive": true,
+        "cash_deal": false,
         "picks_involved": false,
         "faab_involved": false,
+        "faab_moved": 0,
         "players": 6
       },
       {
@@ -2573,7 +2615,9 @@
               }
             ],
             "points": 387.2,
-            "starts": 26
+            "starts": 26,
+            "faab_in": 0,
+            "faab_out": 0
           },
           {
             "roster_id": 3,
@@ -2592,14 +2636,18 @@
               }
             ],
             "points": 206.5,
-            "starts": 16
+            "starts": 16,
+            "faab_in": 0,
+            "faab_out": 0
           }
         ],
         "margin": 180.7,
         "total_points": 593.7,
         "decisive": true,
+        "cash_deal": false,
         "picks_involved": false,
         "faab_involved": false,
+        "faab_moved": 0,
         "players": 5
       },
       {
@@ -2629,7 +2677,9 @@
               }
             ],
             "points": 411.1,
-            "starts": 19
+            "starts": 19,
+            "faab_in": 0,
+            "faab_out": 0
           },
           {
             "roster_id": 2,
@@ -2648,14 +2698,18 @@
               }
             ],
             "points": 233.6,
-            "starts": 15
+            "starts": 15,
+            "faab_in": 0,
+            "faab_out": 0
           }
         ],
         "margin": 177.5,
         "total_points": 644.7,
         "decisive": true,
+        "cash_deal": false,
         "picks_involved": false,
         "faab_involved": false,
+        "faab_moved": 0,
         "players": 5
       },
       {
@@ -2675,7 +2729,9 @@
               }
             ],
             "points": 162.1,
-            "starts": 11
+            "starts": 11,
+            "faab_in": 150,
+            "faab_out": 0
           },
           {
             "roster_id": 6,
@@ -2689,14 +2745,18 @@
               }
             ],
             "points": 5.2,
-            "starts": 1
+            "starts": 1,
+            "faab_in": 0,
+            "faab_out": 150
           }
         ],
         "margin": 156.9,
         "total_points": 167.3,
         "decisive": true,
+        "cash_deal": false,
         "picks_involved": false,
         "faab_involved": true,
+        "faab_moved": 150,
         "players": 2
       },
       {
@@ -2726,7 +2786,9 @@
               }
             ],
             "points": 740.8,
-            "starts": 46
+            "starts": 46,
+            "faab_in": 0,
+            "faab_out": 0
           },
           {
             "roster_id": 1,
@@ -2745,14 +2807,18 @@
               }
             ],
             "points": 601.6,
-            "starts": 29
+            "starts": 29,
+            "faab_in": 0,
+            "faab_out": 0
           }
         ],
         "margin": 139.2,
         "total_points": 1342.4,
         "decisive": true,
+        "cash_deal": false,
         "picks_involved": false,
         "faab_involved": false,
+        "faab_moved": 0,
         "players": 5
       },
       {
@@ -2782,7 +2848,9 @@
               }
             ],
             "points": 356.7,
-            "starts": 18
+            "starts": 18,
+            "faab_in": 0,
+            "faab_out": 0
           },
           {
             "roster_id": 1,
@@ -2801,14 +2869,18 @@
               }
             ],
             "points": 227.5,
-            "starts": 15
+            "starts": 15,
+            "faab_in": 0,
+            "faab_out": 0
           }
         ],
         "margin": 129.2,
         "total_points": 584.2,
         "decisive": true,
+        "cash_deal": false,
         "picks_involved": false,
         "faab_involved": false,
+        "faab_moved": 0,
         "players": 5
       },
       {
@@ -2828,7 +2900,9 @@
               }
             ],
             "points": 230.5,
-            "starts": 14
+            "starts": 14,
+            "faab_in": 0,
+            "faab_out": 0
           },
           {
             "roster_id": 1,
@@ -2847,14 +2921,18 @@
               }
             ],
             "points": 102.8,
-            "starts": 10
+            "starts": 10,
+            "faab_in": 0,
+            "faab_out": 0
           }
         ],
         "margin": 127.7,
         "total_points": 333.3,
         "decisive": true,
+        "cash_deal": false,
         "picks_involved": false,
         "faab_involved": false,
+        "faab_moved": 0,
         "players": 3
       },
       {
@@ -2879,7 +2957,9 @@
               }
             ],
             "points": 333.6,
-            "starts": 15
+            "starts": 15,
+            "faab_in": 0,
+            "faab_out": 0
           },
           {
             "roster_id": 4,
@@ -2908,14 +2988,18 @@
               }
             ],
             "points": 207.2,
-            "starts": 17
+            "starts": 17,
+            "faab_in": 0,
+            "faab_out": 0
           }
         ],
         "margin": 126.4,
         "total_points": 540.8,
         "decisive": true,
+        "cash_deal": false,
         "picks_involved": false,
         "faab_involved": false,
+        "faab_moved": 0,
         "players": 6
       },
       {
@@ -2945,7 +3029,9 @@
               }
             ],
             "points": 273.3,
-            "starts": 20
+            "starts": 20,
+            "faab_in": 0,
+            "faab_out": 0
           },
           {
             "roster_id": 1,
@@ -2959,14 +3045,18 @@
               }
             ],
             "points": 150.9,
-            "starts": 13
+            "starts": 13,
+            "faab_in": 0,
+            "faab_out": 0
           }
         ],
         "margin": 122.4,
         "total_points": 424.2,
         "decisive": true,
+        "cash_deal": false,
         "picks_involved": false,
         "faab_involved": false,
+        "faab_moved": 0,
         "players": 4
       },
       {
@@ -2996,7 +3086,9 @@
               }
             ],
             "points": 206.2,
-            "starts": 15
+            "starts": 15,
+            "faab_in": 0,
+            "faab_out": 0
           },
           {
             "roster_id": 8,
@@ -3015,14 +3107,18 @@
               }
             ],
             "points": 85.7,
-            "starts": 12
+            "starts": 12,
+            "faab_in": 0,
+            "faab_out": 0
           }
         ],
         "margin": 120.5,
         "total_points": 291.9,
         "decisive": true,
+        "cash_deal": false,
         "picks_involved": false,
         "faab_involved": false,
+        "faab_moved": 0,
         "players": 5
       },
       {
@@ -3042,7 +3138,9 @@
               }
             ],
             "points": 126.6,
-            "starts": 6
+            "starts": 6,
+            "faab_in": 0,
+            "faab_out": 0
           },
           {
             "roster_id": 6,
@@ -3056,14 +3154,18 @@
               }
             ],
             "points": 9.8,
-            "starts": 1
+            "starts": 1,
+            "faab_in": 0,
+            "faab_out": 0
           }
         ],
         "margin": 116.8,
         "total_points": 136.4,
         "decisive": true,
+        "cash_deal": false,
         "picks_involved": false,
         "faab_involved": false,
+        "faab_moved": 0,
         "players": 2
       },
       {
@@ -3083,7 +3185,9 @@
               }
             ],
             "points": 146.7,
-            "starts": 8
+            "starts": 8,
+            "faab_in": 0,
+            "faab_out": 0
           },
           {
             "roster_id": 10,
@@ -3102,14 +3206,18 @@
               }
             ],
             "points": 49.5,
-            "starts": 5
+            "starts": 5,
+            "faab_in": 0,
+            "faab_out": 0
           }
         ],
         "margin": 97.2,
         "total_points": 196.2,
         "decisive": true,
+        "cash_deal": false,
         "picks_involved": false,
         "faab_involved": false,
+        "faab_moved": 0,
         "players": 3
       },
       {
@@ -3134,7 +3242,9 @@
               }
             ],
             "points": 315.7,
-            "starts": 22
+            "starts": 22,
+            "faab_in": 0,
+            "faab_out": 0
           },
           {
             "roster_id": 11,
@@ -3148,14 +3258,18 @@
               }
             ],
             "points": 219.2,
-            "starts": 12
+            "starts": 12,
+            "faab_in": 0,
+            "faab_out": 0
           }
         ],
         "margin": 96.5,
         "total_points": 534.9,
         "decisive": true,
+        "cash_deal": false,
         "picks_involved": false,
         "faab_involved": false,
+        "faab_moved": 0,
         "players": 3
       },
       {
@@ -3180,7 +3294,9 @@
               }
             ],
             "points": 145.7,
-            "starts": 20
+            "starts": 20,
+            "faab_in": 0,
+            "faab_out": 0
           },
           {
             "roster_id": 3,
@@ -3204,14 +3320,18 @@
               }
             ],
             "points": 59.8,
-            "starts": 8
+            "starts": 8,
+            "faab_in": 0,
+            "faab_out": 0
           }
         ],
         "margin": 85.9,
         "total_points": 205.5,
         "decisive": true,
+        "cash_deal": false,
         "picks_involved": false,
         "faab_involved": false,
+        "faab_moved": 0,
         "players": 5
       },
       {
@@ -3236,7 +3356,9 @@
               }
             ],
             "points": 163.2,
-            "starts": 9
+            "starts": 9,
+            "faab_in": 0,
+            "faab_out": 0
           },
           {
             "roster_id": 11,
@@ -3255,14 +3377,18 @@
               }
             ],
             "points": 77.4,
-            "starts": 7
+            "starts": 7,
+            "faab_in": 0,
+            "faab_out": 0
           }
         ],
         "margin": 85.8,
         "total_points": 240.6,
         "decisive": true,
+        "cash_deal": false,
         "picks_involved": false,
         "faab_involved": false,
+        "faab_moved": 0,
         "players": 4
       },
       {
@@ -3287,7 +3413,9 @@
               }
             ],
             "points": 84.8,
-            "starts": 6
+            "starts": 6,
+            "faab_in": 0,
+            "faab_out": 0
           },
           {
             "roster_id": 7,
@@ -3301,14 +3429,18 @@
               }
             ],
             "points": 0.0,
-            "starts": 0
+            "starts": 0,
+            "faab_in": 0,
+            "faab_out": 0
           }
         ],
         "margin": 84.8,
         "total_points": 84.8,
         "decisive": true,
+        "cash_deal": false,
         "picks_involved": false,
         "faab_involved": false,
+        "faab_moved": 0,
         "players": 3
       },
       {
@@ -3328,7 +3460,9 @@
               }
             ],
             "points": 73.0,
-            "starts": 7
+            "starts": 7,
+            "faab_in": 0,
+            "faab_out": 100
           },
           {
             "roster_id": 1,
@@ -3336,14 +3470,18 @@
             "manager": "Pxesto",
             "received": [],
             "points": 0.0,
-            "starts": 0
+            "starts": 0,
+            "faab_in": 100,
+            "faab_out": 0
           }
         ],
         "margin": 73.0,
         "total_points": 73.0,
-        "decisive": true,
+        "decisive": false,
+        "cash_deal": true,
         "picks_involved": false,
         "faab_involved": true,
+        "faab_moved": 100,
         "players": 1
       },
       {
@@ -3368,7 +3506,9 @@
               }
             ],
             "points": 131.6,
-            "starts": 13
+            "starts": 13,
+            "faab_in": 0,
+            "faab_out": 0
           },
           {
             "roster_id": 3,
@@ -3382,14 +3522,18 @@
               }
             ],
             "points": 67.7,
-            "starts": 6
+            "starts": 6,
+            "faab_in": 0,
+            "faab_out": 0
           }
         ],
         "margin": 63.9,
         "total_points": 199.3,
         "decisive": true,
+        "cash_deal": false,
         "picks_involved": false,
         "faab_involved": false,
+        "faab_moved": 0,
         "players": 3
       },
       {
@@ -3414,7 +3558,9 @@
               }
             ],
             "points": 114.8,
-            "starts": 8
+            "starts": 8,
+            "faab_in": 0,
+            "faab_out": 0
           },
           {
             "roster_id": 8,
@@ -3428,14 +3574,18 @@
               }
             ],
             "points": 53.6,
-            "starts": 4
+            "starts": 4,
+            "faab_in": 0,
+            "faab_out": 0
           }
         ],
         "margin": 61.2,
         "total_points": 168.4,
         "decisive": true,
+        "cash_deal": false,
         "picks_involved": false,
         "faab_involved": false,
+        "faab_moved": 0,
         "players": 3
       },
       {
@@ -3460,7 +3610,9 @@
               }
             ],
             "points": 106.0,
-            "starts": 11
+            "starts": 11,
+            "faab_in": 0,
+            "faab_out": 0
           },
           {
             "roster_id": 3,
@@ -3474,14 +3626,18 @@
               }
             ],
             "points": 47.3,
-            "starts": 4
+            "starts": 4,
+            "faab_in": 0,
+            "faab_out": 0
           }
         ],
         "margin": 58.7,
         "total_points": 153.3,
         "decisive": true,
+        "cash_deal": false,
         "picks_involved": false,
         "faab_involved": false,
+        "faab_moved": 0,
         "players": 3
       },
       {
@@ -3506,7 +3662,9 @@
               }
             ],
             "points": 119.2,
-            "starts": 11
+            "starts": 11,
+            "faab_in": 0,
+            "faab_out": 0
           },
           {
             "roster_id": 6,
@@ -3520,14 +3678,18 @@
               }
             ],
             "points": 60.8,
-            "starts": 4
+            "starts": 4,
+            "faab_in": 0,
+            "faab_out": 0
           }
         ],
         "margin": 58.4,
         "total_points": 180.0,
         "decisive": true,
+        "cash_deal": false,
         "picks_involved": false,
         "faab_involved": false,
+        "faab_moved": 0,
         "players": 3
       },
       {
@@ -3557,7 +3719,9 @@
               }
             ],
             "points": 350.6,
-            "starts": 21
+            "starts": 21,
+            "faab_in": 0,
+            "faab_out": 0
           },
           {
             "roster_id": 2,
@@ -3581,14 +3745,18 @@
               }
             ],
             "points": 293.5,
-            "starts": 26
+            "starts": 26,
+            "faab_in": 0,
+            "faab_out": 0
           }
         ],
         "margin": 57.1,
         "total_points": 644.1,
         "decisive": true,
+        "cash_deal": false,
         "picks_involved": false,
         "faab_involved": false,
+        "faab_moved": 0,
         "players": 6
       },
       {
@@ -3613,7 +3781,9 @@
               }
             ],
             "points": 232.4,
-            "starts": 17
+            "starts": 17,
+            "faab_in": 0,
+            "faab_out": 0
           },
           {
             "roster_id": 6,
@@ -3632,14 +3802,18 @@
               }
             ],
             "points": 176.4,
-            "starts": 15
+            "starts": 15,
+            "faab_in": 0,
+            "faab_out": 0
           }
         ],
         "margin": 56.0,
         "total_points": 408.8,
         "decisive": true,
+        "cash_deal": false,
         "picks_involved": false,
         "faab_involved": false,
+        "faab_moved": 0,
         "players": 4
       },
       {
@@ -3664,7 +3838,9 @@
               }
             ],
             "points": 216.9,
-            "starts": 21
+            "starts": 21,
+            "faab_in": 0,
+            "faab_out": 0
           },
           {
             "roster_id": 1,
@@ -3678,14 +3854,18 @@
               }
             ],
             "points": 162.6,
-            "starts": 11
+            "starts": 11,
+            "faab_in": 0,
+            "faab_out": 0
           }
         ],
         "margin": 54.3,
         "total_points": 379.5,
         "decisive": true,
+        "cash_deal": false,
         "picks_involved": false,
         "faab_involved": false,
+        "faab_moved": 0,
         "players": 3
       },
       {
@@ -3715,7 +3895,9 @@
               }
             ],
             "points": 600.5,
-            "starts": 39
+            "starts": 39,
+            "faab_in": 0,
+            "faab_out": 0
           },
           {
             "roster_id": 3,
@@ -3739,14 +3921,18 @@
               }
             ],
             "points": 551.8,
-            "starts": 29
+            "starts": 29,
+            "faab_in": 0,
+            "faab_out": 0
           }
         ],
         "margin": 48.7,
         "total_points": 1152.3,
         "decisive": true,
+        "cash_deal": false,
         "picks_involved": false,
         "faab_involved": false,
+        "faab_moved": 0,
         "players": 6
       },
       {
@@ -3771,7 +3957,9 @@
               }
             ],
             "points": 52.4,
-            "starts": 3
+            "starts": 3,
+            "faab_in": 0,
+            "faab_out": 0
           },
           {
             "roster_id": 7,
@@ -3785,14 +3973,18 @@
               }
             ],
             "points": 5.2,
-            "starts": 1
+            "starts": 1,
+            "faab_in": 0,
+            "faab_out": 0
           }
         ],
         "margin": 47.2,
         "total_points": 57.6,
         "decisive": true,
+        "cash_deal": false,
         "picks_involved": false,
         "faab_involved": false,
+        "faab_moved": 0,
         "players": 3
       },
       {
@@ -3812,7 +4004,9 @@
               }
             ],
             "points": 42.5,
-            "starts": 5
+            "starts": 5,
+            "faab_in": 0,
+            "faab_out": 50
           },
           {
             "roster_id": 1,
@@ -3820,14 +4014,18 @@
             "manager": "Pxesto",
             "received": [],
             "points": 0.0,
-            "starts": 0
+            "starts": 0,
+            "faab_in": 50,
+            "faab_out": 0
           }
         ],
         "margin": 42.5,
         "total_points": 42.5,
-        "decisive": true,
+        "decisive": false,
+        "cash_deal": true,
         "picks_involved": false,
         "faab_involved": true,
+        "faab_moved": 50,
         "players": 1
       },
       {
@@ -3847,7 +4045,9 @@
               }
             ],
             "points": 191.2,
-            "starts": 13
+            "starts": 13,
+            "faab_in": 0,
+            "faab_out": 0
           },
           {
             "roster_id": 1,
@@ -3861,14 +4061,18 @@
               }
             ],
             "points": 150.6,
-            "starts": 11
+            "starts": 11,
+            "faab_in": 0,
+            "faab_out": 0
           }
         ],
         "margin": 40.6,
         "total_points": 341.8,
         "decisive": true,
+        "cash_deal": false,
         "picks_involved": false,
         "faab_involved": false,
+        "faab_moved": 0,
         "players": 2
       },
       {
@@ -3888,7 +4092,9 @@
               }
             ],
             "points": 40.2,
-            "starts": 4
+            "starts": 4,
+            "faab_in": 0,
+            "faab_out": 100
           },
           {
             "roster_id": 1,
@@ -3896,14 +4102,18 @@
             "manager": "Pxesto",
             "received": [],
             "points": 0.0,
-            "starts": 0
+            "starts": 0,
+            "faab_in": 100,
+            "faab_out": 0
           }
         ],
         "margin": 40.2,
         "total_points": 40.2,
-        "decisive": true,
+        "decisive": false,
+        "cash_deal": true,
         "picks_involved": false,
         "faab_involved": true,
+        "faab_moved": 100,
         "players": 1
       },
       {
@@ -3923,7 +4133,9 @@
               }
             ],
             "points": 39.6,
-            "starts": 2
+            "starts": 2,
+            "faab_in": 0,
+            "faab_out": 60
           },
           {
             "roster_id": 8,
@@ -3931,14 +4143,18 @@
             "manager": "datboyp",
             "received": [],
             "points": 0.0,
-            "starts": 0
+            "starts": 0,
+            "faab_in": 60,
+            "faab_out": 0
           }
         ],
         "margin": 39.6,
         "total_points": 39.6,
         "decisive": false,
+        "cash_deal": true,
         "picks_involved": false,
         "faab_involved": true,
+        "faab_moved": 60,
         "players": 1
       },
       {
@@ -3958,7 +4174,9 @@
               }
             ],
             "points": 249.0,
-            "starts": 14
+            "starts": 14,
+            "faab_in": 0,
+            "faab_out": 0
           },
           {
             "roster_id": 1,
@@ -3977,14 +4195,18 @@
               }
             ],
             "points": 210.2,
-            "starts": 17
+            "starts": 17,
+            "faab_in": 0,
+            "faab_out": 0
           }
         ],
         "margin": 38.8,
         "total_points": 459.2,
         "decisive": false,
+        "cash_deal": false,
         "picks_involved": false,
         "faab_involved": false,
+        "faab_moved": 0,
         "players": 3
       },
       {
@@ -4004,7 +4226,9 @@
               }
             ],
             "points": 113.5,
-            "starts": 5
+            "starts": 5,
+            "faab_in": 0,
+            "faab_out": 0
           },
           {
             "roster_id": 9,
@@ -4023,14 +4247,18 @@
               }
             ],
             "points": 75.6,
-            "starts": 9
+            "starts": 9,
+            "faab_in": 0,
+            "faab_out": 0
           }
         ],
         "margin": 37.9,
         "total_points": 189.1,
         "decisive": false,
+        "cash_deal": false,
         "picks_involved": false,
         "faab_involved": false,
+        "faab_moved": 0,
         "players": 3
       },
       {
@@ -4055,7 +4283,9 @@
               }
             ],
             "points": 212.9,
-            "starts": 12
+            "starts": 12,
+            "faab_in": 0,
+            "faab_out": 0
           },
           {
             "roster_id": 3,
@@ -4074,14 +4304,18 @@
               }
             ],
             "points": 178.7,
-            "starts": 13
+            "starts": 13,
+            "faab_in": 0,
+            "faab_out": 0
           }
         ],
         "margin": 34.2,
         "total_points": 391.6,
         "decisive": false,
+        "cash_deal": false,
         "picks_involved": false,
         "faab_involved": false,
+        "faab_moved": 0,
         "players": 4
       },
       {
@@ -4106,7 +4340,9 @@
               }
             ],
             "points": 112.4,
-            "starts": 7
+            "starts": 7,
+            "faab_in": 0,
+            "faab_out": 0
           },
           {
             "roster_id": 3,
@@ -4125,14 +4361,18 @@
               }
             ],
             "points": 81.3,
-            "starts": 7
+            "starts": 7,
+            "faab_in": 0,
+            "faab_out": 0
           }
         ],
         "margin": 31.1,
         "total_points": 193.7,
         "decisive": false,
+        "cash_deal": false,
         "picks_involved": false,
         "faab_involved": false,
+        "faab_moved": 0,
         "players": 4
       },
       {
@@ -4172,7 +4412,9 @@
               }
             ],
             "points": 282.0,
-            "starts": 19
+            "starts": 19,
+            "faab_in": 0,
+            "faab_out": 0
           },
           {
             "roster_id": 1,
@@ -4186,14 +4428,18 @@
               }
             ],
             "points": 266.2,
-            "starts": 11
+            "starts": 11,
+            "faab_in": 0,
+            "faab_out": 0
           }
         ],
         "margin": 15.8,
         "total_points": 548.2,
         "decisive": false,
+        "cash_deal": false,
         "picks_involved": false,
         "faab_involved": false,
+        "faab_moved": 0,
         "players": 6
       },
       {
@@ -4223,7 +4469,9 @@
               }
             ],
             "points": 31.3,
-            "starts": 3
+            "starts": 3,
+            "faab_in": 0,
+            "faab_out": 0
           },
           {
             "roster_id": 1,
@@ -4237,14 +4485,18 @@
               }
             ],
             "points": 15.8,
-            "starts": 1
+            "starts": 1,
+            "faab_in": 0,
+            "faab_out": 0
           }
         ],
         "margin": 15.5,
         "total_points": 47.1,
         "decisive": false,
+        "cash_deal": false,
         "picks_involved": false,
         "faab_involved": false,
+        "faab_moved": 0,
         "players": 4
       },
       {
@@ -4264,7 +4516,9 @@
               }
             ],
             "points": 38.9,
-            "starts": 4
+            "starts": 4,
+            "faab_in": 0,
+            "faab_out": 0
           },
           {
             "roster_id": 1,
@@ -4283,14 +4537,18 @@
               }
             ],
             "points": 27.5,
-            "starts": 2
+            "starts": 2,
+            "faab_in": 0,
+            "faab_out": 0
           }
         ],
         "margin": 11.4,
         "total_points": 66.4,
         "decisive": false,
+        "cash_deal": false,
         "picks_involved": false,
         "faab_involved": false,
+        "faab_moved": 0,
         "players": 3
       },
       {
@@ -4315,7 +4573,9 @@
               }
             ],
             "points": 72.3,
-            "starts": 4
+            "starts": 4,
+            "faab_in": 0,
+            "faab_out": 0
           },
           {
             "roster_id": 3,
@@ -4329,14 +4589,18 @@
               }
             ],
             "points": 61.2,
-            "starts": 3
+            "starts": 3,
+            "faab_in": 0,
+            "faab_out": 0
           }
         ],
         "margin": 11.1,
         "total_points": 133.5,
         "decisive": false,
+        "cash_deal": false,
         "picks_involved": false,
         "faab_involved": false,
+        "faab_moved": 0,
         "players": 3
       },
       {
@@ -4356,7 +4620,9 @@
               }
             ],
             "points": 7.8,
-            "starts": 1
+            "starts": 1,
+            "faab_in": 0,
+            "faab_out": 100
           },
           {
             "roster_id": 1,
@@ -4364,14 +4630,18 @@
             "manager": "Pxesto",
             "received": [],
             "points": 0.0,
-            "starts": 0
+            "starts": 0,
+            "faab_in": 100,
+            "faab_out": 0
           }
         ],
         "margin": 7.8,
         "total_points": 7.8,
         "decisive": false,
+        "cash_deal": true,
         "picks_involved": false,
         "faab_involved": true,
+        "faab_moved": 100,
         "players": 1
       },
       {
@@ -4396,7 +4666,9 @@
               }
             ],
             "points": 58.4,
-            "starts": 9
+            "starts": 9,
+            "faab_in": 0,
+            "faab_out": 0
           },
           {
             "roster_id": 1,
@@ -4410,14 +4682,18 @@
               }
             ],
             "points": 52.5,
-            "starts": 6
+            "starts": 6,
+            "faab_in": 0,
+            "faab_out": 0
           }
         ],
         "margin": 5.9,
         "total_points": 110.9,
         "decisive": false,
+        "cash_deal": false,
         "picks_involved": false,
         "faab_involved": false,
+        "faab_moved": 0,
         "players": 3
       },
       {
@@ -4442,7 +4718,9 @@
               }
             ],
             "points": 0.0,
-            "starts": 0
+            "starts": 0,
+            "faab_in": 0,
+            "faab_out": 0
           },
           {
             "roster_id": 3,
@@ -4461,14 +4739,18 @@
               }
             ],
             "points": 0.0,
-            "starts": 0
+            "starts": 0,
+            "faab_in": 0,
+            "faab_out": 0
           }
         ],
         "margin": 0.0,
         "total_points": 0.0,
         "decisive": false,
+        "cash_deal": false,
         "picks_involved": false,
         "faab_involved": false,
+        "faab_moved": 0,
         "players": 4
       },
       {
@@ -4482,7 +4764,9 @@
             "manager": "Pxesto",
             "received": [],
             "points": 0.0,
-            "starts": 0
+            "starts": 0,
+            "faab_in": 250,
+            "faab_out": 0
           },
           {
             "roster_id": 2,
@@ -4496,14 +4780,18 @@
               }
             ],
             "points": 0.0,
-            "starts": 0
+            "starts": 0,
+            "faab_in": 0,
+            "faab_out": 250
           }
         ],
         "margin": 0.0,
         "total_points": 0.0,
         "decisive": false,
+        "cash_deal": true,
         "picks_involved": false,
         "faab_involved": true,
+        "faab_moved": 250,
         "players": 1
       },
       {
@@ -4523,7 +4811,9 @@
               }
             ],
             "points": 0.0,
-            "starts": 0
+            "starts": 0,
+            "faab_in": 0,
+            "faab_out": 0
           },
           {
             "roster_id": 10,
@@ -4542,41 +4832,376 @@
               }
             ],
             "points": 0.0,
-            "starts": 0
+            "starts": 0,
+            "faab_in": 0,
+            "faab_out": 0
           }
         ],
         "margin": 0.0,
         "total_points": 0.0,
         "decisive": false,
+        "cash_deal": false,
         "picks_involved": false,
         "faab_involved": false,
+        "faab_moved": 0,
         "players": 3
       }
     ],
-    "trade_ledger": [
+    "faab_trades": [
       {
-        "uid": "871109847192621056",
-        "manager": "kodikat",
-        "trades": 7,
-        "gained": 1027.8,
-        "surrendered": 643.8,
-        "won": 4,
-        "lost": 1,
-        "washes": 2,
-        "net": 384.0,
-        "net_per_trade": 54.9
+        "season": "2025",
+        "week": 1,
+        "txn": "1263296739717160960",
+        "sides": [
+          {
+            "roster_id": 10,
+            "uid": "871109847192621056",
+            "manager": "kodikat",
+            "received": [
+              {
+                "player": "Rico Dowdle",
+                "position": "RB",
+                "points": 202.8
+              }
+            ],
+            "points": 202.8,
+            "starts": 13,
+            "faab_in": 0,
+            "faab_out": 100
+          },
+          {
+            "roster_id": 8,
+            "uid": "728392183681548288",
+            "manager": "datboyp",
+            "received": [],
+            "points": 0.0,
+            "starts": 0,
+            "faab_in": 100,
+            "faab_out": 0
+          }
+        ],
+        "margin": 202.8,
+        "total_points": 202.8,
+        "decisive": false,
+        "cash_deal": true,
+        "picks_involved": false,
+        "faab_involved": true,
+        "faab_moved": 100,
+        "players": 1
       },
+      {
+        "season": "2024",
+        "week": 6,
+        "txn": "1150203531119644672",
+        "sides": [
+          {
+            "roster_id": 8,
+            "uid": "728392183681548288",
+            "manager": "datboyp",
+            "received": [
+              {
+                "player": "Mark Andrews",
+                "position": "TE",
+                "points": 162.1
+              }
+            ],
+            "points": 162.1,
+            "starts": 11,
+            "faab_in": 150,
+            "faab_out": 0
+          },
+          {
+            "roster_id": 6,
+            "uid": "739174898471157760",
+            "manager": "GmanToTuff",
+            "received": [
+              {
+                "player": "Isaiah Likely",
+                "position": "TE",
+                "points": 5.2
+              }
+            ],
+            "points": 5.2,
+            "starts": 1,
+            "faab_in": 0,
+            "faab_out": 150
+          }
+        ],
+        "margin": 156.9,
+        "total_points": 167.3,
+        "decisive": true,
+        "cash_deal": false,
+        "picks_involved": false,
+        "faab_involved": true,
+        "faab_moved": 150,
+        "players": 2
+      },
+      {
+        "season": "2024",
+        "week": 8,
+        "txn": "1155247794362548224",
+        "sides": [
+          {
+            "roster_id": 6,
+            "uid": "739174898471157760",
+            "manager": "GmanToTuff",
+            "received": [
+              {
+                "player": "Detroit Lions",
+                "position": "DEF",
+                "points": 73.0
+              }
+            ],
+            "points": 73.0,
+            "starts": 7,
+            "faab_in": 0,
+            "faab_out": 100
+          },
+          {
+            "roster_id": 1,
+            "uid": "727954847688630272",
+            "manager": "Pxesto",
+            "received": [],
+            "points": 0.0,
+            "starts": 0,
+            "faab_in": 100,
+            "faab_out": 0
+          }
+        ],
+        "margin": 73.0,
+        "total_points": 73.0,
+        "decisive": false,
+        "cash_deal": true,
+        "picks_involved": false,
+        "faab_involved": true,
+        "faab_moved": 100,
+        "players": 1
+      },
+      {
+        "season": "2023",
+        "week": 9,
+        "txn": "1026336582309150720",
+        "sides": [
+          {
+            "roster_id": 6,
+            "uid": "739174898471157760",
+            "manager": "GmanToTuff",
+            "received": [
+              {
+                "player": "Dalton Schultz",
+                "position": "TE",
+                "points": 42.5
+              }
+            ],
+            "points": 42.5,
+            "starts": 5,
+            "faab_in": 0,
+            "faab_out": 50
+          },
+          {
+            "roster_id": 1,
+            "uid": "727954847688630272",
+            "manager": "Pxesto",
+            "received": [],
+            "points": 0.0,
+            "starts": 0,
+            "faab_in": 50,
+            "faab_out": 0
+          }
+        ],
+        "margin": 42.5,
+        "total_points": 42.5,
+        "decisive": false,
+        "cash_deal": true,
+        "picks_involved": false,
+        "faab_involved": true,
+        "faab_moved": 50,
+        "players": 1
+      },
+      {
+        "season": "2022",
+        "week": 1,
+        "txn": "871879192596365312",
+        "sides": [
+          {
+            "roster_id": 10,
+            "uid": "871109847192621056",
+            "manager": "kodikat",
+            "received": [
+              {
+                "player": "Darrell Henderson",
+                "position": "RB",
+                "points": 40.2
+              }
+            ],
+            "points": 40.2,
+            "starts": 4,
+            "faab_in": 0,
+            "faab_out": 100
+          },
+          {
+            "roster_id": 1,
+            "uid": "727954847688630272",
+            "manager": "Pxesto",
+            "received": [],
+            "points": 0.0,
+            "starts": 0,
+            "faab_in": 100,
+            "faab_out": 0
+          }
+        ],
+        "margin": 40.2,
+        "total_points": 40.2,
+        "decisive": false,
+        "cash_deal": true,
+        "picks_involved": false,
+        "faab_involved": true,
+        "faab_moved": 100,
+        "players": 1
+      },
+      {
+        "season": "2023",
+        "week": 6,
+        "txn": "1020203353420197888",
+        "sides": [
+          {
+            "roster_id": 6,
+            "uid": "739174898471157760",
+            "manager": "GmanToTuff",
+            "received": [
+              {
+                "player": "D'Onta Foreman",
+                "position": "RB",
+                "points": 39.6
+              }
+            ],
+            "points": 39.6,
+            "starts": 2,
+            "faab_in": 0,
+            "faab_out": 60
+          },
+          {
+            "roster_id": 8,
+            "uid": "728392183681548288",
+            "manager": "datboyp",
+            "received": [],
+            "points": 0.0,
+            "starts": 0,
+            "faab_in": 60,
+            "faab_out": 0
+          }
+        ],
+        "margin": 39.6,
+        "total_points": 39.6,
+        "decisive": false,
+        "cash_deal": true,
+        "picks_involved": false,
+        "faab_involved": true,
+        "faab_moved": 60,
+        "players": 1
+      },
+      {
+        "season": "2022",
+        "week": 9,
+        "txn": "894719335384440832",
+        "sides": [
+          {
+            "roster_id": 3,
+            "uid": "737362282971062272",
+            "manager": "Nickpapi69",
+            "received": [
+              {
+                "player": "Deon Jackson",
+                "position": "RB",
+                "points": 7.8
+              }
+            ],
+            "points": 7.8,
+            "starts": 1,
+            "faab_in": 0,
+            "faab_out": 100
+          },
+          {
+            "roster_id": 1,
+            "uid": "727954847688630272",
+            "manager": "Pxesto",
+            "received": [],
+            "points": 0.0,
+            "starts": 0,
+            "faab_in": 100,
+            "faab_out": 0
+          }
+        ],
+        "margin": 7.8,
+        "total_points": 7.8,
+        "decisive": false,
+        "cash_deal": true,
+        "picks_involved": false,
+        "faab_involved": true,
+        "faab_moved": 100,
+        "players": 1
+      },
+      {
+        "season": "2022",
+        "week": 9,
+        "txn": "894850166841122816",
+        "sides": [
+          {
+            "roster_id": 1,
+            "uid": "727954847688630272",
+            "manager": "Pxesto",
+            "received": [],
+            "points": 0.0,
+            "starts": 0,
+            "faab_in": 250,
+            "faab_out": 0
+          },
+          {
+            "roster_id": 2,
+            "uid": "737361961427296256",
+            "manager": "Mangondala",
+            "received": [
+              {
+                "player": "Isaiah Likely",
+                "position": "TE",
+                "points": 0.0
+              }
+            ],
+            "points": 0.0,
+            "starts": 0,
+            "faab_in": 0,
+            "faab_out": 250
+          }
+        ],
+        "margin": 0.0,
+        "total_points": 0.0,
+        "decisive": false,
+        "cash_deal": true,
+        "picks_involved": false,
+        "faab_involved": true,
+        "faab_moved": 250,
+        "players": 1
+      }
+    ],
+    "trade_ledger": [
       {
         "uid": "728392183681548288",
         "manager": "datboyp",
         "trades": 16,
         "gained": 2481.9,
-        "surrendered": 2173.9,
+        "surrendered": 1931.5,
         "won": 9,
-        "lost": 4,
-        "washes": 3,
-        "net": 308.0,
-        "net_per_trade": 19.2
+        "lost": 3,
+        "washes": 2,
+        "faab_in": 310,
+        "faab_out": 0,
+        "cash_deals": 2,
+        "scored": 14,
+        "sold": 2,
+        "bought": 0,
+        "net": 550.4,
+        "net_per_trade": 39.3,
+        "faab_net": 310
       },
       {
         "uid": "739175215237586944",
@@ -4587,20 +5212,15 @@
         "won": 2,
         "lost": 0,
         "washes": 2,
+        "faab_in": 0,
+        "faab_out": 0,
+        "cash_deals": 0,
+        "scored": 4,
+        "sold": 0,
+        "bought": 0,
         "net": 292.4,
-        "net_per_trade": 73.1
-      },
-      {
-        "uid": "739174898471157760",
-        "manager": "GmanToTuff",
-        "trades": 11,
-        "gained": 1311.4,
-        "surrendered": 1142.9,
-        "won": 4,
-        "lost": 4,
-        "washes": 3,
-        "net": 168.5,
-        "net_per_trade": 15.3
+        "net_per_trade": 73.1,
+        "faab_net": 0
       },
       {
         "uid": "737361961427296256",
@@ -4610,9 +5230,35 @@
         "surrendered": 2124.2,
         "won": 4,
         "lost": 3,
-        "washes": 4,
+        "washes": 3,
+        "faab_in": 0,
+        "faab_out": 250,
+        "cash_deals": 1,
+        "scored": 10,
+        "sold": 0,
+        "bought": 1,
         "net": 157.7,
-        "net_per_trade": 14.3
+        "net_per_trade": 15.8,
+        "faab_net": -250
+      },
+      {
+        "uid": "871109847192621056",
+        "manager": "kodikat",
+        "trades": 7,
+        "gained": 784.8,
+        "surrendered": 643.8,
+        "won": 2,
+        "lost": 1,
+        "washes": 2,
+        "faab_in": 0,
+        "faab_out": 200,
+        "cash_deals": 2,
+        "scored": 5,
+        "sold": 0,
+        "bought": 2,
+        "net": 141.0,
+        "net_per_trade": 28.2,
+        "faab_net": -200
       },
       {
         "uid": "1131318989990379520",
@@ -4623,8 +5269,15 @@
         "won": 1,
         "lost": 0,
         "washes": 0,
+        "faab_in": 0,
+        "faab_out": 0,
+        "cash_deals": 0,
+        "scored": 1,
+        "sold": 0,
+        "bought": 0,
         "net": 127.7,
-        "net_per_trade": 127.7
+        "net_per_trade": 127.7,
+        "faab_net": 0
       },
       {
         "uid": "993993310521942016",
@@ -4635,8 +5288,15 @@
         "won": 1,
         "lost": 0,
         "washes": 0,
+        "faab_in": 0,
+        "faab_out": 0,
+        "cash_deals": 0,
+        "scored": 1,
+        "sold": 0,
+        "bought": 0,
         "net": 122.4,
-        "net_per_trade": 122.4
+        "net_per_trade": 122.4,
+        "faab_net": 0
       },
       {
         "uid": "633938383265161216",
@@ -4647,8 +5307,34 @@
         "won": 1,
         "lost": 2,
         "washes": 0,
+        "faab_in": 0,
+        "faab_out": 0,
+        "cash_deals": 0,
+        "scored": 3,
+        "sold": 0,
+        "bought": 0,
         "net": 90.6,
-        "net_per_trade": 30.2
+        "net_per_trade": 30.2,
+        "faab_net": 0
+      },
+      {
+        "uid": "739174898471157760",
+        "manager": "GmanToTuff",
+        "trades": 11,
+        "gained": 1156.3,
+        "surrendered": 1142.9,
+        "won": 2,
+        "lost": 4,
+        "washes": 2,
+        "faab_in": 0,
+        "faab_out": 360,
+        "cash_deals": 3,
+        "scored": 8,
+        "sold": 0,
+        "bought": 3,
+        "net": 13.4,
+        "net_per_trade": 1.7,
+        "faab_net": -360
       },
       {
         "uid": "868975711417946112",
@@ -4659,8 +5345,15 @@
         "won": 0,
         "lost": 0,
         "washes": 1,
+        "faab_in": 0,
+        "faab_out": 0,
+        "cash_deals": 0,
+        "scored": 1,
+        "sold": 0,
+        "bought": 0,
         "net": -37.9,
-        "net_per_trade": -37.9
+        "net_per_trade": -37.9,
+        "faab_net": 0
       },
       {
         "uid": "993996540970668032",
@@ -4671,8 +5364,15 @@
         "won": 3,
         "lost": 3,
         "washes": 0,
+        "faab_in": 0,
+        "faab_out": 0,
+        "cash_deals": 0,
+        "scored": 6,
+        "sold": 0,
+        "bought": 0,
         "net": -129.4,
-        "net_per_trade": -21.6
+        "net_per_trade": -21.6,
+        "faab_net": 0
       },
       {
         "uid": "468905201722454016",
@@ -4683,32 +5383,53 @@
         "won": 1,
         "lost": 2,
         "washes": 0,
+        "faab_in": 0,
+        "faab_out": 0,
+        "cash_deals": 0,
+        "scored": 3,
+        "sold": 0,
+        "bought": 0,
         "net": -260.4,
-        "net_per_trade": -86.8
-      },
-      {
-        "uid": "737362282971062272",
-        "manager": "Nickpapi69",
-        "trades": 16,
-        "gained": 2444.7,
-        "surrendered": 2997.7,
-        "won": 3,
-        "lost": 7,
-        "washes": 6,
-        "net": -553.0,
-        "net_per_trade": -34.6
+        "net_per_trade": -86.8,
+        "faab_net": 0
       },
       {
         "uid": "727954847688630272",
         "manager": "Pxesto",
         "trades": 18,
         "gained": 2430.6,
-        "surrendered": 3101.2,
+        "surrendered": 2937.7,
         "won": 2,
-        "lost": 9,
-        "washes": 7,
-        "net": -670.6,
-        "net_per_trade": -37.3
+        "lost": 6,
+        "washes": 5,
+        "faab_in": 600,
+        "faab_out": 0,
+        "cash_deals": 5,
+        "scored": 13,
+        "sold": 5,
+        "bought": 0,
+        "net": -507.1,
+        "net_per_trade": -39.0,
+        "faab_net": 600
+      },
+      {
+        "uid": "737362282971062272",
+        "manager": "Nickpapi69",
+        "trades": 16,
+        "gained": 2436.9,
+        "surrendered": 2997.7,
+        "won": 3,
+        "lost": 7,
+        "washes": 5,
+        "faab_in": 0,
+        "faab_out": 100,
+        "cash_deals": 1,
+        "scored": 15,
+        "sold": 0,
+        "bought": 1,
+        "net": -560.8,
+        "net_per_trade": -37.4,
+        "faab_net": -100
       }
     ],
     "waivers": {

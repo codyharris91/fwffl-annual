@@ -177,9 +177,16 @@ def trades(arc: Archive, tagged: pd.DataFrame) -> list[dict[str, Any]]:
     """Every trade, scored by what each side's haul went on to start for them.
 
     A trade is judged only on points the acquired players actually put into a
-    lineup afterwards. Nothing is charged for the players given up: their later
-    output is already counted as the other side's return, so counting it twice
-    would double the size of every verdict.
+    lineup afterwards. A player who arrives and sits on the bench delivered
+    nothing, so his bench weeks count for nothing here — which is a real
+    distinction, not a technicality: several hauls lose a third of their raw
+    output to it. Nothing is charged for the players given up either; their
+    later output is already counted as the other side's return, so counting it
+    twice would double the size of every verdict.
+
+    FAAB moves in eight of these deals. It is reported per side but never scored,
+    because turning a waiver budget into points requires a claim that may never
+    be made — pricing it would be inventing a number.
     """
     out: list[dict[str, Any]] = []
 
@@ -193,6 +200,13 @@ def trades(arc: Archive, tagged: pd.DataFrame) -> list[dict[str, Any]]:
                     continue
                 adds = txn.get("adds") or {}
                 txn_id = txn["transaction_id"]
+
+                # FAAB can arrive in several chunks within one deal.
+                faab_in: dict[int, int] = defaultdict(int)
+                faab_out: dict[int, int] = defaultdict(int)
+                for move in txn.get("waiver_budget") or []:
+                    faab_in[move["receiver"]] += move["amount"]
+                    faab_out[move["sender"]] += move["amount"]
 
                 sides = []
                 for roster_id in roster_ids:
@@ -214,12 +228,20 @@ def trades(arc: Archive, tagged: pd.DataFrame) -> list[dict[str, Any]]:
                             ],
                             "points": round(float(haul.points.sum()), 1),
                             "starts": int(len(haul)),
+                            "faab_in": int(faab_in.get(roster_id, 0)),
+                            "faab_out": int(faab_out.get(roster_id, 0)),
                         }
                     )
 
                 sides.sort(key=lambda s: -s["points"])
                 winner, loser = sides
                 margin = round(winner["points"] - loser["points"], 1)
+
+                # A side that received only FAAB cannot be scored on points, so
+                # calling the other side the winner would be an artefact of the
+                # method rather than a finding. These are cash sales and are kept
+                # out of the win-loss record.
+                cash_deal = any(not side["received"] for side in sides)
                 out.append(
                     {
                         "season": season.year,
@@ -228,9 +250,11 @@ def trades(arc: Archive, tagged: pd.DataFrame) -> list[dict[str, Any]]:
                         "sides": sides,
                         "margin": margin,
                         "total_points": round(winner["points"] + loser["points"], 1),
-                        "decisive": margin >= DECISIVE_MARGIN,
+                        "decisive": margin >= DECISIVE_MARGIN and not cash_deal,
+                        "cash_deal": cash_deal,
                         "picks_involved": bool(txn.get("draft_picks")),
                         "faab_involved": bool(txn.get("waiver_budget")),
+                        "faab_moved": sum(faab_in.values()),
                         "players": sum(len(s["received"]) for s in sides),
                     }
                 )
@@ -259,9 +283,29 @@ def trade_ledger(arc: Archive, deals: list[dict[str, Any]]) -> list[dict[str, An
                     "won": 0,
                     "lost": 0,
                     "washes": 0,
+                    "faab_in": 0,
+                    "faab_out": 0,
+                    "cash_deals": 0,
+                    "scored": 0,
+                    "sold": 0,
+                    "bought": 0,
                 },
             )
             entry["trades"] += 1
+            entry["faab_in"] += side["faab_in"]
+            entry["faab_out"] += side["faab_out"]
+
+            if deal["cash_deal"]:
+                # Points and cash are not the same currency; mixing them would
+                # charge a seller for the player while ignoring what he was paid.
+                entry["cash_deals"] += 1
+                if side["faab_in"]:
+                    entry["sold"] += 1
+                else:
+                    entry["bought"] += 1
+                continue
+
+            entry["scored"] += 1
             entry["gained"] += side["points"]
             entry["surrendered"] += other["points"]
             if not deal["decisive"]:
@@ -276,7 +320,8 @@ def trade_ledger(arc: Archive, deals: list[dict[str, Any]]) -> list[dict[str, An
         entry["gained"] = round(entry["gained"], 1)
         entry["surrendered"] = round(entry["surrendered"], 1)
         entry["net"] = round(entry["gained"] - entry["surrendered"], 1)
-        entry["net_per_trade"] = round(entry["net"] / entry["trades"], 1)
+        entry["net_per_trade"] = round(entry["net"] / entry["scored"], 1) if entry["scored"] else 0.0
+        entry["faab_net"] = entry["faab_in"] - entry["faab_out"]
         out.append(entry)
     out.sort(key=lambda d: -d["net"])
     return out
@@ -481,6 +526,7 @@ def build(arc: Archive, tables: dict[str, Any]) -> dict[str, Any]:
     return {
         "channels": channel_share(arc, tagged),
         "trades": deals,
+        "faab_trades": [d for d in deals if d["faab_involved"]],
         "trade_ledger": trade_ledger(arc, deals),
         "waivers": waiver_hits(arc, tagged, tables),
         "profiles": profiles,
