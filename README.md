@@ -29,10 +29,10 @@ src/fwffl_annual/
   archive.py     Walks the league chain; season objects and identity maps.
   scoring.py     Stat line + scoring settings -> points. Pure.
   frames.py      Four tidy tables everything downstream reads.
-  stats/         One module per chapter of the page.
+  stats/         One module per chapter, across both pages.
   build.py       -> data/annual.json
-  render.py      -> data/fwffl-annual.html
-templates/       Jinja page + stylesheet
+  render.py      -> both pages, artifact and site copies
+templates/       Two Jinja pages sharing one stylesheet
 ```
 
 `build` and `render` are deliberately separate: the numbers can be inspected,
@@ -70,6 +70,28 @@ against its own position at its own slot.
 
 Head-to-head records exclude the weekly median game; the official standings
 include it. Both appear on the page, labelled.
+
+## Attribution: which door did the points come through
+
+`stats/acquisition.py` replays every season's acquisitions in order, so each of
+the 16,048 rostered player-weeks carries the channel it arrived through — draft,
+trade, or waiver wire. Credit follows the player rather than the transaction: a
+receiver drafted in round two and traded in week 6 belongs to the draft for weeks
+1–5 and to the trade thereafter, and re-signing someone you cut starts a fresh
+attribution.
+
+The unit is the **started point**, not the rostered point. A great pickup nobody
+starts delivered nothing, and using bench points would let a deep bench outrank a
+winning lineup.
+
+One distinction the page turns on: "a bad draft" means two different things.
+`draft_value_rank` asks whether the picks were good; `draft_rank` asks how much of
+the season's scoring those picks went on to provide. A manager who drafts
+brilliantly and trades all of it away scores terribly on the second while
+deserving credit on the first — Pxesto in 2023 drafted Chase, St. Brown and
+Waddle, started almost none of them, and finished second. Every causal claim
+about drafting therefore ranks on pick quality; the gap between the two ranks is
+reported separately as its own finding.
 
 ## The page is built for a phone
 
@@ -109,10 +131,13 @@ upstream data changes as well as regressions.
 
 `uv run fwffl-annual` writes two copies of the same page:
 
-| File | For |
-|---|---|
-| `data/fwffl-annual.html` | Claude Artifacts, which supplies its own document skeleton |
-| `docs/index.html` | a complete standalone document, served by GitHub Pages |
+Two pages, each written twice — a fragment for Claude Artifacts, which supplies
+its own document skeleton, and a complete document for GitHub Pages:
+
+| Page | Artifact | Site |
+|---|---|---|
+| The record book | `data/fwffl-annual.html` | `docs/index.html` |
+| Draft, Trade, Waiver | `data/fwffl-building.html` | `docs/building/index.html` |
 
 Pages serves `main` branch → `/docs`, so publishing an update is just
 `uv run fwffl-annual && git commit && git push`. The page carries real names, so

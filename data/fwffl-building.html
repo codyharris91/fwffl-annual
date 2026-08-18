@@ -1,0 +1,2621 @@
+<title>Draft, Trade, Waiver</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>/* ==========================================================================
+   FWFFL Annual — one material: a stadium at night.
+
+   Chalk on a green-black ground, championship gold used only where something
+   was actually won. This is deliberately single-theme rather than an omission:
+   there is no light palette and no `prefers-color-scheme` branch, so the page
+   looks the same on every device regardless of the viewer's system setting.
+
+   Because nothing here reacts to the host, every colour — the body background
+   included — is painted explicitly from a token. A transparent body would
+   borrow the host's ground and put dark text on white.
+   ========================================================================== */
+
+:root {
+  color-scheme: dark;
+
+  --ground: #0b1013;
+  --panel: #151e22;
+  --panel-2: #1d282d;
+  --line: #2a3a40;
+  --line-soft: #202c31;
+
+  --ink: #e8efea;
+  --ink-2: #94a6a2;   /* green-biased grey, chosen to sit in the same family */
+  --ink-3: #63756f;
+
+  --gold: #f2b33d;
+  --gold-dim: #8a6a26;
+
+  /* The three doors a player can come through. Validated as a categorical set
+     against the panel surface: adjacent pairs clear the CVD floor, and every
+     segment is directly labelled so colour is never the only encoding. */
+  --draft: #cf7a16;
+  --trade: #3f9e6f;
+  --wire: #2e93ce;
+
+  --warm: #cf7a16;    /* diverging pole: above expectation, lucky, ahead */
+  --cool: #2e93ce;    /* diverging pole: below expectation, unlucky, behind */
+  --mid: #6b7a7e;     /* neutral midpoint */
+
+  --shadow: 0 1px 0 rgb(255 255 255 / 4%) inset;
+  --edge: rgb(0 0 0 / 35%);   /* scroll-affordance shadow */
+
+  --measure: 66ch;
+  --gutter: clamp(1rem, 4vw, 2.75rem);
+
+  --display: "Helvetica Neue", "Arial Narrow", Arial, system-ui, sans-serif;
+  --body: Georgia, "Iowan Old Style", "Times New Roman", serif;
+  --data: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- type ---------------------------------------------------------------- */
+
+.display,
+h1, h2, h3, .eyebrow, .stat-value, .rank {
+  font-family: var(--display);
+  font-stretch: condensed;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(3.2rem, 13vw, 8.5rem);
+  line-height: 0.84;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+h2 {
+  margin: 0;
+  font-size: clamp(1.9rem, 5vw, 3.1rem);
+  line-height: 0.94;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+h3 {
+  margin: 0 0 0.6rem;
+  font-size: 1rem;
+  letter-spacing: 0.09em;
+  color: var(--ink);
+}
+
+p { margin: 0 0 1rem; max-width: var(--measure); }
+
+.eyebrow {
+  font-size: 0.72rem;
+  letter-spacing: 0.24em;
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.lede {
+  font-size: 1.12rem;
+  color: var(--ink-2);
+  max-width: var(--measure);
+}
+
+.note {
+  font-family: var(--data);
+  font-size: 0.74rem;
+  line-height: 1.6;
+  color: var(--ink-3);
+  text-transform: none;
+  max-width: var(--measure);
+}
+
+.num { font-family: var(--data); font-variant-numeric: tabular-nums; }
+
+/* --- shell --------------------------------------------------------------- */
+
+.wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.chapter {
+  padding: clamp(3.5rem, 9vw, 6.5rem) 0;
+  border-top: 1px solid var(--line);
+}
+
+.chapter-head {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.block { margin-top: 2.75rem; }
+
+.block-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.9rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.block-head p { margin: 0; }
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+  gap: 2.5rem;
+}
+
+/* --- hero ---------------------------------------------------------------- */
+
+.hero {
+  padding: clamp(3rem, 10vw, 6rem) 0 clamp(2rem, 6vw, 3.5rem);
+}
+
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.4rem;
+  margin-top: 1.6rem;
+  font-family: var(--data);
+  font-size: 0.78rem;
+  color: var(--ink-2);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.hero-meta b { color: var(--gold); font-weight: 700; }
+
+/* Championship banners: the one deliberately loud thing on the page. */
+.banners {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 0.75rem;
+  margin-top: 2.5rem;
+}
+
+.banner {
+  position: relative;
+  padding: 1rem 0.85rem 2rem;
+  background: linear-gradient(180deg, var(--panel-2), var(--panel));
+  border: 1px solid var(--line);
+  border-bottom: none;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 88%, 0 100%);
+  text-align: center;
+}
+
+.banner .year {
+  font-family: var(--display);
+  font-stretch: condensed;
+  font-weight: 800;
+  font-size: 1.45rem;
+  color: var(--gold);
+  letter-spacing: 0.04em;
+}
+
+.banner .who {
+  font-family: var(--display);
+  font-stretch: condensed;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.86rem;
+  letter-spacing: 0.05em;
+  margin-top: 0.35rem;
+  overflow-wrap: anywhere;
+}
+
+.banner .team {
+  font-family: var(--data);
+  font-size: 0.64rem;
+  color: var(--ink-3);
+  margin-top: 0.3rem;
+  text-transform: none;
+  overflow-wrap: anywhere;
+}
+
+.banner.pending { opacity: 0.5; }
+.banner.pending .year { color: var(--ink-3); }
+
+/* --- nav ----------------------------------------------------------------- */
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: color-mix(in srgb, var(--ground) 92%, transparent);
+  backdrop-filter: blur(8px);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.nav ul {
+  display: flex;
+  gap: 0.15rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.nav a {
+  display: block;
+  padding: 0.75rem 0.85rem;
+  font-family: var(--display);
+  font-stretch: condensed;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.74rem;
+  letter-spacing: 0.13em;
+  color: var(--ink-2);
+  text-decoration: none;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+}
+
+.nav a:hover,
+.nav a:focus-visible { color: var(--ink); border-bottom-color: var(--gold-dim); }
+
+/* --- stat tiles ---------------------------------------------------------- */
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin-bottom: 2.5rem;
+}
+
+.tile {
+  background: var(--panel);
+  padding: 1.15rem 1.1rem 1.25rem;
+  box-shadow: var(--shadow);
+}
+
+.tile .label {
+  font-family: var(--data);
+  font-size: 0.66rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--ink-3);
+}
+
+.stat-value {
+  font-size: clamp(2rem, 5.5vw, 2.9rem);
+  line-height: 1;
+  margin: 0.4rem 0 0.2rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--gold);
+  letter-spacing: -0.01em;
+}
+
+.tile .sub {
+  font-family: var(--data);
+  font-size: 0.72rem;
+  color: var(--ink-2);
+  line-height: 1.45;
+}
+
+/* --- tables -------------------------------------------------------------- */
+
+/* Grid and flex children default to min-width:auto, which lets a wide table
+   push the whole page wider than the viewport — the classic cause of a page
+   that scrolls sideways on a phone. Every container that can hold a table has
+   to be told it may shrink. */
+.grid-2 > *,
+.tiles > *,
+.cards > *,
+.diverge-row > *,
+.range-row > *,
+.timeline-row > *,
+.block > *,
+.block-head > * { min-width: 0; }
+
+.scroll {
+  overflow-x: auto;
+  max-width: 100%;
+  -webkit-overflow-scrolling: touch;
+  /* Edge shadows that appear only when there is more table to reach. The
+     `local` layers mask the `scroll` layers once you hit either end. */
+  background:
+    linear-gradient(to right, var(--ground), transparent) left / 28px 100% no-repeat local,
+    linear-gradient(to left, var(--ground), transparent) right / 28px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, var(--edge), transparent) left / 12px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, var(--edge), transparent) right / 12px 100% no-repeat scroll;
+}
+
+table.sheet {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--data);
+  font-size: 0.79rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.sheet th {
+  text-align: left;
+  padding: 0.45rem 0.7rem 0.45rem 0;
+  font-weight: 400;
+  font-size: 0.64rem;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  color: var(--ink-3);
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+
+.sheet td {
+  padding: 0.5rem 0.7rem 0.5rem 0;
+  border-bottom: 1px solid var(--line-soft);
+  vertical-align: middle;
+}
+
+.sheet tr:last-child td { border-bottom: none; }
+.sheet tbody tr:hover td { background: var(--panel); }
+
+.sheet .r { text-align: right; }
+.sheet .name { font-family: var(--display); font-stretch: condensed; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.03em; font-size: 0.92rem; white-space: nowrap; }
+.sheet .dim { color: var(--ink-3); }
+.sheet .when { white-space: nowrap; }
+.sheet .big { color: var(--gold); font-weight: 600; }
+.sheet .cool { color: var(--cool); font-weight: 600; }
+.stat-value.cool { color: var(--cool); }
+
+.rank {
+  color: var(--ink-3);
+  font-size: 0.9rem;
+  width: 2ch;
+}
+
+.pill {
+  display: inline-block;
+  padding: 0.05rem 0.4rem;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-2);
+  text-transform: uppercase;
+}
+
+.pill.gold { border-color: var(--gold-dim); color: var(--gold); }
+
+/* --- bars ---------------------------------------------------------------- */
+
+/* Diverging: warm right of the centre line, cool left. Every bar is directly
+   labelled, so colour is never the only encoding. */
+.diverge { display: grid; gap: 1px; }
+
+.diverge-row {
+  display: grid;
+  grid-template-columns: minmax(7rem, 1fr) 3fr minmax(4rem, auto);
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.28rem 0;
+}
+
+.diverge-row .who {
+  font-family: var(--display);
+  font-stretch: condensed;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  overflow-wrap: anywhere;
+}
+
+.track {
+  position: relative;
+  height: 15px;
+  background: var(--panel);
+  border-left: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+}
+
+.track::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -2px;
+  bottom: -2px;
+  width: 1px;
+  background: var(--mid);
+}
+
+.track .fill {
+  position: absolute;
+  top: 2px;
+  bottom: 2px;
+  border-radius: 2px;
+}
+
+.fill.pos { left: 50%; background: var(--warm); }
+.fill.neg { right: 50%; background: var(--cool); }
+
+.diverge-row .val {
+  font-family: var(--data);
+  font-size: 0.76rem;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  color: var(--ink-2);
+}
+
+/* Single-hue magnitude meter, used inside table cells. */
+.meter {
+  position: relative;
+  height: 6px;
+  min-width: 60px;
+  background: var(--panel-2);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.meter span {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: var(--warm);
+  border-radius: 3px;
+}
+
+/* Range strip: floor — average — ceiling, one row per manager. */
+.range-row {
+  display: grid;
+  grid-template-columns: minmax(7rem, 1fr) 3fr minmax(9rem, auto);
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.3rem 0;
+}
+
+.range-track {
+  position: relative;
+  height: 16px;
+  background: var(--panel);
+  border-radius: 2px;
+}
+
+.range-span {
+  position: absolute;
+  top: 6px;
+  height: 4px;
+  background: var(--mid);
+  border-radius: 2px;
+  opacity: 0.55;
+}
+
+.range-dot {
+  position: absolute;
+  top: 3px;
+  width: 10px;
+  height: 10px;
+  margin-left: -5px;
+  border-radius: 50%;
+  background: var(--warm);
+  box-shadow: 0 0 0 2px var(--panel);
+}
+
+/* --- record string ------------------------------------------------------- */
+
+.record {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 1px;
+  font-family: var(--data);
+  font-size: 0.58rem;
+  line-height: 1;
+}
+
+.record i {
+  display: grid;
+  place-items: center;
+  width: 11px;
+  height: 13px;
+  font-style: normal;
+  color: var(--ink-3);
+  background: var(--panel-2);
+}
+
+.record i.w { color: var(--ground); background: var(--gold); font-weight: 700; }
+
+/* --- cards --------------------------------------------------------------- */
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 1rem;
+}
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  padding: 1rem 1.1rem 1.1rem;
+}
+
+.card h4 {
+  margin: 0 0 0.5rem;
+  font-family: var(--display);
+  font-stretch: condensed;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+}
+
+.card .meta {
+  font-family: var(--data);
+  font-size: 0.7rem;
+  color: var(--ink-3);
+  margin-bottom: 0.6rem;
+}
+
+.bidlist { list-style: none; margin: 0; padding: 0; font-family: var(--data); font-size: 0.74rem; }
+.bidlist li { display: flex; justify-content: space-between; gap: 1rem;
+  padding: 0.22rem 0; border-bottom: 1px solid var(--line-soft); }
+.bidlist li:last-child { border-bottom: none; }
+.bidlist .winner { color: var(--gold); }
+.bidlist .flag { color: var(--cool); }
+
+/* --- nicknames ----------------------------------------------------------- */
+
+.nick-group { margin-bottom: 1.75rem; }
+
+.nick-group > .who {
+  font-family: var(--display);
+  font-stretch: condensed;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 1.05rem;
+  letter-spacing: 0.05em;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 0.7rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.nick-group > .who span { font-family: var(--data); font-size: 0.66rem;
+  color: var(--ink-3); font-weight: 400; letter-spacing: 0.1em; }
+
+.nicks { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+.nick {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  padding: 0.35rem 0.6rem;
+  max-width: 100%;
+}
+
+.nick b {
+  display: block;
+  font-family: var(--body);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 0.94rem;
+  color: var(--gold);
+  overflow-wrap: anywhere;
+}
+
+.nick span {
+  font-family: var(--data);
+  font-size: 0.63rem;
+  color: var(--ink-3);
+  overflow-wrap: anywhere;
+}
+
+/* --- timeline ------------------------------------------------------------ */
+
+.timeline { display: grid; gap: 0.55rem; }
+
+.timeline-row {
+  display: grid;
+  grid-template-columns: minmax(6.5rem, auto) 1fr;
+  gap: 1rem;
+  align-items: start;
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.timeline-row .who {
+  font-family: var(--display);
+  font-stretch: condensed;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.88rem;
+  letter-spacing: 0.03em;
+  overflow-wrap: anywhere;
+}
+
+.names { display: flex; flex-wrap: wrap; gap: 0.3rem 0.55rem;
+  font-family: var(--data); font-size: 0.73rem; }
+
+.names em { font-style: normal; color: var(--ink-3); }
+.names s { text-decoration: none; color: var(--ink-2); }
+.names .now { color: var(--gold); }
+
+/* --- matrix -------------------------------------------------------------- */
+
+table.matrix { border-collapse: collapse; font-family: var(--data);
+  font-size: 0.68rem; font-variant-numeric: tabular-nums; }
+
+.matrix th {
+  font-weight: 400;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0.3rem 0.35rem;
+  white-space: nowrap;
+}
+
+.matrix th.side { text-align: right; }
+
+.matrix th.top {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  height: 8.5rem;
+  vertical-align: bottom;
+  padding: 0.3rem 0.1rem;
+}
+
+.matrix td {
+  padding: 0.28rem 0.35rem;
+  text-align: center;
+  border: 1px solid var(--line-soft);
+  min-width: 2.8rem;
+}
+
+.matrix td.self { background: var(--panel-2); color: var(--ink-3); }
+.matrix td.up { color: var(--warm); }
+.matrix td.down { color: var(--cool); }
+.matrix td.none { color: var(--ink-3); }
+
+/* --- footer -------------------------------------------------------------- */
+
+.foot {
+  padding: 3rem 0 4rem;
+  border-top: 1px solid var(--line);
+  color: var(--ink-3);
+}
+
+.foot .note { max-width: 78ch; }
+
+a { color: var(--gold); }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+/* ==========================================================================
+   Phones. This is where the page is actually read, so it gets real layout
+   decisions rather than a scaled-down desktop: the least important columns
+   leave, the two chart forms stack their label above the bar, and anything
+   still too wide keeps its identity column pinned while the rest scrolls.
+   ========================================================================== */
+
+@media (max-width: 720px) {
+  body { font-size: 16px; }
+
+  .chapter { padding: 3rem 0; }
+  .block { margin-top: 2rem; }
+  .grid-2 { gap: 2rem; }
+
+  /* Columns marked optional carry detail, not the point of the table. */
+  .sheet .opt { display: none; }
+
+  .sheet { font-size: 0.72rem; }
+  .sheet th, .sheet td { padding-right: 0.45rem; }
+  .sheet .name { font-size: 0.82rem; }
+
+  /* Opponent names are the one field long enough to push a score off-screen.
+     Clipping the name keeps the scoreline — the point of the row — visible. */
+  .sheet .opp {
+    max-width: 9ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* No sticky identity column here: `.name` is rarely the first cell, so
+     pinning it would slide it over the columns to its left. Trimming the
+     optional columns above is what keeps these tables inside the screen. */
+
+  .tiles { grid-template-columns: repeat(auto-fit, minmax(min(100%, 140px), 1fr)); }
+  .tile { padding: 0.9rem 0.85rem 1rem; }
+  .stat-value { font-size: clamp(1.7rem, 9vw, 2.3rem); }
+
+  .banners { grid-template-columns: repeat(auto-fit, minmax(105px, 1fr)); gap: 0.5rem; }
+  .banner { padding: 0.8rem 0.5rem 1.7rem; }
+  .banner .year { font-size: 1.2rem; }
+  .banner .who { font-size: 0.78rem; }
+
+  /* Bigger tap targets, and the rail snaps so chapters land cleanly. */
+  .nav ul { scroll-snap-type: x proximity; }
+  .nav a { padding: 0.95rem 0.8rem; scroll-snap-align: start; }
+
+  .matrix th.side {
+    position: sticky;
+    left: 0;
+    background: var(--ground);
+    z-index: 2;
+    box-shadow: 1px 0 0 var(--line-soft);
+  }
+  .matrix th.top { height: 7rem; }
+  .matrix td { min-width: 2.4rem; padding: 0.25rem 0.2rem; }
+
+  .nick-group > .who { font-size: 0.95rem; }
+  .timeline-row { grid-template-columns: 1fr; gap: 0.25rem; }
+}
+
+/* Both chart forms put the label and value on one line, the bar on the next,
+   so the bar keeps its full width instead of being squeezed into a third. */
+@media (max-width: 620px) {
+  .diverge-row,
+  .range-row {
+    grid-template-columns: 1fr auto;
+    grid-template-areas: "who val" "track track";
+    row-gap: 0.3rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--line-soft);
+  }
+
+  .diverge-row .who, .range-row .who { grid-area: who; }
+  .diverge-row .val, .range-row .val { grid-area: val; }
+  .diverge-row .track, .range-row .range-track { grid-area: track; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+
+html { scroll-behavior: smooth; }
+
+
+/* ==========================================================================
+   Roster-building page: channel mixes and two-sided trade cards.
+   ========================================================================== */
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.2rem;
+  font-family: var(--data);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-2);
+  margin-bottom: 1.2rem;
+}
+
+.legend i {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 0.4rem;
+  border-radius: 2px;
+  vertical-align: baseline;
+}
+
+.swatch-draft { background: var(--draft); }
+.swatch-trade { background: var(--trade); }
+.swatch-wire  { background: var(--wire); }
+
+/* Stacked share bar. A 2px surface gap separates segments so they read as
+   distinct quantities rather than one smeared band. */
+.stack-row {
+  display: grid;
+  grid-template-columns: minmax(7rem, 1fr) 4fr;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.3rem 0;
+}
+
+.stack-row .who {
+  font-family: var(--display);
+  font-stretch: condensed;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  overflow-wrap: anywhere;
+}
+
+.stack {
+  display: flex;
+  gap: 2px;
+  height: 22px;
+  background: var(--panel);
+}
+
+.stack span {
+  display: grid;
+  place-items: center;
+  font-family: var(--data);
+  font-size: 0.62rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--ground);
+  font-weight: 700;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.seg-draft { background: var(--draft); }
+.seg-trade { background: var(--trade); }
+.seg-wire  { background: var(--wire); }
+
+/* Two-sided trade. The winning haul sits left and carries the gold. */
+.trade {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  padding: 0.9rem 1rem 1rem;
+}
+
+.trade-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  font-family: var(--data);
+  font-size: 0.68rem;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.7rem;
+}
+
+.trade-sides {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--line-soft);
+}
+
+.trade-side { background: var(--panel); padding: 0.6rem 0.7rem; }
+
+.trade-side .who {
+  font-family: var(--display);
+  font-stretch: condensed;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 0.95rem;
+  letter-spacing: 0.03em;
+  overflow-wrap: anywhere;
+}
+
+.trade-side.won .who { color: var(--gold); }
+
+.trade-side .total {
+  font-family: var(--data);
+  font-size: 1.15rem;
+  font-variant-numeric: tabular-nums;
+  margin: 0.15rem 0 0.45rem;
+}
+
+.trade-side.won .total { color: var(--gold); }
+.trade-side.lost .total { color: var(--ink-2); }
+
+.trade-side ul { list-style: none; margin: 0; padding: 0;
+  font-family: var(--data); font-size: 0.72rem; }
+.trade-side li { display: flex; justify-content: space-between; gap: 0.6rem;
+  padding: 0.15rem 0; color: var(--ink-2); }
+.trade-side li b { color: var(--ink); font-weight: 400; overflow-wrap: anywhere; }
+
+.verdict {
+  font-family: var(--data);
+  font-size: 0.72rem;
+  color: var(--ink-3);
+  margin-top: 0.7rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--line-soft);
+}
+
+@media (max-width: 620px) {
+  .stack-row { grid-template-columns: 1fr; gap: 0.25rem; padding: 0.5rem 0;
+    border-bottom: 1px solid var(--line-soft); }
+  .trade-sides { grid-template-columns: 1fr; }
+}
+</style>
+
+
+
+<main>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">FWFFL · 2021–2025</div>
+    <h1>Draft<br>Trade<br>Waiver</h1>
+    <p class="lede" style="margin-top:1.5rem">
+      Every point a team scores came through one of three doors. This is which —
+      traced across 16048 rostered player-weeks, so the
+      question of what actually builds a roster is settled with the league's own
+      numbers instead of an argument.
+    </p>
+    <div class="hero-meta">
+      <span><b>67.1%</b> draft</span>
+      <span><b>12.9%</b> trades</span>
+      <span><b>20.1%</b> waiver wire</span>
+      <span><b>49</b> trades scored</span>
+    </div>
+  </div>
+</header>
+
+<nav class="nav" aria-label="Sections">
+  <div class="wrap">
+    <ul>
+      <li><a href="#doors">The Three Doors</a></li>
+      <li><a href="#trades">Trades</a></li>
+      <li><a href="#wire">The Wire</a></li>
+      <li><a href="#decides">What Decides It</a></li>
+      <li><a href="#overcome">Overcoming a Bad Draft</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ══ 1 ══ -->
+<section class="chapter" id="doors">
+  <div class="wrap">
+    <div class="chapter-head">
+      <div class="eyebrow">Part One</div>
+      <h2>The Three Doors</h2>
+      <p class="lede">
+        The unit here is the <em>started point</em> — points a player actually put
+        into a lineup for the team that acquired him. Bench points are not value
+        delivered, and a brilliant pickup nobody starts helped nobody. Credit
+        follows the player: draft a receiver, trade him in week 6, and the draft
+        keeps weeks 1–5 while the trade takes what comes after.
+      </p>
+    </div>
+
+    <div class="tiles">
+      <div class="tile">
+        <div class="label">Draft</div>
+        <div class="stat-value">67.1%</div>
+        <div class="sub">80,979 points across 5,775 starts</div>
+      </div>
+      <div class="tile">
+        <div class="label">Trades</div>
+        <div class="stat-value">12.9%</div>
+        <div class="sub">15,530 points across 1,066 starts</div>
+      </div>
+      <div class="tile">
+        <div class="label">Waiver wire</div>
+        <div class="stat-value">20.1%</div>
+        <div class="sub">24,265 points across 2,325 starts</div>
+      </div>
+      <div class="tile">
+        <div class="label">Trades scored</div>
+        <div class="stat-value">49</div>
+        <div class="sub">every completed deal, judged on what followed</div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <h3>The Draft Is Losing Its Grip</h3>
+        <p class="note">Share of each season's started points by channel. The draft
+          has fallen every year it has been measured as the league has got busier.</p>
+      </div>
+      <div class="legend">
+        <span><i class="swatch-draft"></i>Draft</span>
+        <span><i class="swatch-trade"></i>Trades</span>
+        <span><i class="swatch-wire"></i>Waiver wire</span>
+      </div>
+      <div class="stack-row">
+  <div class="who">2021</div>
+  <div class="stack" title="2021 — draft 75.6%, trades 4.0%, wire 20.4%">
+    <span class="seg-draft" style="width: 75.6%">76%</span>
+    <span class="seg-trade" style="width: 4.0%"></span>
+    <span class="seg-wire"  style="width: 20.4%">20%</span>
+  </div>
+</div>
+
+      <div class="stack-row">
+  <div class="who">2022</div>
+  <div class="stack" title="2022 — draft 69.3%, trades 10.3%, wire 20.4%">
+    <span class="seg-draft" style="width: 69.3%">69%</span>
+    <span class="seg-trade" style="width: 10.3%">10%</span>
+    <span class="seg-wire"  style="width: 20.4%">20%</span>
+  </div>
+</div>
+
+      <div class="stack-row">
+  <div class="who">2023</div>
+  <div class="stack" title="2023 — draft 62.7%, trades 15.4%, wire 21.9%">
+    <span class="seg-draft" style="width: 62.7%">63%</span>
+    <span class="seg-trade" style="width: 15.4%">15%</span>
+    <span class="seg-wire"  style="width: 21.9%">22%</span>
+  </div>
+</div>
+
+      <div class="stack-row">
+  <div class="who">2024</div>
+  <div class="stack" title="2024 — draft 69.6%, trades 11.7%, wire 18.7%">
+    <span class="seg-draft" style="width: 69.6%">70%</span>
+    <span class="seg-trade" style="width: 11.7%">12%</span>
+    <span class="seg-wire"  style="width: 18.7%">19%</span>
+  </div>
+</div>
+
+      <div class="stack-row">
+  <div class="who">2025</div>
+  <div class="stack" title="2025 — draft 60.8%, trades 19.9%, wire 19.4%">
+    <span class="seg-draft" style="width: 60.8%">61%</span>
+    <span class="seg-trade" style="width: 19.9%">20%</span>
+    <span class="seg-wire"  style="width: 19.4%">19%</span>
+  </div>
+</div>
+
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <h3>How Each Manager Builds</h3>
+        <p class="note">Career share of started points, sorted by reliance on the
+          draft. A short bar on the left is a manager who rebuilds in season.</p>
+      </div>
+      <div class="stack-row">
+  <div class="who">emcwill12</div>
+  <div class="stack" title="emcwill12 — draft 86.9%, trades 0.0%, wire 13.1%">
+    <span class="seg-draft" style="width: 86.9%">87%</span>
+    <span class="seg-trade" style="width: 0.0%"></span>
+    <span class="seg-wire"  style="width: 13.1%">13%</span>
+  </div>
+</div>
+
+      <div class="stack-row">
+  <div class="who">clappincheeks69</div>
+  <div class="stack" title="clappincheeks69 — draft 85.2%, trades 9.1%, wire 5.8%">
+    <span class="seg-draft" style="width: 85.2%">85%</span>
+    <span class="seg-trade" style="width: 9.1%">9%</span>
+    <span class="seg-wire"  style="width: 5.8%"></span>
+  </div>
+</div>
+
+      <div class="stack-row">
+  <div class="who">DicklesPickles</div>
+  <div class="stack" title="DicklesPickles — draft 80.9%, trades 0.9%, wire 18.1%">
+    <span class="seg-draft" style="width: 80.9%">81%</span>
+    <span class="seg-trade" style="width: 0.9%"></span>
+    <span class="seg-wire"  style="width: 18.1%">18%</span>
+  </div>
+</div>
+
+      <div class="stack-row">
+  <div class="who">StevetheDog</div>
+  <div class="stack" title="StevetheDog — draft 79.4%, trades 0.0%, wire 20.6%">
+    <span class="seg-draft" style="width: 79.4%">79%</span>
+    <span class="seg-trade" style="width: 0.0%"></span>
+    <span class="seg-wire"  style="width: 20.6%">21%</span>
+  </div>
+</div>
+
+      <div class="stack-row">
+  <div class="who">echenozz</div>
+  <div class="stack" title="echenozz — draft 79.3%, trades 7.0%, wire 13.8%">
+    <span class="seg-draft" style="width: 79.3%">79%</span>
+    <span class="seg-trade" style="width: 7.0%"></span>
+    <span class="seg-wire"  style="width: 13.8%">14%</span>
+  </div>
+</div>
+
+      <div class="stack-row">
+  <div class="who">Huntermeek4</div>
+  <div class="stack" title="Huntermeek4 — draft 79.0%, trades 0.0%, wire 21.0%">
+    <span class="seg-draft" style="width: 79.0%">79%</span>
+    <span class="seg-trade" style="width: 0.0%"></span>
+    <span class="seg-wire"  style="width: 21.0%">21%</span>
+  </div>
+</div>
+
+      <div class="stack-row">
+  <div class="who">GmanToTuff</div>
+  <div class="stack" title="GmanToTuff — draft 75.2%, trades 11.5%, wire 13.3%">
+    <span class="seg-draft" style="width: 75.2%">75%</span>
+    <span class="seg-trade" style="width: 11.5%">12%</span>
+    <span class="seg-wire"  style="width: 13.3%">13%</span>
+  </div>
+</div>
+
+      <div class="stack-row">
+  <div class="who">Mangondala</div>
+  <div class="stack" title="Mangondala — draft 68.9%, trades 19.8%, wire 11.3%">
+    <span class="seg-draft" style="width: 68.9%">69%</span>
+    <span class="seg-trade" style="width: 19.8%">20%</span>
+    <span class="seg-wire"  style="width: 11.3%">11%</span>
+  </div>
+</div>
+
+      <div class="stack-row">
+  <div class="who">Cumball</div>
+  <div class="stack" title="Cumball — draft 68.6%, trades 7.8%, wire 23.6%">
+    <span class="seg-draft" style="width: 68.6%">69%</span>
+    <span class="seg-trade" style="width: 7.8%"></span>
+    <span class="seg-wire"  style="width: 23.6%">24%</span>
+  </div>
+</div>
+
+      <div class="stack-row">
+  <div class="who">kodikat</div>
+  <div class="stack" title="kodikat — draft 67.5%, trades 11.5%, wire 21.0%">
+    <span class="seg-draft" style="width: 67.5%">68%</span>
+    <span class="seg-trade" style="width: 11.5%">12%</span>
+    <span class="seg-wire"  style="width: 21.0%">21%</span>
+  </div>
+</div>
+
+      <div class="stack-row">
+  <div class="who">speixoto24</div>
+  <div class="stack" title="speixoto24 — draft 66.4%, trades 10.4%, wire 23.2%">
+    <span class="seg-draft" style="width: 66.4%">66%</span>
+    <span class="seg-trade" style="width: 10.4%">10%</span>
+    <span class="seg-wire"  style="width: 23.2%">23%</span>
+  </div>
+</div>
+
+      <div class="stack-row">
+  <div class="who">Cadengetdabag</div>
+  <div class="stack" title="Cadengetdabag — draft 65.5%, trades 20.3%, wire 14.2%">
+    <span class="seg-draft" style="width: 65.5%">66%</span>
+    <span class="seg-trade" style="width: 20.3%">20%</span>
+    <span class="seg-wire"  style="width: 14.2%">14%</span>
+  </div>
+</div>
+
+      <div class="stack-row">
+  <div class="who">Nickpapi69</div>
+  <div class="stack" title="Nickpapi69 — draft 57.9%, trades 21.2%, wire 20.9%">
+    <span class="seg-draft" style="width: 57.9%">58%</span>
+    <span class="seg-trade" style="width: 21.2%">21%</span>
+    <span class="seg-wire"  style="width: 20.9%">21%</span>
+  </div>
+</div>
+
+      <div class="stack-row">
+  <div class="who">datboyp</div>
+  <div class="stack" title="datboyp — draft 53.1%, trades 20.5%, wire 26.4%">
+    <span class="seg-draft" style="width: 53.1%">53%</span>
+    <span class="seg-trade" style="width: 20.5%">20%</span>
+    <span class="seg-wire"  style="width: 26.4%">26%</span>
+  </div>
+</div>
+
+      <div class="stack-row">
+  <div class="who">ProfessorSell</div>
+  <div class="stack" title="ProfessorSell — draft 46.3%, trades 24.3%, wire 29.4%">
+    <span class="seg-draft" style="width: 46.3%">46%</span>
+    <span class="seg-trade" style="width: 24.3%">24%</span>
+    <span class="seg-wire"  style="width: 29.4%">29%</span>
+  </div>
+</div>
+
+      <div class="stack-row">
+  <div class="who">Pxesto</div>
+  <div class="stack" title="Pxesto — draft 45.2%, trades 21.7%, wire 33.2%">
+    <span class="seg-draft" style="width: 45.2%">45%</span>
+    <span class="seg-trade" style="width: 21.7%">22%</span>
+    <span class="seg-wire"  style="width: 33.2%">33%</span>
+  </div>
+</div>
+
+      <div class="scroll" style="margin-top:1.5rem">
+        <table class="sheet">
+          <thead>
+            <tr><th>Manager</th><th class="r">Draft</th><th class="r">Trades</th>
+              <th class="r">Wire</th><th class="r opt">Total pts</th><th class="r opt">Seasons</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="name">emcwill12</td>
+              <td class="r big">86.9%</td>
+              <td class="r">0.0%</td>
+              <td class="r">13.1%</td>
+              <td class="r dim opt">1,991</td>
+              <td class="r dim opt">1</td>
+            </tr>
+            <tr>
+              <td class="name">clappincheeks69</td>
+              <td class="r big">85.2%</td>
+              <td class="r">9.1%</td>
+              <td class="r">5.8%</td>
+              <td class="r dim opt">2,543</td>
+              <td class="r dim opt">1</td>
+            </tr>
+            <tr>
+              <td class="name">DicklesPickles</td>
+              <td class="r big">80.9%</td>
+              <td class="r">0.9%</td>
+              <td class="r">18.1%</td>
+              <td class="r dim opt">8,238</td>
+              <td class="r dim opt">4</td>
+            </tr>
+            <tr>
+              <td class="name">StevetheDog</td>
+              <td class="r big">79.4%</td>
+              <td class="r">0.0%</td>
+              <td class="r">20.6%</td>
+              <td class="r dim opt">8,744</td>
+              <td class="r dim opt">4</td>
+            </tr>
+            <tr>
+              <td class="name">echenozz</td>
+              <td class="r big">79.3%</td>
+              <td class="r">7.0%</td>
+              <td class="r">13.8%</td>
+              <td class="r dim opt">3,933</td>
+              <td class="r dim opt">2</td>
+            </tr>
+            <tr>
+              <td class="name">Huntermeek4</td>
+              <td class="r big">79.0%</td>
+              <td class="r">0.0%</td>
+              <td class="r">21.0%</td>
+              <td class="r dim opt">6,607</td>
+              <td class="r dim opt">3</td>
+            </tr>
+            <tr>
+              <td class="name">GmanToTuff</td>
+              <td class="r big">75.2%</td>
+              <td class="r">11.5%</td>
+              <td class="r">13.3%</td>
+              <td class="r dim opt">11,407</td>
+              <td class="r dim opt">5</td>
+            </tr>
+            <tr>
+              <td class="name">Mangondala</td>
+              <td class="r big">68.9%</td>
+              <td class="r">19.8%</td>
+              <td class="r">11.3%</td>
+              <td class="r dim opt">11,501</td>
+              <td class="r dim opt">5</td>
+            </tr>
+            <tr>
+              <td class="name">Cumball</td>
+              <td class="r big">68.6%</td>
+              <td class="r">7.8%</td>
+              <td class="r">23.6%</td>
+              <td class="r dim opt">10,624</td>
+              <td class="r dim opt">5</td>
+            </tr>
+            <tr>
+              <td class="name">kodikat</td>
+              <td class="r big">67.5%</td>
+              <td class="r">11.5%</td>
+              <td class="r">21.0%</td>
+              <td class="r dim opt">8,913</td>
+              <td class="r dim opt">4</td>
+            </tr>
+            <tr>
+              <td class="name">speixoto24</td>
+              <td class="r big">66.4%</td>
+              <td class="r">10.4%</td>
+              <td class="r">23.2%</td>
+              <td class="r dim opt">2,416</td>
+              <td class="r dim opt">1</td>
+            </tr>
+            <tr>
+              <td class="name">Cadengetdabag</td>
+              <td class="r big">65.5%</td>
+              <td class="r">20.3%</td>
+              <td class="r">14.2%</td>
+              <td class="r dim opt">7,221</td>
+              <td class="r dim opt">3</td>
+            </tr>
+            <tr>
+              <td class="name">Nickpapi69</td>
+              <td class="r big">57.9%</td>
+              <td class="r">21.2%</td>
+              <td class="r">20.9%</td>
+              <td class="r dim opt">11,543</td>
+              <td class="r dim opt">5</td>
+            </tr>
+            <tr>
+              <td class="name">datboyp</td>
+              <td class="r big">53.1%</td>
+              <td class="r">20.5%</td>
+              <td class="r">26.4%</td>
+              <td class="r dim opt">12,106</td>
+              <td class="r dim opt">5</td>
+            </tr>
+            <tr>
+              <td class="name">ProfessorSell</td>
+              <td class="r big">46.3%</td>
+              <td class="r">24.3%</td>
+              <td class="r">29.4%</td>
+              <td class="r dim opt">1,772</td>
+              <td class="r dim opt">1</td>
+            </tr>
+            <tr>
+              <td class="name">Pxesto</td>
+              <td class="r big">45.2%</td>
+              <td class="r">21.7%</td>
+              <td class="r">33.2%</td>
+              <td class="r dim opt">11,215</td>
+              <td class="r dim opt">5</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 2 ══ -->
+<section class="chapter" id="trades">
+  <div class="wrap">
+    <div class="chapter-head">
+      <div class="eyebrow">Part Two</div>
+      <h2>Trades</h2>
+      <p class="lede">
+        A trade is judged only on what the acquired players went on to start for
+        their new team. Nothing is charged for the players given up — their output
+        is already counted as the other side's return, and charging it twice would
+        double the size of every verdict.
+      </p>
+    </div>
+
+    <div class="tiles">
+      <div class="tile">
+        <div class="label">Most lopsided deal</div>
+        <div class="stat-value">287</div>
+        <div class="sub">points, GmanToTuff over datboyp · 2025</div>
+      </div>
+      <div class="tile">
+        <div class="label">Best trader</div>
+        <div class="stat-value">+384</div>
+        <div class="sub">kodikat · 7 deals</div>
+      </div>
+      <div class="tile">
+        <div class="label">Worst trader</div>
+        <div class="stat-value cool">-671</div>
+        <div class="sub">Pxesto · 18 deals</div>
+      </div>
+      <div class="tile">
+        <div class="label">Deals that were a wash</div>
+        <div class="stat-value">14</div>
+        <div class="sub">of 49 — decided by under 40 points</div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <h3>The Trade Ledger</h3>
+        <p class="note"><b>Gained</b> is what a manager's incoming players started
+          for them; <b>gave up</b> is what their outgoing players started for
+          somebody else. A deal counts as won or lost only past 40 points — closer
+          than that is a wash. The league nets to zero by construction.</p>
+      </div>
+      <div class="scroll">
+        <table class="sheet">
+          <thead>
+            <tr><th></th><th>Manager</th><th class="r">Deals</th><th class="r">W–L</th>
+              <th class="r opt">Wash</th><th class="r opt">Gained</th><th class="r opt">Gave up</th>
+              <th class="r">Net</th><th class="r">Per deal</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="rank">1</td>
+              <td class="name">kodikat</td>
+              <td class="r dim">7</td>
+              <td class="r">4–1</td>
+              <td class="r dim opt">2</td>
+              <td class="r dim opt">1028</td>
+              <td class="r dim opt">644</td>
+              <td class="r big">+384</td>
+              <td class="r big">+55</td>
+            </tr>
+            <tr>
+              <td class="rank">2</td>
+              <td class="name">datboyp</td>
+              <td class="r dim">16</td>
+              <td class="r">9–4</td>
+              <td class="r dim opt">3</td>
+              <td class="r dim opt">2482</td>
+              <td class="r dim opt">2174</td>
+              <td class="r big">+308</td>
+              <td class="r big">+19</td>
+            </tr>
+            <tr>
+              <td class="rank">3</td>
+              <td class="name">Cumball</td>
+              <td class="r dim">4</td>
+              <td class="r">2–0</td>
+              <td class="r dim opt">2</td>
+              <td class="r dim opt">826</td>
+              <td class="r dim opt">534</td>
+              <td class="r big">+292</td>
+              <td class="r big">+73</td>
+            </tr>
+            <tr>
+              <td class="rank">4</td>
+              <td class="name">GmanToTuff</td>
+              <td class="r dim">11</td>
+              <td class="r">4–4</td>
+              <td class="r dim opt">3</td>
+              <td class="r dim opt">1311</td>
+              <td class="r dim opt">1143</td>
+              <td class="r big">+168</td>
+              <td class="r big">+15</td>
+            </tr>
+            <tr>
+              <td class="rank">5</td>
+              <td class="name">Mangondala</td>
+              <td class="r dim">11</td>
+              <td class="r">4–3</td>
+              <td class="r dim opt">4</td>
+              <td class="r dim opt">2282</td>
+              <td class="r dim opt">2124</td>
+              <td class="r big">+158</td>
+              <td class="r big">+14</td>
+            </tr>
+            <tr>
+              <td class="rank">6</td>
+              <td class="name">clappincheeks69</td>
+              <td class="r dim">1</td>
+              <td class="r">1–0</td>
+              <td class="r dim opt">0</td>
+              <td class="r dim opt">230</td>
+              <td class="r dim opt">103</td>
+              <td class="r big">+128</td>
+              <td class="r big">+128</td>
+            </tr>
+            <tr>
+              <td class="rank">7</td>
+              <td class="name">echenozz</td>
+              <td class="r dim">1</td>
+              <td class="r">1–0</td>
+              <td class="r dim opt">0</td>
+              <td class="r dim opt">273</td>
+              <td class="r dim opt">151</td>
+              <td class="r big">+122</td>
+              <td class="r big">+122</td>
+            </tr>
+            <tr>
+              <td class="rank">8</td>
+              <td class="name">speixoto24</td>
+              <td class="r dim">3</td>
+              <td class="r">1–2</td>
+              <td class="r dim opt">0</td>
+              <td class="r dim opt">251</td>
+              <td class="r dim opt">160</td>
+              <td class="r big">+91</td>
+              <td class="r big">+30</td>
+            </tr>
+            <tr>
+              <td class="rank">9</td>
+              <td class="name">DicklesPickles</td>
+              <td class="r dim">1</td>
+              <td class="r">0–0</td>
+              <td class="r dim opt">1</td>
+              <td class="r dim opt">76</td>
+              <td class="r dim opt">114</td>
+              <td class="r cool">-38</td>
+              <td class="r cool">-38</td>
+            </tr>
+            <tr>
+              <td class="rank">10</td>
+              <td class="name">Cadengetdabag</td>
+              <td class="r dim">6</td>
+              <td class="r">3–3</td>
+              <td class="r dim opt">0</td>
+              <td class="r dim opt">1464</td>
+              <td class="r dim opt">1593</td>
+              <td class="r cool">-129</td>
+              <td class="r cool">-22</td>
+            </tr>
+            <tr>
+              <td class="rank">11</td>
+              <td class="name">ProfessorSell</td>
+              <td class="r dim">3</td>
+              <td class="r">1–2</td>
+              <td class="r dim opt">0</td>
+              <td class="r dim opt">430</td>
+              <td class="r dim opt">691</td>
+              <td class="r cool">-260</td>
+              <td class="r cool">-87</td>
+            </tr>
+            <tr>
+              <td class="rank">12</td>
+              <td class="name">Nickpapi69</td>
+              <td class="r dim">16</td>
+              <td class="r">3–7</td>
+              <td class="r dim opt">6</td>
+              <td class="r dim opt">2445</td>
+              <td class="r dim opt">2998</td>
+              <td class="r cool">-553</td>
+              <td class="r cool">-35</td>
+            </tr>
+            <tr>
+              <td class="rank">13</td>
+              <td class="name">Pxesto</td>
+              <td class="r dim">18</td>
+              <td class="r">2–9</td>
+              <td class="r dim opt">7</td>
+              <td class="r dim opt">2431</td>
+              <td class="r dim opt">3101</td>
+              <td class="r cool">-671</td>
+              <td class="r cool">-37</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <h3>The Most Lopsided Deals</h3>
+        <p class="note">Winning side on the left.</p>
+      </div>
+      <div class="cards">
+        <div class="trade">
+  <div class="trade-head">
+    <span>2025 · week 3</span>
+    <span>won by 287.4 pts</span>
+  </div>
+  <div class="trade-sides">
+    <div class="trade-side won">
+      <div class="who">GmanToTuff</div>
+      <div class="total">484.6</div>
+      <ul>
+        <li><b>A.J. Brown</b> <span>194.7</span></li>
+        <li><b>Davante Adams</b> <span>182.2</span></li>
+        <li><b>RJ Harvey</b> <span>107.7</span></li>
+      </ul>
+    </div>
+    <div class="trade-side lost">
+      <div class="who">datboyp</div>
+      <div class="total">197.2</div>
+      <ul>
+        <li><b>Quinshon Judkins</b> <span>155.0</span></li>
+        <li><b>Nico Collins</b> <span>31.4</span></li>
+        <li><b>Terry McLaurin</b> <span>10.8</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="verdict">
+    Points the acquired players went on to start for their new team.
+  </div>
+</div>
+
+        <div class="trade">
+  <div class="trade-head">
+    <span>2024 · week 1</span>
+    <span>won by 274.1 pts</span>
+  </div>
+  <div class="trade-sides">
+    <div class="trade-side won">
+      <div class="who">Mangondala</div>
+      <div class="total">424.4</div>
+      <ul>
+        <li><b>George Kittle</b> <span>258.4</span></li>
+        <li><b>Chuba Hubbard</b> <span>166.0</span></li>
+      </ul>
+    </div>
+    <div class="trade-side lost">
+      <div class="who">Cadengetdabag</div>
+      <div class="total">150.3</div>
+      <ul>
+        <li><b>Sam LaPorta</b> <span>150.3</span></li>
+        <li><b>Ezekiel Elliott</b> <span>0.0</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="verdict">
+    Points the acquired players went on to start for their new team.
+  </div>
+</div>
+
+        <div class="trade">
+  <div class="trade-head">
+    <span>2021 · week 9</span>
+    <span>won by 222.6 pts</span>
+  </div>
+  <div class="trade-sides">
+    <div class="trade-side won">
+      <div class="who">speixoto24</div>
+      <div class="total">245.7</div>
+      <ul>
+        <li><b>Deebo Samuel</b> <span>193.1</span></li>
+        <li><b>D&#39;Andre Swift</b> <span>52.6</span></li>
+      </ul>
+    </div>
+    <div class="trade-side lost">
+      <div class="who">Nickpapi69</div>
+      <div class="total">23.1</div>
+      <ul>
+        <li><b>Alvin Kamara</b> <span>23.1</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="verdict">
+    Points the acquired players went on to start for their new team.
+  </div>
+</div>
+
+        <div class="trade">
+  <div class="trade-head">
+    <span>2025 · week 4</span>
+    <span>won by 219.9 pts</span>
+  </div>
+  <div class="trade-sides">
+    <div class="trade-side won">
+      <div class="who">Cadengetdabag</div>
+      <div class="total">297.4</div>
+      <ul>
+        <li><b>Jaxon Smith-Njigba</b> <span>273.1</span></li>
+        <li><b>Tony Pollard</b> <span>24.4</span></li>
+      </ul>
+    </div>
+    <div class="trade-side lost">
+      <div class="who">ProfessorSell</div>
+      <div class="total">77.5</div>
+      <ul>
+        <li><b>Alvin Kamara</b> <span>48.2</span></li>
+        <li><b>Jordan Mason</b> <span>29.3</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="verdict">
+    Points the acquired players went on to start for their new team.
+  </div>
+</div>
+
+        <div class="trade">
+  <div class="trade-head">
+    <span>2023 · week 4</span>
+    <span>won by 213.0 pts</span>
+  </div>
+  <div class="trade-sides">
+    <div class="trade-side won">
+      <div class="who">datboyp</div>
+      <div class="total">255.4</div>
+      <ul>
+        <li><b>Breece Hall</b> <span>255.4</span></li>
+      </ul>
+    </div>
+    <div class="trade-side lost">
+      <div class="who">Mangondala</div>
+      <div class="total">42.4</div>
+      <ul>
+        <li><b>Drake London</b> <span>42.4</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="verdict">
+    Points the acquired players went on to start for their new team.
+  </div>
+</div>
+
+        <div class="trade">
+  <div class="trade-head">
+    <span>2025 · week 1</span>
+    <span>won by 202.8 pts</span>
+  </div>
+  <div class="trade-sides">
+    <div class="trade-side won">
+      <div class="who">kodikat</div>
+      <div class="total">202.8</div>
+      <ul>
+        <li><b>Rico Dowdle</b> <span>202.8</span></li>
+      </ul>
+    </div>
+    <div class="trade-side lost">
+      <div class="who">datboyp</div>
+      <div class="total">0.0</div>
+      <ul>
+      </ul>
+    </div>
+  </div>
+  <div class="verdict">
+    Points the acquired players went on to start for their new team.
+  </div>
+</div>
+
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <h3>Deals Nobody Won</h3>
+        <p class="note">The closest trades on record — both sides got roughly what
+          they gave.</p>
+      </div>
+      <div class="cards">
+<div class="trade">
+  <div class="trade-head">
+    <span>2022 · week 3</span>
+    <span>a wash</span>
+  </div>
+  <div class="trade-sides">
+    <div class="trade-side lost">
+      <div class="who">Mangondala</div>
+      <div class="total">0.0</div>
+      <ul>
+        <li><b>Deebo Samuel</b> <span>0.0</span></li>
+        <li><b>Tony Pollard</b> <span>0.0</span></li>
+      </ul>
+    </div>
+    <div class="trade-side lost">
+      <div class="who">Nickpapi69</div>
+      <div class="total">0.0</div>
+      <ul>
+        <li><b>Derrick Henry</b> <span>0.0</span></li>
+        <li><b>Curtis Samuel</b> <span>0.0</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="verdict">
+    Points the acquired players went on to start for their new team.
+  </div>
+</div>
+<div class="trade">
+  <div class="trade-head">
+    <span>2022 · week 9</span>
+    <span>a wash</span>
+  </div>
+  <div class="trade-sides">
+    <div class="trade-side lost">
+      <div class="who">Pxesto</div>
+      <div class="total">0.0</div>
+      <ul>
+      </ul>
+    </div>
+    <div class="trade-side lost">
+      <div class="who">Mangondala</div>
+      <div class="total">0.0</div>
+      <ul>
+        <li><b>Isaiah Likely</b> <span>0.0</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="verdict">
+    Points the acquired players went on to start for their new team.
+  </div>
+</div>
+<div class="trade">
+  <div class="trade-head">
+    <span>2025 · week 5</span>
+    <span>a wash</span>
+  </div>
+  <div class="trade-sides">
+    <div class="trade-side lost">
+      <div class="who">datboyp</div>
+      <div class="total">0.0</div>
+      <ul>
+        <li><b>CeeDee Lamb</b> <span>0.0</span></li>
+      </ul>
+    </div>
+    <div class="trade-side lost">
+      <div class="who">kodikat</div>
+      <div class="total">0.0</div>
+      <ul>
+        <li><b>Woody Marks</b> <span>0.0</span></li>
+        <li><b>Chris Olave</b> <span>0.0</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="verdict">
+    Points the acquired players went on to start for their new team.
+  </div>
+</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 3 ══ -->
+<section class="chapter" id="wire">
+  <div class="wrap">
+    <div class="chapter-head">
+      <div class="eyebrow">Part Three</div>
+      <h2>The Waiver Wire</h2>
+      <p class="lede">
+        The wire is the quiet engine: 20.1% of everything
+        this league has ever scored came off it, more than trades and drafted depth
+        combined in some seasons. It is also the cheapest — most of the best pickups
+        cost nothing at all.
+      </p>
+    </div>
+
+    <div class="tiles">
+      <div class="tile">
+        <div class="label">Best pickup ever</div>
+        <div class="stat-value">261</div>
+        <div class="sub">Puka Nacua · datboyp · 2023 · $69</div>
+      </div>
+      <div class="tile">
+        <div class="label">Wire points, all time</div>
+        <div class="stat-value">24,265</div>
+        <div class="sub">started points from players nobody drafted</div>
+      </div>
+      <div class="tile">
+        <div class="label">Best value per dollar</div>
+        <div class="stat-value">387</div>
+        <div class="sub">points per $100 · Gus Edwards at $50</div>
+      </div>
+      <div class="tile">
+        <div class="label">Costliest mistake</div>
+        <div class="stat-value cool">$604</div>
+        <div class="sub">datboyp on Isaiah Likely → 7.0 points</div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <h3>The Best Pickups</h3>
+        <p class="note">Ranked by points started for the team that claimed them,
+          over the rest of that season.</p>
+      </div>
+      <div class="scroll">
+        <table class="sheet">
+          <thead>
+            <tr><th></th><th>When</th><th>Manager</th><th>Player</th><th class="opt">Pos</th>
+              <th class="r">Points</th><th class="r opt">Starts</th><th class="r">Cost</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="rank">1</td>
+              <td class="dim when">2023 wk1</td>
+              <td class="name">datboyp</td>
+              <td>Puka Nacua</td>
+              <td class="dim opt">WR</td>
+              <td class="r big">261.0</td>
+              <td class="r dim opt">16</td>
+              <td class="r">$69</td>
+            </tr>
+            <tr>
+              <td class="rank">2</td>
+              <td class="dim when">2024 wk1</td>
+              <td class="name">Cumball</td>
+              <td>Baker Mayfield</td>
+              <td class="dim opt">QB</td>
+              <td class="r big">248.0</td>
+              <td class="r dim opt">11</td>
+              <td class="r"><span class="dim">free</span></td>
+            </tr>
+            <tr>
+              <td class="rank">3</td>
+              <td class="dim when">2023 wk1</td>
+              <td class="name">Cadengetdabag</td>
+              <td>Kyren Williams</td>
+              <td class="dim opt">RB</td>
+              <td class="r big">246.5</td>
+              <td class="r dim opt">12</td>
+              <td class="r">$200</td>
+            </tr>
+            <tr>
+              <td class="rank">4</td>
+              <td class="dim when">2025 wk2</td>
+              <td class="name">Nickpapi69</td>
+              <td>Jared Goff</td>
+              <td class="dim opt">QB</td>
+              <td class="r big">236.1</td>
+              <td class="r dim opt">12</td>
+              <td class="r"><span class="dim">free</span></td>
+            </tr>
+            <tr>
+              <td class="rank">5</td>
+              <td class="dim when">2022 wk5</td>
+              <td class="name">datboyp</td>
+              <td>Rhamondre Stevenson</td>
+              <td class="dim opt">RB</td>
+              <td class="r big">194.3</td>
+              <td class="r dim opt">12</td>
+              <td class="r"><span class="dim">free</span></td>
+            </tr>
+            <tr>
+              <td class="rank">6</td>
+              <td class="dim when">2023 wk1</td>
+              <td class="name">DicklesPickles</td>
+              <td>Gus Edwards</td>
+              <td class="dim opt">RB</td>
+              <td class="r big">193.6</td>
+              <td class="r dim opt">16</td>
+              <td class="r">$50</td>
+            </tr>
+            <tr>
+              <td class="rank">7</td>
+              <td class="dim when">2022 wk2</td>
+              <td class="name">Cumball</td>
+              <td>Tua Tagovailoa</td>
+              <td class="dim opt">QB</td>
+              <td class="r big">189.2</td>
+              <td class="r dim opt">11</td>
+              <td class="r">$200</td>
+            </tr>
+            <tr>
+              <td class="rank">8</td>
+              <td class="dim when">2023 wk2</td>
+              <td class="name">kodikat</td>
+              <td>Jerome Ford</td>
+              <td class="dim opt">RB</td>
+              <td class="r big">186.1</td>
+              <td class="r dim opt">15</td>
+              <td class="r">$400</td>
+            </tr>
+            <tr>
+              <td class="rank">9</td>
+              <td class="dim when">2024 wk1</td>
+              <td class="name">datboyp</td>
+              <td>Bucky Irving</td>
+              <td class="dim opt">RB</td>
+              <td class="r big">174.5</td>
+              <td class="r dim opt">11</td>
+              <td class="r"><span class="dim">free</span></td>
+            </tr>
+            <tr>
+              <td class="rank">10</td>
+              <td class="dim when">2021 wk4</td>
+              <td class="name">GmanToTuff</td>
+              <td>Cordarrelle Patterson</td>
+              <td class="dim opt">RB</td>
+              <td class="r big">172.7</td>
+              <td class="r dim opt">13</td>
+              <td class="r"><span class="dim">free</span></td>
+            </tr>
+            <tr>
+              <td class="rank">11</td>
+              <td class="dim when">2024 wk8</td>
+              <td class="name">GmanToTuff</td>
+              <td>Jonnu Smith</td>
+              <td class="dim opt">TE</td>
+              <td class="r big">170.3</td>
+              <td class="r dim opt">9</td>
+              <td class="r">$50</td>
+            </tr>
+            <tr>
+              <td class="rank">12</td>
+              <td class="dim when">2023 wk2</td>
+              <td class="name">Huntermeek4</td>
+              <td>Zack Moss</td>
+              <td class="dim opt">RB</td>
+              <td class="r big">167.0</td>
+              <td class="r dim opt">12</td>
+              <td class="r"><span class="dim">free</span></td>
+            </tr>
+            <tr>
+              <td class="rank">13</td>
+              <td class="dim when">2021 wk6</td>
+              <td class="name">GmanToTuff</td>
+              <td>James Conner</td>
+              <td class="dim opt">RB</td>
+              <td class="r big">160.3</td>
+              <td class="r dim opt">10</td>
+              <td class="r"><span class="dim">free</span></td>
+            </tr>
+            <tr>
+              <td class="rank">14</td>
+              <td class="dim when">2023 wk6</td>
+              <td class="name">echenozz</td>
+              <td>C.J. Stroud</td>
+              <td class="dim opt">QB</td>
+              <td class="r big">155.8</td>
+              <td class="r dim opt">8</td>
+              <td class="r"><span class="dim">free</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="grid-2 block">
+      <div>
+        <div class="block-head">
+          <h3>Best Money Spent</h3>
+          <p class="note">Points returned per $100 of FAAB, for bids of $25 or more.</p>
+        </div>
+        <table class="sheet">
+          <thead><tr><th>Manager</th><th>Player</th><th class="r">Bid</th><th class="r">Pts</th><th class="r">Per $100</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="name">DicklesPickles</td>
+              <td>Gus Edwards</td>
+              <td class="r dim">$50</td>
+              <td class="r">194</td>
+              <td class="r big">387</td>
+            </tr>
+            <tr>
+              <td class="name">datboyp</td>
+              <td>Puka Nacua</td>
+              <td class="r dim">$69</td>
+              <td class="r">261</td>
+              <td class="r big">378</td>
+            </tr>
+            <tr>
+              <td class="name">GmanToTuff</td>
+              <td>Jonnu Smith</td>
+              <td class="r dim">$50</td>
+              <td class="r">170</td>
+              <td class="r big">341</td>
+            </tr>
+            <tr>
+              <td class="name">kodikat</td>
+              <td>Daniel Jones</td>
+              <td class="r dim">$51</td>
+              <td class="r">146</td>
+              <td class="r big">286</td>
+            </tr>
+            <tr>
+              <td class="name">Cadengetdabag</td>
+              <td>Cade Otton</td>
+              <td class="r dim">$25</td>
+              <td class="r">64</td>
+              <td class="r big">254</td>
+            </tr>
+            <tr>
+              <td class="name">DicklesPickles</td>
+              <td>Jared Goff</td>
+              <td class="r dim">$25</td>
+              <td class="r">63</td>
+              <td class="r big">252</td>
+            </tr>
+            <tr>
+              <td class="name">Cumball</td>
+              <td>Nick Folk</td>
+              <td class="r dim">$25</td>
+              <td class="r">52</td>
+              <td class="r big">208</td>
+            </tr>
+            <tr>
+              <td class="name">Nickpapi69</td>
+              <td>Tyler Bass</td>
+              <td class="r dim">$50</td>
+              <td class="r">92</td>
+              <td class="r big">184</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="block-head">
+          <h3>Money Set On Fire</h3>
+          <p class="note">Bids of $200 or more that returned almost nothing.</p>
+        </div>
+        <table class="sheet">
+          <thead><tr><th>Manager</th><th>Player</th><th class="r">Bid</th><th class="r">Pts</th><th class="r opt">Starts</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="name">Nickpapi69</td>
+              <td>Logan Thomas</td>
+              <td class="r cool">$200</td>
+              <td class="r">1.2</td>
+              <td class="r dim opt">1</td>
+            </tr>
+            <tr>
+              <td class="name">Cumball</td>
+              <td>Darius Slayton</td>
+              <td class="r cool">$200</td>
+              <td class="r">2.1</td>
+              <td class="r dim opt">1</td>
+            </tr>
+            <tr>
+              <td class="name">DicklesPickles</td>
+              <td>Chase Claypool</td>
+              <td class="r cool">$200</td>
+              <td class="r">2.6</td>
+              <td class="r dim opt">1</td>
+            </tr>
+            <tr>
+              <td class="name">datboyp</td>
+              <td>Isaiah Likely</td>
+              <td class="r cool">$604</td>
+              <td class="r">7.0</td>
+              <td class="r dim opt">2</td>
+            </tr>
+            <tr>
+              <td class="name">DicklesPickles</td>
+              <td>Audric Estime</td>
+              <td class="r cool">$250</td>
+              <td class="r">7.7</td>
+              <td class="r dim opt">3</td>
+            </tr>
+            <tr>
+              <td class="name">Mangondala</td>
+              <td>Jaleel McLaughlin</td>
+              <td class="r cool">$300</td>
+              <td class="r">11.5</td>
+              <td class="r dim opt">2</td>
+            </tr>
+            <tr>
+              <td class="name">Nickpapi69</td>
+              <td>Quentin Johnston</td>
+              <td class="r cool">$351</td>
+              <td class="r">13.9</td>
+              <td class="r dim opt">1</td>
+            </tr>
+            <tr>
+              <td class="name">DicklesPickles</td>
+              <td>Sterling Shepard</td>
+              <td class="r cool">$350</td>
+              <td class="r">15.7</td>
+              <td class="r dim opt">3</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <h3>Found For Nothing</h3>
+        <p class="note">Free-agent adds that cost no FAAB at all.</p>
+      </div>
+      <div class="scroll">
+        <table class="sheet">
+          <thead><tr><th></th><th>When</th><th>Manager</th><th>Player</th><th class="r">Points</th><th class="r opt">Starts</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="rank">1</td>
+              <td class="dim when">2024 wk1</td>
+              <td class="name">Cumball</td>
+              <td>Baker Mayfield <span class="dim">QB</span></td>
+              <td class="r big">248.0</td>
+              <td class="r dim opt">11</td>
+            </tr>
+            <tr>
+              <td class="rank">2</td>
+              <td class="dim when">2025 wk2</td>
+              <td class="name">Nickpapi69</td>
+              <td>Jared Goff <span class="dim">QB</span></td>
+              <td class="r big">236.1</td>
+              <td class="r dim opt">12</td>
+            </tr>
+            <tr>
+              <td class="rank">3</td>
+              <td class="dim when">2022 wk5</td>
+              <td class="name">datboyp</td>
+              <td>Rhamondre Stevenson <span class="dim">RB</span></td>
+              <td class="r big">194.3</td>
+              <td class="r dim opt">12</td>
+            </tr>
+            <tr>
+              <td class="rank">4</td>
+              <td class="dim when">2024 wk1</td>
+              <td class="name">datboyp</td>
+              <td>Bucky Irving <span class="dim">RB</span></td>
+              <td class="r big">174.5</td>
+              <td class="r dim opt">11</td>
+            </tr>
+            <tr>
+              <td class="rank">5</td>
+              <td class="dim when">2021 wk4</td>
+              <td class="name">GmanToTuff</td>
+              <td>Cordarrelle Patterson <span class="dim">RB</span></td>
+              <td class="r big">172.7</td>
+              <td class="r dim opt">13</td>
+            </tr>
+            <tr>
+              <td class="rank">6</td>
+              <td class="dim when">2023 wk2</td>
+              <td class="name">Huntermeek4</td>
+              <td>Zack Moss <span class="dim">RB</span></td>
+              <td class="r big">167.0</td>
+              <td class="r dim opt">12</td>
+            </tr>
+            <tr>
+              <td class="rank">7</td>
+              <td class="dim when">2021 wk6</td>
+              <td class="name">GmanToTuff</td>
+              <td>James Conner <span class="dim">RB</span></td>
+              <td class="r big">160.3</td>
+              <td class="r dim opt">10</td>
+            </tr>
+            <tr>
+              <td class="rank">8</td>
+              <td class="dim when">2023 wk6</td>
+              <td class="name">echenozz</td>
+              <td>C.J. Stroud <span class="dim">QB</span></td>
+              <td class="r big">155.8</td>
+              <td class="r dim opt">8</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 4 ══ -->
+<section class="chapter" id="decides">
+  <div class="wrap">
+    <div class="chapter-head">
+      <div class="eyebrow">Part Four</div>
+      <h2>What Actually Decides It</h2>
+      <p class="lede">
+        Two questions get confused with each other. <em>How much</em> of a roster
+        comes from the draft is one thing — and the answer barely separates
+        champions from also-rans. <em>How good</em> the draft was is another, and
+        it separates them almost completely.
+      </p>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <h3>Drafting Well Is Close to Decisive</h3>
+        <p class="note">Every manager-season sorted by the quality of its picks —
+          points above or below what each pick's position normally returns at that
+          slot — then split into thirds.</p>
+      </div>
+      <div class="scroll">
+        <table class="sheet">
+          <thead>
+            <tr><th>Draft quality</th><th class="r">Seasons</th><th class="r">Made playoffs</th>
+              <th class="r">Titles</th><th class="r">Average finish</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="name">Drafted best</td>
+              <td class="r dim">19</td>
+              <td class="r big">84.2%</td>
+              <td class="r">4</td>
+              <td class="r">3.7</td>
+            </tr>
+            <tr>
+              <td class="name">Drafted middling</td>
+              <td class="r dim">18</td>
+              <td class="r big">55.6%</td>
+              <td class="r">1</td>
+              <td class="r">5.5</td>
+            </tr>
+            <tr>
+              <td class="name">Drafted worst</td>
+              <td class="r dim">17</td>
+              <td class="r big">11.8%</td>
+              <td class="r">0</td>
+              <td class="r">9.1</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note" style="margin-top:0.8rem">
+        The bottom third has never produced a champion across
+        5 seasons, and reaches the playoffs about
+        once in eight tries. Drafting badly is not a hole you usually climb out of.
+      </p>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <h3>But the Mix Barely Moves</h3>
+        <p class="note">Average channel share by how the season ended. Champions and
+          teams that missed the playoffs build from almost identical proportions.</p>
+      </div>
+      <div class="legend">
+        <span><i class="swatch-draft"></i>Draft</span>
+        <span><i class="swatch-trade"></i>Trades</span>
+        <span><i class="swatch-wire"></i>Waiver wire</span>
+      </div>
+      <div class="stack-row">
+  <div class="who">Champions</div>
+  <div class="stack" title="Champions — draft 68.7%, trades 14.9%, wire 16.4%">
+    <span class="seg-draft" style="width: 68.7%">69%</span>
+    <span class="seg-trade" style="width: 14.9%">15%</span>
+    <span class="seg-wire"  style="width: 16.4%">16%</span>
+  </div>
+</div>
+
+      <div class="stack-row">
+  <div class="who">Made playoffs</div>
+  <div class="stack" title="Made playoffs — draft 67.4%, trades 14.2%, wire 18.4%">
+    <span class="seg-draft" style="width: 67.4%">67%</span>
+    <span class="seg-trade" style="width: 14.2%">14%</span>
+    <span class="seg-wire"  style="width: 18.4%">18%</span>
+  </div>
+</div>
+
+      <div class="stack-row">
+  <div class="who">Missed playoffs</div>
+  <div class="stack" title="Missed playoffs — draft 66.6%, trades 11.0%, wire 22.5%">
+    <span class="seg-draft" style="width: 66.6%">67%</span>
+    <span class="seg-trade" style="width: 11.0%">11%</span>
+    <span class="seg-wire"  style="width: 22.5%">22%</span>
+  </div>
+</div>
+
+      <div class="scroll" style="margin-top:1.5rem">
+        <table class="sheet">
+          <thead><tr><th>Outcome</th><th class="r">Seasons</th><th class="r">Draft</th>
+            <th class="r">Trades</th><th class="r">Wire</th><th class="r">Points scored</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="name">Champions</td>
+              <td class="r dim">5</td>
+              <td class="r">68.7%</td>
+              <td class="r">14.9%</td>
+              <td class="r">16.4%</td>
+              <td class="r big">2,582</td>
+            </tr>
+            <tr>
+              <td class="name">Made playoffs</td>
+              <td class="r dim">28</td>
+              <td class="r">67.4%</td>
+              <td class="r">14.2%</td>
+              <td class="r">18.4%</td>
+              <td class="r big">2,365</td>
+            </tr>
+            <tr>
+              <td class="name">Missed playoffs</td>
+              <td class="r dim">26</td>
+              <td class="r">66.6%</td>
+              <td class="r">11.0%</td>
+              <td class="r">22.5%</td>
+              <td class="r big">2,098</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note" style="margin-top:0.8rem">
+        Champions take 68.7% from the draft;
+        teams that missed take 66.6%. The gap is
+        nothing. What separates them is
+        483
+        points of output — not a different recipe, a better version of the same one.
+        The one real difference in shape: losing teams lean hardest on the wire,
+        because churning it is what you do when the roster is not working.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 5 ══ -->
+<section class="chapter" id="overcome">
+  <div class="wrap">
+    <div class="chapter-head">
+      <div class="eyebrow">Part Five</div>
+      <h2>Overcoming a Bad Draft</h2>
+      <p class="lede">
+        Yes, it happens — 7 of the
+        28 playoff runs on record started with a
+        bottom-half draft. But it is the exception, and the route is narrow.
+      </p>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <h3>They Drafted Badly and Made It Anyway</h3>
+        <p class="note">Bottom-half draft by pick quality, playoffs regardless.
+          <b>Rescued by</b> is the share of their season's points that arrived
+          through trades and the wire.</p>
+      </div>
+      <div class="scroll">
+        <table class="sheet">
+          <thead>
+            <tr><th>Season</th><th>Manager</th><th class="r">Draft rank</th>
+              <th class="r">Finish</th><th class="r">Rescued by</th><th class="opt"></th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="dim">2023</td>
+              <td class="name">datboyp</td>
+              <td class="r">7/12</td>
+              <td class="r">5</td>
+              <td class="r big">40.5%</td>
+              <td class="opt"><span class="pill gold">Champion</span></td>
+            </tr>
+            <tr>
+              <td class="dim">2022</td>
+              <td class="name">Mangondala</td>
+              <td class="r">8/10</td>
+              <td class="r">4</td>
+              <td class="r big">38.0%</td>
+              <td class="opt"></td>
+            </tr>
+            <tr>
+              <td class="dim">2024</td>
+              <td class="name">GmanToTuff</td>
+              <td class="r">7/12</td>
+              <td class="r">3</td>
+              <td class="r big">35.6%</td>
+              <td class="opt"></td>
+            </tr>
+            <tr>
+              <td class="dim">2021</td>
+              <td class="name">Pxesto</td>
+              <td class="r">8/8</td>
+              <td class="r">4</td>
+              <td class="r big">32.7%</td>
+              <td class="opt"></td>
+            </tr>
+            <tr>
+              <td class="dim">2025</td>
+              <td class="name">Mangondala</td>
+              <td class="r">7/12</td>
+              <td class="r">3</td>
+              <td class="r big">25.3%</td>
+              <td class="opt"></td>
+            </tr>
+            <tr>
+              <td class="dim">2022</td>
+              <td class="name">DicklesPickles</td>
+              <td class="r">7/10</td>
+              <td class="r">5</td>
+              <td class="r big">22.4%</td>
+              <td class="opt"></td>
+            </tr>
+            <tr>
+              <td class="dim">2022</td>
+              <td class="name">GmanToTuff</td>
+              <td class="r">6/10</td>
+              <td class="r">6</td>
+              <td class="r big">9.7%</td>
+              <td class="opt"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <h3>And the Reverse</h3>
+        <p class="note">Top-third drafts that still missed the playoffs — proof the
+          draft buys probability, not a seat.</p>
+      </div>
+      <div class="scroll">
+        <table class="sheet">
+          <thead><tr><th>Season</th><th>Manager</th><th class="r">Draft rank</th><th class="r">Finish</th><th class="r opt">Points</th></tr></thead>
+          <tbody>
+            <tr>
+              <td class="dim">2023</td>
+              <td class="name">Huntermeek4</td>
+              <td class="r big">2/12</td>
+              <td class="r cool">8</td>
+              <td class="r dim opt">2,182</td>
+            </tr>
+            <tr>
+              <td class="dim">2021</td>
+              <td class="name">Mangondala</td>
+              <td class="r big">3/8</td>
+              <td class="r cool">7</td>
+              <td class="r dim opt">2,267</td>
+            </tr>
+            <tr>
+              <td class="dim">2022</td>
+              <td class="name">emcwill12</td>
+              <td class="r big">2/10</td>
+              <td class="r cool">10</td>
+              <td class="r dim opt">1,991</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <h3>The Draft as Currency</h3>
+        <p class="note">Two different things hide behind "a bad draft". These
+          managers drafted <em>well</em> and then spent it — the picks became
+          somebody else's players, and the points came back through the trade door.</p>
+      </div>
+      <div class="scroll">
+        <table class="sheet">
+          <thead>
+            <tr><th>Season</th><th>Manager</th><th class="r">Pick quality</th>
+              <th class="r">Points from own picks</th><th class="r opt">Gap</th>
+              <th class="r">Finish</th><th class="r opt">From trades</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="dim">2022</td>
+              <td class="name">Pxesto</td>
+              <td class="r big">1/10</td>
+              <td class="r cool">8/10</td>
+              <td class="r dim opt">7</td>
+              <td class="r">2</td>
+              <td class="r dim opt">13.8%</td>
+            </tr>
+            <tr>
+              <td class="dim">2022</td>
+              <td class="name">Nickpapi69</td>
+              <td class="r big">3/10</td>
+              <td class="r cool">10/10</td>
+              <td class="r dim opt">7</td>
+              <td class="r">3</td>
+              <td class="r dim opt">29.9%</td>
+            </tr>
+            <tr>
+              <td class="dim">2023</td>
+              <td class="name">Cadengetdabag</td>
+              <td class="r big">4/12</td>
+              <td class="r cool">11/12</td>
+              <td class="r dim opt">7</td>
+              <td class="r">6</td>
+              <td class="r dim opt">37.7%</td>
+            </tr>
+            <tr>
+              <td class="dim">2023</td>
+              <td class="name">Pxesto</td>
+              <td class="r big">6/12</td>
+              <td class="r cool">12/12</td>
+              <td class="r dim opt">6</td>
+              <td class="r">2</td>
+              <td class="r dim opt">50.9%</td>
+            </tr>
+            <tr>
+              <td class="dim">2025</td>
+              <td class="name">datboyp</td>
+              <td class="r big">1/12</td>
+              <td class="r cool">6/12</td>
+              <td class="r dim opt">5</td>
+              <td class="r">1</td>
+              <td class="r dim opt">35.2%</td>
+            </tr>
+            <tr>
+              <td class="dim">2023</td>
+              <td class="name">Nickpapi69</td>
+              <td class="r big">1/12</td>
+              <td class="r cool">5/12</td>
+              <td class="r dim opt">4</td>
+              <td class="r">1</td>
+              <td class="r dim opt">24.4%</td>
+            </tr>
+            <tr>
+              <td class="dim">2024</td>
+              <td class="name">kodikat</td>
+              <td class="r big">3/12</td>
+              <td class="r cool">7/12</td>
+              <td class="r dim opt">4</td>
+              <td class="r">6</td>
+              <td class="r dim opt">2.1%</td>
+            </tr>
+            <tr>
+              <td class="dim">2024</td>
+              <td class="name">Nickpapi69</td>
+              <td class="r big">6/12</td>
+              <td class="r cool">10/12</td>
+              <td class="r dim opt">4</td>
+              <td class="r">7</td>
+              <td class="r dim opt">23.5%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note" style="margin-top:0.8rem">
+        Ranking managers by points-from-their-own-picks would call all of these bad
+        drafts. They were the opposite: good drafts, converted. Any honest reading of
+        "can you overcome a bad draft" has to tell the two apart, which is why the
+        tables above rank on pick quality rather than on what a manager kept.
+      </p>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="eyebrow">Method</div>
+    <p class="note" style="margin-top:0.8rem">
+      Acquisitions are replayed in order for every season, so each of
+      16048 rostered player-weeks carries the channel it
+      arrived through. Credit follows the player: re-signing someone you cut starts
+      a fresh attribution, so nobody keeps draft credit for a player they let go.
+      Waiver claims and plain free-agent adds count as one channel — both are
+      players the whole league could have had.
+    </p>
+    <p class="note">
+      Values are started points only. Draft quality is measured against what each
+      pick's position normally returns at that slot, which is what makes a
+      seventeenth-round quarterback comparable to a first-round back.
+    </p>
+    <p class="note" style="margin-top:1rem">
+      Companion page: <a href="../">The FWFFL Annual</a> — records, luck, the median
+      game, rivalries and the nickname archive.
+    </p>
+  </div>
+</footer>
+
+</main>

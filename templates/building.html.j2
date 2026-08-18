@@ -1,0 +1,614 @@
+<title>Draft, Trade, Waiver</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>{{ css }}</style>
+
+{% set A = acquisition %}
+{% macro stack(row, label) %}
+<div class="stack-row">
+  <div class="who">{{ label }}</div>
+  <div class="stack" title="{{ label }} — draft {{ row.draft }}%, trades {{ row.trade }}%, wire {{ row.waiver }}%">
+    <span class="seg-draft" style="width: {{ row.draft }}%">{% if row.draft >= 9 %}{{ row.draft|round|int }}%{% endif %}</span>
+    <span class="seg-trade" style="width: {{ row.trade }}%">{% if row.trade >= 9 %}{{ row.trade|round|int }}%{% endif %}</span>
+    <span class="seg-wire"  style="width: {{ row.waiver }}%">{% if row.waiver >= 9 %}{{ row.waiver|round|int }}%{% endif %}</span>
+  </div>
+</div>
+{% endmacro %}
+
+{% macro trade_card(d) %}
+<div class="trade">
+  <div class="trade-head">
+    <span>{{ d.season }} · week {{ d.week }}</span>
+    <span>{% if d.decisive %}won by {{ d.margin }} pts{% else %}a wash{% endif %}</span>
+  </div>
+  <div class="trade-sides">
+    {% for s in d.sides %}
+    <div class="trade-side {{ 'won' if loop.first and d.decisive else 'lost' }}">
+      <div class="who">{{ s.manager }}</div>
+      <div class="total">{{ "%.1f"|format(s.points) }}</div>
+      <ul>
+        {% for p in s.received %}
+        <li><b>{{ p.player }}</b> <span>{{ "%.1f"|format(p.points) }}</span></li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="verdict">
+    Points the acquired players went on to start for their new team.
+  </div>
+</div>
+{% endmacro %}
+
+<main>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">{{ meta.league_name }} · {{ meta.completed_seasons|first }}–{{ meta.completed_seasons|last }}</div>
+    <h1>Draft<br>Trade<br>Waiver</h1>
+    <p class="lede" style="margin-top:1.5rem">
+      Every point a team scores came through one of three doors. This is which —
+      traced across {{ meta.dataset.player_weeks }} rostered player-weeks, so the
+      question of what actually builds a roster is settled with the league's own
+      numbers instead of an argument.
+    </p>
+    <div class="hero-meta">
+      {% for c in A.channels.league %}
+      <span><b>{{ c.share }}%</b> {{ c.label|lower }}</span>
+      {% endfor %}
+      <span><b>{{ A.trades|length }}</b> trades scored</span>
+    </div>
+  </div>
+</header>
+
+<nav class="nav" aria-label="Sections">
+  <div class="wrap">
+    <ul>
+      <li><a href="#doors">The Three Doors</a></li>
+      <li><a href="#trades">Trades</a></li>
+      <li><a href="#wire">The Wire</a></li>
+      <li><a href="#decides">What Decides It</a></li>
+      <li><a href="#overcome">Overcoming a Bad Draft</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ══ 1 ══ -->
+<section class="chapter" id="doors">
+  <div class="wrap">
+    <div class="chapter-head">
+      <div class="eyebrow">Part One</div>
+      <h2>The Three Doors</h2>
+      <p class="lede">
+        The unit here is the <em>started point</em> — points a player actually put
+        into a lineup for the team that acquired him. Bench points are not value
+        delivered, and a brilliant pickup nobody starts helped nobody. Credit
+        follows the player: draft a receiver, trade him in week 6, and the draft
+        keeps weeks 1–5 while the trade takes what comes after.
+      </p>
+    </div>
+
+    <div class="tiles">
+      {% for c in A.channels.league %}
+      <div class="tile">
+        <div class="label">{{ c.label }}</div>
+        <div class="stat-value">{{ c.share }}%</div>
+        <div class="sub">{{ "{:,.0f}".format(c.points) }} points across {{ "{:,}".format(c.starts) }} starts</div>
+      </div>
+      {% endfor %}
+      <div class="tile">
+        <div class="label">Trades scored</div>
+        <div class="stat-value">{{ A.trades|length }}</div>
+        <div class="sub">every completed deal, judged on what followed</div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <h3>The Draft Is Losing Its Grip</h3>
+        <p class="note">Share of each season's started points by channel. The draft
+          has fallen every year it has been measured as the league has got busier.</p>
+      </div>
+      <div class="legend">
+        <span><i class="swatch-draft"></i>Draft</span>
+        <span><i class="swatch-trade"></i>Trades</span>
+        <span><i class="swatch-wire"></i>Waiver wire</span>
+      </div>
+      {% for r in A.channels.by_season %}
+      {{ stack(r, r.season) }}
+      {% endfor %}
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <h3>How Each Manager Builds</h3>
+        <p class="note">Career share of started points, sorted by reliance on the
+          draft. A short bar on the left is a manager who rebuilds in season.</p>
+      </div>
+      {% for r in A.channels.by_manager %}
+      {{ stack(r, r.manager) }}
+      {% endfor %}
+      <div class="scroll" style="margin-top:1.5rem">
+        <table class="sheet">
+          <thead>
+            <tr><th>Manager</th><th class="r">Draft</th><th class="r">Trades</th>
+              <th class="r">Wire</th><th class="r opt">Total pts</th><th class="r opt">Seasons</th></tr>
+          </thead>
+          <tbody>
+            {% for r in A.channels.by_manager %}
+            <tr>
+              <td class="name">{{ r.manager }}</td>
+              <td class="r big">{{ r.draft }}%</td>
+              <td class="r">{{ r.trade }}%</td>
+              <td class="r">{{ r.waiver }}%</td>
+              <td class="r dim opt">{{ "{:,.0f}".format(r.points) }}</td>
+              <td class="r dim opt">{{ r.seasons }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 2 ══ -->
+<section class="chapter" id="trades">
+  <div class="wrap">
+    <div class="chapter-head">
+      <div class="eyebrow">Part Two</div>
+      <h2>Trades</h2>
+      <p class="lede">
+        A trade is judged only on what the acquired players went on to start for
+        their new team. Nothing is charged for the players given up — their output
+        is already counted as the other side's return, and charging it twice would
+        double the size of every verdict.
+      </p>
+    </div>
+
+    {% set biggest = A.trades[0] %}
+    {% set ledger = A.trade_ledger %}
+    <div class="tiles">
+      <div class="tile">
+        <div class="label">Most lopsided deal</div>
+        <div class="stat-value">{{ "%.0f"|format(biggest.margin) }}</div>
+        <div class="sub">points, {{ biggest.sides[0].manager }} over {{ biggest.sides[1].manager }} · {{ biggest.season }}</div>
+      </div>
+      <div class="tile">
+        <div class="label">Best trader</div>
+        <div class="stat-value">{{ "%+.0f"|format(ledger[0].net) }}</div>
+        <div class="sub">{{ ledger[0].manager }} · {{ ledger[0].trades }} deals</div>
+      </div>
+      <div class="tile">
+        <div class="label">Worst trader</div>
+        <div class="stat-value cool">{{ "%+.0f"|format(ledger[-1].net) }}</div>
+        <div class="sub">{{ ledger[-1].manager }} · {{ ledger[-1].trades }} deals</div>
+      </div>
+      <div class="tile">
+        <div class="label">Deals that were a wash</div>
+        <div class="stat-value">{{ A.trades|rejectattr('decisive')|list|length }}</div>
+        <div class="sub">of {{ A.trades|length }} — decided by under 40 points</div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <h3>The Trade Ledger</h3>
+        <p class="note"><b>Gained</b> is what a manager's incoming players started
+          for them; <b>gave up</b> is what their outgoing players started for
+          somebody else. A deal counts as won or lost only past 40 points — closer
+          than that is a wash. The league nets to zero by construction.</p>
+      </div>
+      <div class="scroll">
+        <table class="sheet">
+          <thead>
+            <tr><th></th><th>Manager</th><th class="r">Deals</th><th class="r">W–L</th>
+              <th class="r opt">Wash</th><th class="r opt">Gained</th><th class="r opt">Gave up</th>
+              <th class="r">Net</th><th class="r">Per deal</th></tr>
+          </thead>
+          <tbody>
+            {% for r in ledger %}
+            <tr>
+              <td class="rank">{{ loop.index }}</td>
+              <td class="name">{{ r.manager }}</td>
+              <td class="r dim">{{ r.trades }}</td>
+              <td class="r">{{ r.won }}–{{ r.lost }}</td>
+              <td class="r dim opt">{{ r.washes }}</td>
+              <td class="r dim opt">{{ "%.0f"|format(r.gained) }}</td>
+              <td class="r dim opt">{{ "%.0f"|format(r.surrendered) }}</td>
+              <td class="r {{ 'big' if r.net >= 0 else 'cool' }}">{{ "%+.0f"|format(r.net) }}</td>
+              <td class="r {{ 'big' if r.net_per_trade >= 0 else 'cool' }}">{{ "%+.0f"|format(r.net_per_trade) }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <h3>The Most Lopsided Deals</h3>
+        <p class="note">Winning side on the left.</p>
+      </div>
+      <div class="cards">
+        {% for d in A.trades[:6] %}
+        {{ trade_card(d) }}
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <h3>Deals Nobody Won</h3>
+        <p class="note">The closest trades on record — both sides got roughly what
+          they gave.</p>
+      </div>
+      <div class="cards">
+        {% for d in A.trades|sort(attribute='margin')|list %}
+        {% if loop.index <= 3 %}{{ trade_card(d) }}{% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 3 ══ -->
+<section class="chapter" id="wire">
+  <div class="wrap">
+    <div class="chapter-head">
+      <div class="eyebrow">Part Three</div>
+      <h2>The Waiver Wire</h2>
+      <p class="lede">
+        The wire is the quiet engine: {{ A.channels.league[2].share }}% of everything
+        this league has ever scored came off it, more than trades and drafted depth
+        combined in some seasons. It is also the cheapest — most of the best pickups
+        cost nothing at all.
+      </p>
+    </div>
+
+    {% set top = A.waivers.best[0] %}
+    {% set bargain = A.waivers.bargains[0] %}
+    {% set bust = A.waivers.busts|sort(attribute='bid')|last %}
+    <div class="tiles">
+      <div class="tile">
+        <div class="label">Best pickup ever</div>
+        <div class="stat-value">{{ "%.0f"|format(top.points) }}</div>
+        <div class="sub">{{ top.player }} · {{ top.manager }} · {{ top.season }} · ${{ top.bid or 0 }}</div>
+      </div>
+      <div class="tile">
+        <div class="label">Wire points, all time</div>
+        <div class="stat-value">{{ "{:,.0f}".format(A.waivers.total_wire_points) }}</div>
+        <div class="sub">started points from players nobody drafted</div>
+      </div>
+      <div class="tile">
+        <div class="label">Best value per dollar</div>
+        <div class="stat-value">{{ "%.0f"|format(bargain.points_per_100) }}</div>
+        <div class="sub">points per $100 · {{ bargain.player }} at ${{ bargain.bid }}</div>
+      </div>
+      <div class="tile">
+        <div class="label">Costliest mistake</div>
+        <div class="stat-value cool">${{ bust.bid }}</div>
+        <div class="sub">{{ bust.manager }} on {{ bust.player }} → {{ bust.points }} points</div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <h3>The Best Pickups</h3>
+        <p class="note">Ranked by points started for the team that claimed them,
+          over the rest of that season.</p>
+      </div>
+      <div class="scroll">
+        <table class="sheet">
+          <thead>
+            <tr><th></th><th>When</th><th>Manager</th><th>Player</th><th class="opt">Pos</th>
+              <th class="r">Points</th><th class="r opt">Starts</th><th class="r">Cost</th></tr>
+          </thead>
+          <tbody>
+            {% for r in A.waivers.best[:14] %}
+            <tr>
+              <td class="rank">{{ loop.index }}</td>
+              <td class="dim when">{{ r.season }} wk{{ r.week }}</td>
+              <td class="name">{{ r.manager }}</td>
+              <td>{{ r.player }}</td>
+              <td class="dim opt">{{ r.position }}</td>
+              <td class="r big">{{ "%.1f"|format(r.points) }}</td>
+              <td class="r dim opt">{{ r.starts }}</td>
+              <td class="r">{% if r.bid %}${{ r.bid }}{% else %}<span class="dim">free</span>{% endif %}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="grid-2 block">
+      <div>
+        <div class="block-head">
+          <h3>Best Money Spent</h3>
+          <p class="note">Points returned per $100 of FAAB, for bids of $25 or more.</p>
+        </div>
+        <table class="sheet">
+          <thead><tr><th>Manager</th><th>Player</th><th class="r">Bid</th><th class="r">Pts</th><th class="r">Per $100</th></tr></thead>
+          <tbody>
+            {% for r in A.waivers.bargains[:8] %}
+            <tr>
+              <td class="name">{{ r.manager }}</td>
+              <td>{{ r.player }}</td>
+              <td class="r dim">${{ r.bid }}</td>
+              <td class="r">{{ "%.0f"|format(r.points) }}</td>
+              <td class="r big">{{ "%.0f"|format(r.points_per_100) }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <div class="block-head">
+          <h3>Money Set On Fire</h3>
+          <p class="note">Bids of $200 or more that returned almost nothing.</p>
+        </div>
+        <table class="sheet">
+          <thead><tr><th>Manager</th><th>Player</th><th class="r">Bid</th><th class="r">Pts</th><th class="r opt">Starts</th></tr></thead>
+          <tbody>
+            {% for r in A.waivers.busts[:8] %}
+            <tr>
+              <td class="name">{{ r.manager }}</td>
+              <td>{{ r.player }}</td>
+              <td class="r cool">${{ r.bid }}</td>
+              <td class="r">{{ "%.1f"|format(r.points) }}</td>
+              <td class="r dim opt">{{ r.starts }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <h3>Found For Nothing</h3>
+        <p class="note">Free-agent adds that cost no FAAB at all.</p>
+      </div>
+      <div class="scroll">
+        <table class="sheet">
+          <thead><tr><th></th><th>When</th><th>Manager</th><th>Player</th><th class="r">Points</th><th class="r opt">Starts</th></tr></thead>
+          <tbody>
+            {% for r in A.waivers.free_finds[:8] %}
+            <tr>
+              <td class="rank">{{ loop.index }}</td>
+              <td class="dim when">{{ r.season }} wk{{ r.week }}</td>
+              <td class="name">{{ r.manager }}</td>
+              <td>{{ r.player }} <span class="dim">{{ r.position }}</span></td>
+              <td class="r big">{{ "%.1f"|format(r.points) }}</td>
+              <td class="r dim opt">{{ r.starts }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 4 ══ -->
+<section class="chapter" id="decides">
+  <div class="wrap">
+    <div class="chapter-head">
+      <div class="eyebrow">Part Four</div>
+      <h2>What Actually Decides It</h2>
+      <p class="lede">
+        Two questions get confused with each other. <em>How much</em> of a roster
+        comes from the draft is one thing — and the answer barely separates
+        champions from also-rans. <em>How good</em> the draft was is another, and
+        it separates them almost completely.
+      </p>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <h3>Drafting Well Is Close to Decisive</h3>
+        <p class="note">Every manager-season sorted by the quality of its picks —
+          points above or below what each pick's position normally returns at that
+          slot — then split into thirds.</p>
+      </div>
+      <div class="scroll">
+        <table class="sheet">
+          <thead>
+            <tr><th>Draft quality</th><th class="r">Seasons</th><th class="r">Made playoffs</th>
+              <th class="r">Titles</th><th class="r">Average finish</th></tr>
+          </thead>
+          <tbody>
+            {% for b in A.dependence.buckets %}
+            <tr>
+              <td class="name">{{ b.label }}</td>
+              <td class="r dim">{{ b.teams }}</td>
+              <td class="r big">{{ b.playoff_rate }}%</td>
+              <td class="r">{{ b.titles }}</td>
+              <td class="r">{{ b.average_finish }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <p class="note" style="margin-top:0.8rem">
+        The bottom third has never produced a champion across
+        {{ meta.completed_seasons|length }} seasons, and reaches the playoffs about
+        once in eight tries. Drafting badly is not a hole you usually climb out of.
+      </p>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <h3>But the Mix Barely Moves</h3>
+        <p class="note">Average channel share by how the season ended. Champions and
+          teams that missed the playoffs build from almost identical proportions.</p>
+      </div>
+      <div class="legend">
+        <span><i class="swatch-draft"></i>Draft</span>
+        <span><i class="swatch-trade"></i>Trades</span>
+        <span><i class="swatch-wire"></i>Waiver wire</span>
+      </div>
+      {% for key, label in [("champions", "Champions"), ("playoffs", "Made playoffs"), ("missed", "Missed playoffs")] %}
+      {{ stack(A.dependence.by_outcome[key], label) }}
+      {% endfor %}
+      <div class="scroll" style="margin-top:1.5rem">
+        <table class="sheet">
+          <thead><tr><th>Outcome</th><th class="r">Seasons</th><th class="r">Draft</th>
+            <th class="r">Trades</th><th class="r">Wire</th><th class="r">Points scored</th></tr></thead>
+          <tbody>
+            {% for key, label in [("champions", "Champions"), ("playoffs", "Made playoffs"), ("missed", "Missed playoffs")] %}
+            {% set o = A.dependence.by_outcome[key] %}
+            <tr>
+              <td class="name">{{ label }}</td>
+              <td class="r dim">{{ o.teams }}</td>
+              <td class="r">{{ o.draft }}%</td>
+              <td class="r">{{ o.trade }}%</td>
+              <td class="r">{{ o.waiver }}%</td>
+              <td class="r big">{{ "{:,.0f}".format(o.points) }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <p class="note" style="margin-top:0.8rem">
+        Champions take {{ A.dependence.by_outcome.champions.draft }}% from the draft;
+        teams that missed take {{ A.dependence.by_outcome.missed.draft }}%. The gap is
+        nothing. What separates them is
+        {{ "{:,.0f}".format(A.dependence.by_outcome.champions.points - A.dependence.by_outcome.missed.points) }}
+        points of output — not a different recipe, a better version of the same one.
+        The one real difference in shape: losing teams lean hardest on the wire,
+        because churning it is what you do when the roster is not working.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 5 ══ -->
+<section class="chapter" id="overcome">
+  <div class="wrap">
+    <div class="chapter-head">
+      <div class="eyebrow">Part Five</div>
+      <h2>Overcoming a Bad Draft</h2>
+      <p class="lede">
+        Yes, it happens — {{ A.comebacks.overcame_count }} of the
+        {{ A.comebacks.playoff_seasons }} playoff runs on record started with a
+        bottom-half draft. But it is the exception, and the route is narrow.
+      </p>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <h3>They Drafted Badly and Made It Anyway</h3>
+        <p class="note">Bottom-half draft by pick quality, playoffs regardless.
+          <b>Rescued by</b> is the share of their season's points that arrived
+          through trades and the wire.</p>
+      </div>
+      <div class="scroll">
+        <table class="sheet">
+          <thead>
+            <tr><th>Season</th><th>Manager</th><th class="r">Draft rank</th>
+              <th class="r">Finish</th><th class="r">Rescued by</th><th class="opt"></th></tr>
+          </thead>
+          <tbody>
+            {% for r in A.comebacks.overcame %}
+            <tr>
+              <td class="dim">{{ r.season }}</td>
+              <td class="name">{{ r.manager }}</td>
+              <td class="r">{{ r.draft_value_rank }}/{{ r.teams }}</td>
+              <td class="r">{{ r.finish }}</td>
+              <td class="r big">{{ r.rescue_share }}%</td>
+              <td class="opt">{% if r.champion %}<span class="pill gold">Champion</span>{% endif %}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <h3>And the Reverse</h3>
+        <p class="note">Top-third drafts that still missed the playoffs — proof the
+          draft buys probability, not a seat.</p>
+      </div>
+      <div class="scroll">
+        <table class="sheet">
+          <thead><tr><th>Season</th><th>Manager</th><th class="r">Draft rank</th><th class="r">Finish</th><th class="r opt">Points</th></tr></thead>
+          <tbody>
+            {% for r in A.comebacks.wasted %}
+            <tr>
+              <td class="dim">{{ r.season }}</td>
+              <td class="name">{{ r.manager }}</td>
+              <td class="r big">{{ r.draft_value_rank }}/{{ r.teams }}</td>
+              <td class="r cool">{{ r.finish }}</td>
+              <td class="r dim opt">{{ "{:,.0f}".format(r.points) }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-head">
+        <h3>The Draft as Currency</h3>
+        <p class="note">Two different things hide behind "a bad draft". These
+          managers drafted <em>well</em> and then spent it — the picks became
+          somebody else's players, and the points came back through the trade door.</p>
+      </div>
+      <div class="scroll">
+        <table class="sheet">
+          <thead>
+            <tr><th>Season</th><th>Manager</th><th class="r">Pick quality</th>
+              <th class="r">Points from own picks</th><th class="r opt">Gap</th>
+              <th class="r">Finish</th><th class="r opt">From trades</th></tr>
+          </thead>
+          <tbody>
+            {% for r in A.currency %}
+            <tr>
+              <td class="dim">{{ r.season }}</td>
+              <td class="name">{{ r.manager }}</td>
+              <td class="r big">{{ r.draft_value_rank }}/{{ r.teams }}</td>
+              <td class="r cool">{{ r.draft_rank }}/{{ r.teams }}</td>
+              <td class="r dim opt">{{ r.gap }}</td>
+              <td class="r">{{ r.finish }}</td>
+              <td class="r dim opt">{{ r.trade }}%</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <p class="note" style="margin-top:0.8rem">
+        Ranking managers by points-from-their-own-picks would call all of these bad
+        drafts. They were the opposite: good drafts, converted. Any honest reading of
+        "can you overcome a bad draft" has to tell the two apart, which is why the
+        tables above rank on pick quality rather than on what a manager kept.
+      </p>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="eyebrow">Method</div>
+    <p class="note" style="margin-top:0.8rem">
+      Acquisitions are replayed in order for every season, so each of
+      {{ meta.dataset.player_weeks }} rostered player-weeks carries the channel it
+      arrived through. Credit follows the player: re-signing someone you cut starts
+      a fresh attribution, so nobody keeps draft credit for a player they let go.
+      Waiver claims and plain free-agent adds count as one channel — both are
+      players the whole league could have had.
+    </p>
+    <p class="note">
+      Values are started points only. Draft quality is measured against what each
+      pick's position normally returns at that slot, which is what makes a
+      seventeenth-round quarterback comparable to a first-round back.
+    </p>
+    <p class="note" style="margin-top:1rem">
+      Companion page: <a href="../">The FWFFL Annual</a> — records, luck, the median
+      game, rivalries and the nickname archive.
+    </p>
+  </div>
+</footer>
+
+</main>

@@ -1,14 +1,17 @@
-"""The eight stat categories that make up the annual."""
+"""The stat categories that make up the annual and the roster-building page."""
 
 from __future__ import annotations
 
 from typing import Any
 
 from ..archive import Archive
-from . import coaching, comedy, draft, ledger, luck, median, records, rivalries, waivers
+from . import (
+    acquisition, coaching, comedy, draft, ledger, luck, median, records, rivalries, waivers,
+)
 
 CATEGORIES = {
     "ledger": ledger,
+    "acquisition": acquisition,
     "luck": luck,
     "median": median,
     "records": records,

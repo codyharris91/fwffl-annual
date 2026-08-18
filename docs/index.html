@@ -33,6 +33,13 @@
   --gold: #f2b33d;
   --gold-dim: #8a6a26;
 
+  /* The three doors a player can come through. Validated as a categorical set
+     against the panel surface: adjacent pairs clear the CVD floor, and every
+     segment is directly labelled so colour is never the only encoding. */
+  --draft: #cf7a16;
+  --trade: #3f9e6f;
+  --wire: #2e93ce;
+
   --warm: #cf7a16;    /* diverging pole: above expectation, lucky, ahead */
   --cool: #2e93ce;    /* diverging pole: below expectation, unlucky, behind */
   --mid: #6b7a7e;     /* neutral midpoint */
@@ -781,6 +788,151 @@ a { color: var(--gold); }
 }
 
 html { scroll-behavior: smooth; }
+
+
+/* ==========================================================================
+   Roster-building page: channel mixes and two-sided trade cards.
+   ========================================================================== */
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.2rem;
+  font-family: var(--data);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-2);
+  margin-bottom: 1.2rem;
+}
+
+.legend i {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 0.4rem;
+  border-radius: 2px;
+  vertical-align: baseline;
+}
+
+.swatch-draft { background: var(--draft); }
+.swatch-trade { background: var(--trade); }
+.swatch-wire  { background: var(--wire); }
+
+/* Stacked share bar. A 2px surface gap separates segments so they read as
+   distinct quantities rather than one smeared band. */
+.stack-row {
+  display: grid;
+  grid-template-columns: minmax(7rem, 1fr) 4fr;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.3rem 0;
+}
+
+.stack-row .who {
+  font-family: var(--display);
+  font-stretch: condensed;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  overflow-wrap: anywhere;
+}
+
+.stack {
+  display: flex;
+  gap: 2px;
+  height: 22px;
+  background: var(--panel);
+}
+
+.stack span {
+  display: grid;
+  place-items: center;
+  font-family: var(--data);
+  font-size: 0.62rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--ground);
+  font-weight: 700;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.seg-draft { background: var(--draft); }
+.seg-trade { background: var(--trade); }
+.seg-wire  { background: var(--wire); }
+
+/* Two-sided trade. The winning haul sits left and carries the gold. */
+.trade {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  padding: 0.9rem 1rem 1rem;
+}
+
+.trade-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  font-family: var(--data);
+  font-size: 0.68rem;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.7rem;
+}
+
+.trade-sides {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--line-soft);
+}
+
+.trade-side { background: var(--panel); padding: 0.6rem 0.7rem; }
+
+.trade-side .who {
+  font-family: var(--display);
+  font-stretch: condensed;
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: 0.95rem;
+  letter-spacing: 0.03em;
+  overflow-wrap: anywhere;
+}
+
+.trade-side.won .who { color: var(--gold); }
+
+.trade-side .total {
+  font-family: var(--data);
+  font-size: 1.15rem;
+  font-variant-numeric: tabular-nums;
+  margin: 0.15rem 0 0.45rem;
+}
+
+.trade-side.won .total { color: var(--gold); }
+.trade-side.lost .total { color: var(--ink-2); }
+
+.trade-side ul { list-style: none; margin: 0; padding: 0;
+  font-family: var(--data); font-size: 0.72rem; }
+.trade-side li { display: flex; justify-content: space-between; gap: 0.6rem;
+  padding: 0.15rem 0; color: var(--ink-2); }
+.trade-side li b { color: var(--ink); font-weight: 400; overflow-wrap: anywhere; }
+
+.verdict {
+  font-family: var(--data);
+  font-size: 0.72rem;
+  color: var(--ink-3);
+  margin-top: 0.7rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--line-soft);
+}
+
+@media (max-width: 620px) {
+  .stack-row { grid-template-columns: 1fr; gap: 0.25rem; padding: 0.5rem 0;
+    border-bottom: 1px solid var(--line-soft); }
+  .trade-sides { grid-template-columns: 1fr; }
+}
 </style>
 <meta name="description" content="Six seasons of FWFFL, rebuilt from every box score, draft pick and waiver bid the league ever placed — including the ones that lost.">
 <!-- Shareable by link, but kept out of search results: the page names real
@@ -7357,7 +7509,7 @@ Finals lost: 2.          </p>
           <div class="names">
             <span>
               <em>2026</em>
-              <s class="now">ryderimel4</s>
+              <s class="now">Ryder’s dawgs 🐶</s>
             </span>
           </div>
         </div>

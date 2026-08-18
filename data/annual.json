@@ -1947,6 +1947,4869 @@
       }
     ]
   },
+  "acquisition": {
+    "channels": {
+      "league": [
+        {
+          "source": "draft",
+          "label": "Draft",
+          "points": 80978.7,
+          "share": 67.1,
+          "starts": 5775
+        },
+        {
+          "source": "trade",
+          "label": "Trades",
+          "points": 15529.5,
+          "share": 12.9,
+          "starts": 1066
+        },
+        {
+          "source": "waiver",
+          "label": "Waiver wire",
+          "points": 24265.3,
+          "share": 20.1,
+          "starts": 2325
+        }
+      ],
+      "by_manager": [
+        {
+          "uid": "735566877086048256",
+          "manager": "emcwill12",
+          "points": 1990.9,
+          "seasons": 1,
+          "draft": 86.9,
+          "draft_points": 1729.9,
+          "trade": 0.0,
+          "trade_points": 0.0,
+          "waiver": 13.1,
+          "waiver_points": 260.9
+        },
+        {
+          "uid": "1131318989990379520",
+          "manager": "clappincheeks69",
+          "points": 2543.2,
+          "seasons": 1,
+          "draft": 85.2,
+          "draft_points": 2166.2,
+          "trade": 9.1,
+          "trade_points": 230.5,
+          "waiver": 5.8,
+          "waiver_points": 146.5
+        },
+        {
+          "uid": "868975711417946112",
+          "manager": "DicklesPickles",
+          "points": 8238.1,
+          "seasons": 4,
+          "draft": 80.9,
+          "draft_points": 6667.4,
+          "trade": 0.9,
+          "trade_points": 75.6,
+          "waiver": 18.1,
+          "waiver_points": 1495.0
+        },
+        {
+          "uid": "738069619088216064",
+          "manager": "StevetheDog",
+          "points": 8744.1,
+          "seasons": 4,
+          "draft": 79.4,
+          "draft_points": 6939.5,
+          "trade": 0.0,
+          "trade_points": 0.0,
+          "waiver": 20.6,
+          "waiver_points": 1804.6
+        },
+        {
+          "uid": "993993310521942016",
+          "manager": "echenozz",
+          "points": 3933.0,
+          "seasons": 2,
+          "draft": 79.3,
+          "draft_points": 3118.0,
+          "trade": 7.0,
+          "trade_points": 273.3,
+          "waiver": 13.8,
+          "waiver_points": 541.6
+        },
+        {
+          "uid": "994339367600615424",
+          "manager": "Huntermeek4",
+          "points": 6607.4,
+          "seasons": 3,
+          "draft": 79.0,
+          "draft_points": 5222.0,
+          "trade": 0.0,
+          "trade_points": 0.0,
+          "waiver": 21.0,
+          "waiver_points": 1385.4
+        },
+        {
+          "uid": "739174898471157760",
+          "manager": "GmanToTuff",
+          "points": 11406.9,
+          "seasons": 5,
+          "draft": 75.2,
+          "draft_points": 8580.5,
+          "trade": 11.5,
+          "trade_points": 1311.3,
+          "waiver": 13.3,
+          "waiver_points": 1515.1
+        },
+        {
+          "uid": "737361961427296256",
+          "manager": "Mangondala",
+          "points": 11501.4,
+          "seasons": 5,
+          "draft": 68.9,
+          "draft_points": 7919.6,
+          "trade": 19.8,
+          "trade_points": 2281.8,
+          "waiver": 11.3,
+          "waiver_points": 1300.0
+        },
+        {
+          "uid": "739175215237586944",
+          "manager": "Cumball",
+          "points": 10623.7,
+          "seasons": 5,
+          "draft": 68.6,
+          "draft_points": 7289.3,
+          "trade": 7.8,
+          "trade_points": 826.4,
+          "waiver": 23.6,
+          "waiver_points": 2508.0
+        },
+        {
+          "uid": "871109847192621056",
+          "manager": "kodikat",
+          "points": 8912.9,
+          "seasons": 4,
+          "draft": 67.5,
+          "draft_points": 6013.0,
+          "trade": 11.5,
+          "trade_points": 1027.8,
+          "waiver": 21.0,
+          "waiver_points": 1872.1
+        },
+        {
+          "uid": "633938383265161216",
+          "manager": "speixoto24",
+          "points": 2416.0,
+          "seasons": 1,
+          "draft": 66.4,
+          "draft_points": 1603.5,
+          "trade": 10.4,
+          "trade_points": 250.9,
+          "waiver": 23.2,
+          "waiver_points": 561.6
+        },
+        {
+          "uid": "993996540970668032",
+          "manager": "Cadengetdabag",
+          "points": 7220.8,
+          "seasons": 3,
+          "draft": 65.5,
+          "draft_points": 4732.5,
+          "trade": 20.3,
+          "trade_points": 1464.1,
+          "waiver": 14.2,
+          "waiver_points": 1024.2
+        },
+        {
+          "uid": "737362282971062272",
+          "manager": "Nickpapi69",
+          "points": 11542.6,
+          "seasons": 5,
+          "draft": 57.9,
+          "draft_points": 6683.9,
+          "trade": 21.2,
+          "trade_points": 2444.8,
+          "waiver": 20.9,
+          "waiver_points": 2414.0
+        },
+        {
+          "uid": "728392183681548288",
+          "manager": "datboyp",
+          "points": 12105.8,
+          "seasons": 5,
+          "draft": 53.1,
+          "draft_points": 6428.9,
+          "trade": 20.5,
+          "trade_points": 2482.0,
+          "waiver": 26.4,
+          "waiver_points": 3194.9
+        },
+        {
+          "uid": "468905201722454016",
+          "manager": "ProfessorSell",
+          "points": 1772.0,
+          "seasons": 1,
+          "draft": 46.3,
+          "draft_points": 819.8,
+          "trade": 24.3,
+          "trade_points": 430.4,
+          "waiver": 29.4,
+          "waiver_points": 521.8
+        },
+        {
+          "uid": "727954847688630272",
+          "manager": "Pxesto",
+          "points": 11214.8,
+          "seasons": 5,
+          "draft": 45.2,
+          "draft_points": 5064.6,
+          "trade": 21.7,
+          "trade_points": 2430.6,
+          "waiver": 33.2,
+          "waiver_points": 3719.6
+        }
+      ],
+      "by_season": [
+        {
+          "season": "2021",
+          "draft": 75.6,
+          "trade": 4.0,
+          "waiver": 20.4
+        },
+        {
+          "season": "2022",
+          "draft": 69.3,
+          "trade": 10.3,
+          "waiver": 20.4
+        },
+        {
+          "season": "2023",
+          "draft": 62.7,
+          "trade": 15.4,
+          "waiver": 21.9
+        },
+        {
+          "season": "2024",
+          "draft": 69.6,
+          "trade": 11.7,
+          "waiver": 18.7
+        },
+        {
+          "season": "2025",
+          "draft": 60.8,
+          "trade": 19.9,
+          "waiver": 19.4
+        }
+      ]
+    },
+    "trades": [
+      {
+        "season": "2025",
+        "week": 3,
+        "txn": "1274570556015915008",
+        "sides": [
+          {
+            "roster_id": 6,
+            "uid": "739174898471157760",
+            "manager": "GmanToTuff",
+            "received": [
+              {
+                "player": "A.J. Brown",
+                "position": "WR",
+                "points": 194.7
+              },
+              {
+                "player": "Davante Adams",
+                "position": "WR",
+                "points": 182.2
+              },
+              {
+                "player": "RJ Harvey",
+                "position": "RB",
+                "points": 107.7
+              }
+            ],
+            "points": 484.6,
+            "starts": 36
+          },
+          {
+            "roster_id": 8,
+            "uid": "728392183681548288",
+            "manager": "datboyp",
+            "received": [
+              {
+                "player": "Quinshon Judkins",
+                "position": "RB",
+                "points": 155.0
+              },
+              {
+                "player": "Nico Collins",
+                "position": "WR",
+                "points": 31.4
+              },
+              {
+                "player": "Terry McLaurin",
+                "position": "WR",
+                "points": 10.8
+              }
+            ],
+            "points": 197.2,
+            "starts": 15
+          }
+        ],
+        "margin": 287.4,
+        "total_points": 681.8,
+        "decisive": true,
+        "picks_involved": false,
+        "faab_involved": false,
+        "players": 6
+      },
+      {
+        "season": "2024",
+        "week": 1,
+        "txn": "1128520034986373120",
+        "sides": [
+          {
+            "roster_id": 2,
+            "uid": "737361961427296256",
+            "manager": "Mangondala",
+            "received": [
+              {
+                "player": "George Kittle",
+                "position": "TE",
+                "points": 258.4
+              },
+              {
+                "player": "Chuba Hubbard",
+                "position": "RB",
+                "points": 166.0
+              }
+            ],
+            "points": 424.4,
+            "starts": 25
+          },
+          {
+            "roster_id": 11,
+            "uid": "993996540970668032",
+            "manager": "Cadengetdabag",
+            "received": [
+              {
+                "player": "Sam LaPorta",
+                "position": "TE",
+                "points": 150.3
+              },
+              {
+                "player": "Ezekiel Elliott",
+                "position": "RB",
+                "points": 0.0
+              }
+            ],
+            "points": 150.3,
+            "starts": 12
+          }
+        ],
+        "margin": 274.1,
+        "total_points": 574.7,
+        "decisive": true,
+        "picks_involved": false,
+        "faab_involved": false,
+        "players": 4
+      },
+      {
+        "season": "2021",
+        "week": 9,
+        "txn": "761822245227261952",
+        "sides": [
+          {
+            "roster_id": 7,
+            "uid": "633938383265161216",
+            "manager": "speixoto24",
+            "received": [
+              {
+                "player": "Deebo Samuel",
+                "position": "WR",
+                "points": 193.1
+              },
+              {
+                "player": "D'Andre Swift",
+                "position": "RB",
+                "points": 52.6
+              }
+            ],
+            "points": 245.7,
+            "starts": 12
+          },
+          {
+            "roster_id": 3,
+            "uid": "737362282971062272",
+            "manager": "Nickpapi69",
+            "received": [
+              {
+                "player": "Alvin Kamara",
+                "position": "RB",
+                "points": 23.1
+              }
+            ],
+            "points": 23.1,
+            "starts": 1
+          }
+        ],
+        "margin": 222.6,
+        "total_points": 268.8,
+        "decisive": true,
+        "picks_involved": false,
+        "faab_involved": false,
+        "players": 3
+      },
+      {
+        "season": "2025",
+        "week": 4,
+        "txn": "1278882725406732288",
+        "sides": [
+          {
+            "roster_id": 11,
+            "uid": "993996540970668032",
+            "manager": "Cadengetdabag",
+            "received": [
+              {
+                "player": "Jaxon Smith-Njigba",
+                "position": "WR",
+                "points": 273.1
+              },
+              {
+                "player": "Tony Pollard",
+                "position": "RB",
+                "points": 24.4
+              }
+            ],
+            "points": 297.4,
+            "starts": 15
+          },
+          {
+            "roster_id": 4,
+            "uid": "468905201722454016",
+            "manager": "ProfessorSell",
+            "received": [
+              {
+                "player": "Alvin Kamara",
+                "position": "RB",
+                "points": 48.2
+              },
+              {
+                "player": "Jordan Mason",
+                "position": "RB",
+                "points": 29.3
+              }
+            ],
+            "points": 77.5,
+            "starts": 11
+          }
+        ],
+        "margin": 219.9,
+        "total_points": 374.9,
+        "decisive": true,
+        "picks_involved": false,
+        "faab_involved": false,
+        "players": 4
+      },
+      {
+        "season": "2023",
+        "week": 4,
+        "txn": "1014982291581456384",
+        "sides": [
+          {
+            "roster_id": 8,
+            "uid": "728392183681548288",
+            "manager": "datboyp",
+            "received": [
+              {
+                "player": "Breece Hall",
+                "position": "RB",
+                "points": 255.4
+              }
+            ],
+            "points": 255.4,
+            "starts": 13
+          },
+          {
+            "roster_id": 2,
+            "uid": "737361961427296256",
+            "manager": "Mangondala",
+            "received": [
+              {
+                "player": "Drake London",
+                "position": "WR",
+                "points": 42.4
+              }
+            ],
+            "points": 42.4,
+            "starts": 5
+          }
+        ],
+        "margin": 213.0,
+        "total_points": 297.8,
+        "decisive": true,
+        "picks_involved": false,
+        "faab_involved": false,
+        "players": 2
+      },
+      {
+        "season": "2025",
+        "week": 1,
+        "txn": "1263296739717160960",
+        "sides": [
+          {
+            "roster_id": 10,
+            "uid": "871109847192621056",
+            "manager": "kodikat",
+            "received": [
+              {
+                "player": "Rico Dowdle",
+                "position": "RB",
+                "points": 202.8
+              }
+            ],
+            "points": 202.8,
+            "starts": 13
+          },
+          {
+            "roster_id": 8,
+            "uid": "728392183681548288",
+            "manager": "datboyp",
+            "received": [],
+            "points": 0.0,
+            "starts": 0
+          }
+        ],
+        "margin": 202.8,
+        "total_points": 202.8,
+        "decisive": true,
+        "picks_involved": false,
+        "faab_involved": true,
+        "players": 1
+      },
+      {
+        "season": "2025",
+        "week": 4,
+        "txn": "1278926377877254144",
+        "sides": [
+          {
+            "roster_id": 10,
+            "uid": "871109847192621056",
+            "manager": "kodikat",
+            "received": [
+              {
+                "player": "Jonathan Taylor",
+                "position": "RB",
+                "points": 288.1
+              },
+              {
+                "player": "Ladd McConkey",
+                "position": "WR",
+                "points": 129.2
+              },
+              {
+                "player": "DJ Moore",
+                "position": "WR",
+                "points": 68.4
+              }
+            ],
+            "points": 485.7,
+            "starts": 32
+          },
+          {
+            "roster_id": 3,
+            "uid": "737362282971062272",
+            "manager": "Nickpapi69",
+            "received": [
+              {
+                "player": "Josh Jacobs",
+                "position": "RB",
+                "points": 167.0
+              },
+              {
+                "player": "Michael Pittman",
+                "position": "WR",
+                "points": 125.0
+              },
+              {
+                "player": "Jameson Williams",
+                "position": "WR",
+                "points": 2.0
+              }
+            ],
+            "points": 294.0,
+            "starts": 27
+          }
+        ],
+        "margin": 191.7,
+        "total_points": 779.7,
+        "decisive": true,
+        "picks_involved": false,
+        "faab_involved": false,
+        "players": 6
+      },
+      {
+        "season": "2025",
+        "week": 7,
+        "txn": "1284749208619843584",
+        "sides": [
+          {
+            "roster_id": 5,
+            "uid": "739175215237586944",
+            "manager": "Cumball",
+            "received": [
+              {
+                "player": "James Cook",
+                "position": "RB",
+                "points": 205.4
+              },
+              {
+                "player": "Jameson Williams",
+                "position": "WR",
+                "points": 154.7
+              },
+              {
+                "player": "Josh Downs",
+                "position": "WR",
+                "points": 27.2
+              }
+            ],
+            "points": 387.2,
+            "starts": 26
+          },
+          {
+            "roster_id": 3,
+            "uid": "737362282971062272",
+            "manager": "Nickpapi69",
+            "received": [
+              {
+                "player": "Saquon Barkley",
+                "position": "RB",
+                "points": 153.9
+              },
+              {
+                "player": "Keenan Allen",
+                "position": "WR",
+                "points": 52.6
+              }
+            ],
+            "points": 206.5,
+            "starts": 16
+          }
+        ],
+        "margin": 180.7,
+        "total_points": 593.7,
+        "decisive": true,
+        "picks_involved": false,
+        "faab_involved": false,
+        "players": 5
+      },
+      {
+        "season": "2022",
+        "week": 4,
+        "txn": "881748927010181120",
+        "sides": [
+          {
+            "roster_id": 3,
+            "uid": "737362282971062272",
+            "manager": "Nickpapi69",
+            "received": [
+              {
+                "player": "Derrick Henry",
+                "position": "RB",
+                "points": 302.6
+              },
+              {
+                "player": "Ezekiel Elliott",
+                "position": "RB",
+                "points": 108.6
+              },
+              {
+                "player": "Curtis Samuel",
+                "position": "WR",
+                "points": 0.0
+              }
+            ],
+            "points": 411.1,
+            "starts": 19
+          },
+          {
+            "roster_id": 2,
+            "uid": "737361961427296256",
+            "manager": "Mangondala",
+            "received": [
+              {
+                "player": "Aaron Jones",
+                "position": "RB",
+                "points": 169.2
+              },
+              {
+                "player": "Deebo Samuel",
+                "position": "WR",
+                "points": 64.4
+              }
+            ],
+            "points": 233.6,
+            "starts": 15
+          }
+        ],
+        "margin": 177.5,
+        "total_points": 644.7,
+        "decisive": true,
+        "picks_involved": false,
+        "faab_involved": false,
+        "players": 5
+      },
+      {
+        "season": "2024",
+        "week": 6,
+        "txn": "1150203531119644672",
+        "sides": [
+          {
+            "roster_id": 8,
+            "uid": "728392183681548288",
+            "manager": "datboyp",
+            "received": [
+              {
+                "player": "Mark Andrews",
+                "position": "TE",
+                "points": 162.1
+              }
+            ],
+            "points": 162.1,
+            "starts": 11
+          },
+          {
+            "roster_id": 6,
+            "uid": "739174898471157760",
+            "manager": "GmanToTuff",
+            "received": [
+              {
+                "player": "Isaiah Likely",
+                "position": "TE",
+                "points": 5.2
+              }
+            ],
+            "points": 5.2,
+            "starts": 1
+          }
+        ],
+        "margin": 156.9,
+        "total_points": 167.3,
+        "decisive": true,
+        "picks_involved": false,
+        "faab_involved": true,
+        "players": 2
+      },
+      {
+        "season": "2023",
+        "week": 1,
+        "txn": "998849419405590528",
+        "sides": [
+          {
+            "roster_id": 2,
+            "uid": "737361961427296256",
+            "manager": "Mangondala",
+            "received": [
+              {
+                "player": "Amon-Ra St. Brown",
+                "position": "WR",
+                "points": 306.3
+              },
+              {
+                "player": "Tua Tagovailoa",
+                "position": "QB",
+                "points": 247.9
+              },
+              {
+                "player": "Jaylen Waddle",
+                "position": "WR",
+                "points": 186.6
+              }
+            ],
+            "points": 740.8,
+            "starts": 46
+          },
+          {
+            "roster_id": 1,
+            "uid": "727954847688630272",
+            "manager": "Pxesto",
+            "received": [
+              {
+                "player": "Tyreek Hill",
+                "position": "WR",
+                "points": 361.4
+              },
+              {
+                "player": "Justin Fields",
+                "position": "QB",
+                "points": 240.2
+              }
+            ],
+            "points": 601.6,
+            "starts": 29
+          }
+        ],
+        "margin": 139.2,
+        "total_points": 1342.4,
+        "decisive": true,
+        "picks_involved": false,
+        "faab_involved": false,
+        "players": 5
+      },
+      {
+        "season": "2024",
+        "week": 4,
+        "txn": "1146163070621683712",
+        "sides": [
+          {
+            "roster_id": 8,
+            "uid": "728392183681548288",
+            "manager": "datboyp",
+            "received": [
+              {
+                "player": "Jayden Daniels",
+                "position": "QB",
+                "points": 341.9
+              },
+              {
+                "player": "Jaylen Waddle",
+                "position": "WR",
+                "points": 16.7
+              },
+              {
+                "player": "Carson Steele",
+                "position": "RB",
+                "points": -1.9
+              }
+            ],
+            "points": 356.7,
+            "starts": 18
+          },
+          {
+            "roster_id": 1,
+            "uid": "727954847688630272",
+            "manager": "Pxesto",
+            "received": [
+              {
+                "player": "Davante Adams",
+                "position": "WR",
+                "points": 181.3
+              },
+              {
+                "player": "Diontae Johnson",
+                "position": "WR",
+                "points": 46.2
+              }
+            ],
+            "points": 227.5,
+            "starts": 15
+          }
+        ],
+        "margin": 129.2,
+        "total_points": 584.2,
+        "decisive": true,
+        "picks_involved": false,
+        "faab_involved": false,
+        "players": 5
+      },
+      {
+        "season": "2025",
+        "week": 4,
+        "txn": "1276794084865880064",
+        "sides": [
+          {
+            "roster_id": 7,
+            "uid": "1131318989990379520",
+            "manager": "clappincheeks69",
+            "received": [
+              {
+                "player": "Amon-Ra St. Brown",
+                "position": "WR",
+                "points": 230.5
+              }
+            ],
+            "points": 230.5,
+            "starts": 14
+          },
+          {
+            "roster_id": 1,
+            "uid": "727954847688630272",
+            "manager": "Pxesto",
+            "received": [
+              {
+                "player": "Rome Odunze",
+                "position": "WR",
+                "points": 80.9
+              },
+              {
+                "player": "Travis Etienne",
+                "position": "RB",
+                "points": 21.9
+              }
+            ],
+            "points": 102.8,
+            "starts": 10
+          }
+        ],
+        "margin": 127.7,
+        "total_points": 333.3,
+        "decisive": true,
+        "picks_involved": false,
+        "faab_involved": false,
+        "players": 3
+      },
+      {
+        "season": "2025",
+        "week": 2,
+        "txn": "1273545372769214464",
+        "sides": [
+          {
+            "roster_id": 8,
+            "uid": "728392183681548288",
+            "manager": "datboyp",
+            "received": [
+              {
+                "player": "Jahmyr Gibbs",
+                "position": "RB",
+                "points": 333.6
+              },
+              {
+                "player": "A.J. Brown",
+                "position": "WR",
+                "points": 0.0
+              }
+            ],
+            "points": 333.6,
+            "starts": 15
+          },
+          {
+            "roster_id": 4,
+            "uid": "468905201722454016",
+            "manager": "ProfessorSell",
+            "received": [
+              {
+                "player": "Courtland Sutton",
+                "position": "WR",
+                "points": 189.5
+              },
+              {
+                "player": "Jacory Croskey-Merritt",
+                "position": "RB",
+                "points": 10.1
+              },
+              {
+                "player": "Ladd McConkey",
+                "position": "WR",
+                "points": 7.6
+              },
+              {
+                "player": "Isiah Pacheco",
+                "position": "RB",
+                "points": 0.0
+              }
+            ],
+            "points": 207.2,
+            "starts": 17
+          }
+        ],
+        "margin": 126.4,
+        "total_points": 540.8,
+        "decisive": true,
+        "picks_involved": false,
+        "faab_involved": false,
+        "players": 6
+      },
+      {
+        "season": "2023",
+        "week": 3,
+        "txn": "1010274378925371392",
+        "sides": [
+          {
+            "roster_id": 7,
+            "uid": "993993310521942016",
+            "manager": "echenozz",
+            "received": [
+              {
+                "player": "DJ Moore",
+                "position": "WR",
+                "points": 187.7
+              },
+              {
+                "player": "Jordan Addison",
+                "position": "WR",
+                "points": 73.5
+              },
+              {
+                "player": "Elijah Moore",
+                "position": "WR",
+                "points": 12.2
+              }
+            ],
+            "points": 273.3,
+            "starts": 20
+          },
+          {
+            "roster_id": 1,
+            "uid": "727954847688630272",
+            "manager": "Pxesto",
+            "received": [
+              {
+                "player": "Cooper Kupp",
+                "position": "WR",
+                "points": 150.9
+              }
+            ],
+            "points": 150.9,
+            "starts": 13
+          }
+        ],
+        "margin": 122.4,
+        "total_points": 424.2,
+        "decisive": true,
+        "picks_involved": false,
+        "faab_involved": false,
+        "players": 4
+      },
+      {
+        "season": "2024",
+        "week": 6,
+        "txn": "1150190937323204608",
+        "sides": [
+          {
+            "roster_id": 3,
+            "uid": "737362282971062272",
+            "manager": "Nickpapi69",
+            "received": [
+              {
+                "player": "Jaxon Smith-Njigba",
+                "position": "WR",
+                "points": 175.6
+              },
+              {
+                "player": "Dalton Kincaid",
+                "position": "TE",
+                "points": 21.3
+              },
+              {
+                "player": "Anthony Richardson",
+                "position": "QB",
+                "points": 9.3
+              }
+            ],
+            "points": 206.2,
+            "starts": 15
+          },
+          {
+            "roster_id": 8,
+            "uid": "728392183681548288",
+            "manager": "datboyp",
+            "received": [
+              {
+                "player": "Deebo Samuel",
+                "position": "WR",
+                "points": 61.7
+              },
+              {
+                "player": "Tucker Kraft",
+                "position": "TE",
+                "points": 24.0
+              }
+            ],
+            "points": 85.7,
+            "starts": 12
+          }
+        ],
+        "margin": 120.5,
+        "total_points": 291.9,
+        "decisive": true,
+        "picks_involved": false,
+        "faab_involved": false,
+        "players": 5
+      },
+      {
+        "season": "2021",
+        "week": 12,
+        "txn": "770869186670059520",
+        "sides": [
+          {
+            "roster_id": 8,
+            "uid": "728392183681548288",
+            "manager": "datboyp",
+            "received": [
+              {
+                "player": "David Montgomery",
+                "position": "RB",
+                "points": 126.6
+              }
+            ],
+            "points": 126.6,
+            "starts": 6
+          },
+          {
+            "roster_id": 6,
+            "uid": "739174898471157760",
+            "manager": "GmanToTuff",
+            "received": [
+              {
+                "player": "Josh Jacobs",
+                "position": "RB",
+                "points": 9.8
+              }
+            ],
+            "points": 9.8,
+            "starts": 1
+          }
+        ],
+        "margin": 116.8,
+        "total_points": 136.4,
+        "decisive": true,
+        "picks_involved": false,
+        "faab_involved": false,
+        "players": 2
+      },
+      {
+        "season": "2024",
+        "week": 6,
+        "txn": "1152008311152390144",
+        "sides": [
+          {
+            "roster_id": 1,
+            "uid": "727954847688630272",
+            "manager": "Pxesto",
+            "received": [
+              {
+                "player": "Tee Higgins",
+                "position": "WR",
+                "points": 146.7
+              }
+            ],
+            "points": 146.7,
+            "starts": 8
+          },
+          {
+            "roster_id": 10,
+            "uid": "871109847192621056",
+            "manager": "kodikat",
+            "received": [
+              {
+                "player": "Nick Chubb",
+                "position": "RB",
+                "points": 49.5
+              },
+              {
+                "player": "Christian Kirk",
+                "position": "WR",
+                "points": 0.0
+              }
+            ],
+            "points": 49.5,
+            "starts": 5
+          }
+        ],
+        "margin": 97.2,
+        "total_points": 196.2,
+        "decisive": true,
+        "picks_involved": false,
+        "faab_involved": false,
+        "players": 3
+      },
+      {
+        "season": "2023",
+        "week": 2,
+        "txn": "1010079266333122560",
+        "sides": [
+          {
+            "roster_id": 1,
+            "uid": "727954847688630272",
+            "manager": "Pxesto",
+            "received": [
+              {
+                "player": "Jahmyr Gibbs",
+                "position": "RB",
+                "points": 220.5
+              },
+              {
+                "player": "Zay Flowers",
+                "position": "WR",
+                "points": 95.2
+              }
+            ],
+            "points": 315.7,
+            "starts": 22
+          },
+          {
+            "roster_id": 11,
+            "uid": "993996540970668032",
+            "manager": "Cadengetdabag",
+            "received": [
+              {
+                "player": "Ja'Marr Chase",
+                "position": "WR",
+                "points": 219.2
+              }
+            ],
+            "points": 219.2,
+            "starts": 12
+          }
+        ],
+        "margin": 96.5,
+        "total_points": 534.9,
+        "decisive": true,
+        "picks_involved": false,
+        "faab_involved": false,
+        "players": 3
+      },
+      {
+        "season": "2025",
+        "week": 3,
+        "txn": "1275640623528955904",
+        "sides": [
+          {
+            "roster_id": 4,
+            "uid": "468905201722454016",
+            "manager": "ProfessorSell",
+            "received": [
+              {
+                "player": "Marvin Harrison",
+                "position": "WR",
+                "points": 76.4
+              },
+              {
+                "player": "Quentin Johnston",
+                "position": "WR",
+                "points": 69.3
+              }
+            ],
+            "points": 145.7,
+            "starts": 20
+          },
+          {
+            "roster_id": 3,
+            "uid": "737362282971062272",
+            "manager": "Nickpapi69",
+            "received": [
+              {
+                "player": "Jacory Croskey-Merritt",
+                "position": "RB",
+                "points": 51.4
+              },
+              {
+                "player": "DJ Moore",
+                "position": "WR",
+                "points": 6.3
+              },
+              {
+                "player": "Ladd McConkey",
+                "position": "WR",
+                "points": 2.1
+              }
+            ],
+            "points": 59.8,
+            "starts": 8
+          }
+        ],
+        "margin": 85.9,
+        "total_points": 205.5,
+        "decisive": true,
+        "picks_involved": false,
+        "faab_involved": false,
+        "players": 5
+      },
+      {
+        "season": "2025",
+        "week": 4,
+        "txn": "1277060880147709952",
+        "sides": [
+          {
+            "roster_id": 8,
+            "uid": "728392183681548288",
+            "manager": "datboyp",
+            "received": [
+              {
+                "player": "Drake London",
+                "position": "WR",
+                "points": 163.2
+              },
+              {
+                "player": "Rhamondre Stevenson",
+                "position": "RB",
+                "points": 0.0
+              }
+            ],
+            "points": 163.2,
+            "starts": 9
+          },
+          {
+            "roster_id": 11,
+            "uid": "993996540970668032",
+            "manager": "Cadengetdabag",
+            "received": [
+              {
+                "player": "Terry McLaurin",
+                "position": "WR",
+                "points": 66.7
+              },
+              {
+                "player": "Jordan Mason",
+                "position": "RB",
+                "points": 10.7
+              }
+            ],
+            "points": 77.4,
+            "starts": 7
+          }
+        ],
+        "margin": 85.8,
+        "total_points": 240.6,
+        "decisive": true,
+        "picks_involved": false,
+        "faab_involved": false,
+        "players": 4
+      },
+      {
+        "season": "2021",
+        "week": 11,
+        "txn": "768301880123473920",
+        "sides": [
+          {
+            "roster_id": 5,
+            "uid": "739175215237586944",
+            "manager": "Cumball",
+            "received": [
+              {
+                "player": "Jalen Hurts",
+                "position": "QB",
+                "points": 71.4
+              },
+              {
+                "player": "DJ Moore",
+                "position": "WR",
+                "points": 13.4
+              }
+            ],
+            "points": 84.8,
+            "starts": 6
+          },
+          {
+            "roster_id": 7,
+            "uid": "633938383265161216",
+            "manager": "speixoto24",
+            "received": [
+              {
+                "player": "A.J. Brown",
+                "position": "WR",
+                "points": 0.0
+              }
+            ],
+            "points": 0.0,
+            "starts": 0
+          }
+        ],
+        "margin": 84.8,
+        "total_points": 84.8,
+        "decisive": true,
+        "picks_involved": false,
+        "faab_involved": false,
+        "players": 3
+      },
+      {
+        "season": "2024",
+        "week": 8,
+        "txn": "1155247794362548224",
+        "sides": [
+          {
+            "roster_id": 6,
+            "uid": "739174898471157760",
+            "manager": "GmanToTuff",
+            "received": [
+              {
+                "player": "Detroit Lions",
+                "position": "DEF",
+                "points": 73.0
+              }
+            ],
+            "points": 73.0,
+            "starts": 7
+          },
+          {
+            "roster_id": 1,
+            "uid": "727954847688630272",
+            "manager": "Pxesto",
+            "received": [],
+            "points": 0.0,
+            "starts": 0
+          }
+        ],
+        "margin": 73.0,
+        "total_points": 73.0,
+        "decisive": true,
+        "picks_involved": false,
+        "faab_involved": true,
+        "players": 1
+      },
+      {
+        "season": "2024",
+        "week": 8,
+        "txn": "1155327807930232832",
+        "sides": [
+          {
+            "roster_id": 6,
+            "uid": "739174898471157760",
+            "manager": "GmanToTuff",
+            "received": [
+              {
+                "player": "Rachaad White",
+                "position": "RB",
+                "points": 107.1
+              },
+              {
+                "player": "Keon Coleman",
+                "position": "WR",
+                "points": 24.5
+              }
+            ],
+            "points": 131.6,
+            "starts": 13
+          },
+          {
+            "roster_id": 3,
+            "uid": "737362282971062272",
+            "manager": "Nickpapi69",
+            "received": [
+              {
+                "player": "Xavier Worthy",
+                "position": "WR",
+                "points": 67.7
+              }
+            ],
+            "points": 67.7,
+            "starts": 6
+          }
+        ],
+        "margin": 63.9,
+        "total_points": 199.3,
+        "decisive": true,
+        "picks_involved": false,
+        "faab_involved": false,
+        "players": 3
+      },
+      {
+        "season": "2022",
+        "week": 11,
+        "txn": "899146134306680832",
+        "sides": [
+          {
+            "roster_id": 2,
+            "uid": "737361961427296256",
+            "manager": "Mangondala",
+            "received": [
+              {
+                "player": "DK Metcalf",
+                "position": "WR",
+                "points": 72.2
+              },
+              {
+                "player": "David Montgomery",
+                "position": "RB",
+                "points": 42.5
+              }
+            ],
+            "points": 114.8,
+            "starts": 8
+          },
+          {
+            "roster_id": 8,
+            "uid": "728392183681548288",
+            "manager": "datboyp",
+            "received": [
+              {
+                "player": "Deebo Samuel",
+                "position": "WR",
+                "points": 53.6
+              }
+            ],
+            "points": 53.6,
+            "starts": 4
+          }
+        ],
+        "margin": 61.2,
+        "total_points": 168.4,
+        "decisive": true,
+        "picks_involved": false,
+        "faab_involved": false,
+        "players": 3
+      },
+      {
+        "season": "2024",
+        "week": 1,
+        "txn": "1128531131520962560",
+        "sides": [
+          {
+            "roster_id": 2,
+            "uid": "737361961427296256",
+            "manager": "Mangondala",
+            "received": [
+              {
+                "player": "Calvin Ridley",
+                "position": "WR",
+                "points": 76.3
+              },
+              {
+                "player": "Josh Downs",
+                "position": "WR",
+                "points": 29.6
+              }
+            ],
+            "points": 106.0,
+            "starts": 11
+          },
+          {
+            "roster_id": 3,
+            "uid": "737362282971062272",
+            "manager": "Nickpapi69",
+            "received": [
+              {
+                "player": "Deebo Samuel",
+                "position": "WR",
+                "points": 47.3
+              }
+            ],
+            "points": 47.3,
+            "starts": 4
+          }
+        ],
+        "margin": 58.7,
+        "total_points": 153.3,
+        "decisive": true,
+        "picks_involved": false,
+        "faab_involved": false,
+        "players": 3
+      },
+      {
+        "season": "2024",
+        "week": 8,
+        "txn": "1156637038347718656",
+        "sides": [
+          {
+            "roster_id": 11,
+            "uid": "993996540970668032",
+            "manager": "Cadengetdabag",
+            "received": [
+              {
+                "player": "Khalil Shakir",
+                "position": "WR",
+                "points": 75.6
+              },
+              {
+                "player": "Najee Harris",
+                "position": "RB",
+                "points": 43.6
+              }
+            ],
+            "points": 119.2,
+            "starts": 11
+          },
+          {
+            "roster_id": 6,
+            "uid": "739174898471157760",
+            "manager": "GmanToTuff",
+            "received": [
+              {
+                "player": "J.K. Dobbins",
+                "position": "RB",
+                "points": 60.8
+              }
+            ],
+            "points": 60.8,
+            "starts": 4
+          }
+        ],
+        "margin": 58.4,
+        "total_points": 180.0,
+        "decisive": true,
+        "picks_involved": false,
+        "faab_involved": false,
+        "players": 3
+      },
+      {
+        "season": "2025",
+        "week": 5,
+        "txn": "1279958495977803776",
+        "sides": [
+          {
+            "roster_id": 8,
+            "uid": "728392183681548288",
+            "manager": "datboyp",
+            "received": [
+              {
+                "player": "Ja'Marr Chase",
+                "position": "WR",
+                "points": 235.8
+              },
+              {
+                "player": "Jaylen Waddle",
+                "position": "WR",
+                "points": 114.8
+              },
+              {
+                "player": "Kendre Miller",
+                "position": "RB",
+                "points": 0.0
+              }
+            ],
+            "points": 350.6,
+            "starts": 21
+          },
+          {
+            "roster_id": 2,
+            "uid": "737361961427296256",
+            "manager": "Mangondala",
+            "received": [
+              {
+                "player": "Nico Collins",
+                "position": "WR",
+                "points": 166.5
+              },
+              {
+                "player": "Woody Marks",
+                "position": "RB",
+                "points": 101.0
+              },
+              {
+                "player": "Rhamondre Stevenson",
+                "position": "RB",
+                "points": 26.0
+              }
+            ],
+            "points": 293.5,
+            "starts": 26
+          }
+        ],
+        "margin": 57.1,
+        "total_points": 644.1,
+        "decisive": true,
+        "picks_involved": false,
+        "faab_involved": false,
+        "players": 6
+      },
+      {
+        "season": "2024",
+        "week": 9,
+        "txn": "1159267223471566848",
+        "sides": [
+          {
+            "roster_id": 8,
+            "uid": "728392183681548288",
+            "manager": "datboyp",
+            "received": [
+              {
+                "player": "Tyreek Hill",
+                "position": "WR",
+                "points": 121.5
+              },
+              {
+                "player": "Jameson Williams",
+                "position": "WR",
+                "points": 111.0
+              }
+            ],
+            "points": 232.4,
+            "starts": 17
+          },
+          {
+            "roster_id": 6,
+            "uid": "739174898471157760",
+            "manager": "GmanToTuff",
+            "received": [
+              {
+                "player": "CeeDee Lamb",
+                "position": "WR",
+                "points": 105.0
+              },
+              {
+                "player": "Jaylen Waddle",
+                "position": "WR",
+                "points": 71.4
+              }
+            ],
+            "points": 176.4,
+            "starts": 15
+          }
+        ],
+        "margin": 56.0,
+        "total_points": 408.8,
+        "decisive": true,
+        "picks_involved": false,
+        "faab_involved": false,
+        "players": 4
+      },
+      {
+        "season": "2024",
+        "week": 6,
+        "txn": "1152004123399733248",
+        "sides": [
+          {
+            "roster_id": 3,
+            "uid": "737362282971062272",
+            "manager": "Nickpapi69",
+            "received": [
+              {
+                "player": "David Montgomery",
+                "position": "RB",
+                "points": 134.7
+              },
+              {
+                "player": "Michael Pittman",
+                "position": "WR",
+                "points": 82.2
+              }
+            ],
+            "points": 216.9,
+            "starts": 21
+          },
+          {
+            "roster_id": 1,
+            "uid": "727954847688630272",
+            "manager": "Pxesto",
+            "received": [
+              {
+                "player": "Malik Nabers",
+                "position": "WR",
+                "points": 162.6
+              }
+            ],
+            "points": 162.6,
+            "starts": 11
+          }
+        ],
+        "margin": 54.3,
+        "total_points": 379.5,
+        "decisive": true,
+        "picks_involved": false,
+        "faab_involved": false,
+        "players": 3
+      },
+      {
+        "season": "2023",
+        "week": 3,
+        "txn": "1012611441347719168",
+        "sides": [
+          {
+            "roster_id": 11,
+            "uid": "993996540970668032",
+            "manager": "Cadengetdabag",
+            "received": [
+              {
+                "player": "Patrick Mahomes",
+                "position": "QB",
+                "points": 251.6
+              },
+              {
+                "player": "Raheem Mostert",
+                "position": "RB",
+                "points": 191.2
+              },
+              {
+                "player": "Isiah Pacheco",
+                "position": "RB",
+                "points": 157.7
+              }
+            ],
+            "points": 600.5,
+            "starts": 39
+          },
+          {
+            "roster_id": 3,
+            "uid": "737362282971062272",
+            "manager": "Nickpapi69",
+            "received": [
+              {
+                "player": "Josh Allen",
+                "position": "QB",
+                "points": 396.1
+              },
+              {
+                "player": "D'Andre Swift",
+                "position": "RB",
+                "points": 154.6
+              },
+              {
+                "player": "Gabe Davis",
+                "position": "WR",
+                "points": 1.1
+              }
+            ],
+            "points": 551.8,
+            "starts": 29
+          }
+        ],
+        "margin": 48.7,
+        "total_points": 1152.3,
+        "decisive": true,
+        "picks_involved": false,
+        "faab_involved": false,
+        "players": 6
+      },
+      {
+        "season": "2021",
+        "week": 12,
+        "txn": "770857284963414016",
+        "sides": [
+          {
+            "roster_id": 8,
+            "uid": "728392183681548288",
+            "manager": "datboyp",
+            "received": [
+              {
+                "player": "A.J. Brown",
+                "position": "WR",
+                "points": 52.4
+              },
+              {
+                "player": "Aaron Jones",
+                "position": "RB",
+                "points": 0.0
+              }
+            ],
+            "points": 52.4,
+            "starts": 3
+          },
+          {
+            "roster_id": 7,
+            "uid": "633938383265161216",
+            "manager": "speixoto24",
+            "received": [
+              {
+                "player": "Darrell Henderson",
+                "position": "RB",
+                "points": 5.2
+              }
+            ],
+            "points": 5.2,
+            "starts": 1
+          }
+        ],
+        "margin": 47.2,
+        "total_points": 57.6,
+        "decisive": true,
+        "picks_involved": false,
+        "faab_involved": false,
+        "players": 3
+      },
+      {
+        "season": "2023",
+        "week": 9,
+        "txn": "1026336582309150720",
+        "sides": [
+          {
+            "roster_id": 6,
+            "uid": "739174898471157760",
+            "manager": "GmanToTuff",
+            "received": [
+              {
+                "player": "Dalton Schultz",
+                "position": "TE",
+                "points": 42.5
+              }
+            ],
+            "points": 42.5,
+            "starts": 5
+          },
+          {
+            "roster_id": 1,
+            "uid": "727954847688630272",
+            "manager": "Pxesto",
+            "received": [],
+            "points": 0.0,
+            "starts": 0
+          }
+        ],
+        "margin": 42.5,
+        "total_points": 42.5,
+        "decisive": true,
+        "picks_involved": false,
+        "faab_involved": true,
+        "players": 1
+      },
+      {
+        "season": "2025",
+        "week": 5,
+        "txn": "1279979121836834816",
+        "sides": [
+          {
+            "roster_id": 10,
+            "uid": "871109847192621056",
+            "manager": "kodikat",
+            "received": [
+              {
+                "player": "Travis Etienne",
+                "position": "RB",
+                "points": 191.2
+              }
+            ],
+            "points": 191.2,
+            "starts": 13
+          },
+          {
+            "roster_id": 1,
+            "uid": "727954847688630272",
+            "manager": "Pxesto",
+            "received": [
+              {
+                "player": "CeeDee Lamb",
+                "position": "WR",
+                "points": 150.6
+              }
+            ],
+            "points": 150.6,
+            "starts": 11
+          }
+        ],
+        "margin": 40.6,
+        "total_points": 341.8,
+        "decisive": true,
+        "picks_involved": false,
+        "faab_involved": false,
+        "players": 2
+      },
+      {
+        "season": "2022",
+        "week": 1,
+        "txn": "871879192596365312",
+        "sides": [
+          {
+            "roster_id": 10,
+            "uid": "871109847192621056",
+            "manager": "kodikat",
+            "received": [
+              {
+                "player": "Darrell Henderson",
+                "position": "RB",
+                "points": 40.2
+              }
+            ],
+            "points": 40.2,
+            "starts": 4
+          },
+          {
+            "roster_id": 1,
+            "uid": "727954847688630272",
+            "manager": "Pxesto",
+            "received": [],
+            "points": 0.0,
+            "starts": 0
+          }
+        ],
+        "margin": 40.2,
+        "total_points": 40.2,
+        "decisive": true,
+        "picks_involved": false,
+        "faab_involved": true,
+        "players": 1
+      },
+      {
+        "season": "2023",
+        "week": 6,
+        "txn": "1020203353420197888",
+        "sides": [
+          {
+            "roster_id": 6,
+            "uid": "739174898471157760",
+            "manager": "GmanToTuff",
+            "received": [
+              {
+                "player": "D'Onta Foreman",
+                "position": "RB",
+                "points": 39.6
+              }
+            ],
+            "points": 39.6,
+            "starts": 2
+          },
+          {
+            "roster_id": 8,
+            "uid": "728392183681548288",
+            "manager": "datboyp",
+            "received": [],
+            "points": 0.0,
+            "starts": 0
+          }
+        ],
+        "margin": 39.6,
+        "total_points": 39.6,
+        "decisive": false,
+        "picks_involved": false,
+        "faab_involved": true,
+        "players": 1
+      },
+      {
+        "season": "2025",
+        "week": 4,
+        "txn": "1276778582374363136",
+        "sides": [
+          {
+            "roster_id": 6,
+            "uid": "739174898471157760",
+            "manager": "GmanToTuff",
+            "received": [
+              {
+                "player": "Chase Brown",
+                "position": "RB",
+                "points": 249.0
+              }
+            ],
+            "points": 249.0,
+            "starts": 14
+          },
+          {
+            "roster_id": 1,
+            "uid": "727954847688630272",
+            "manager": "Pxesto",
+            "received": [
+              {
+                "player": "TreVeyon Henderson",
+                "position": "RB",
+                "points": 180.2
+              },
+              {
+                "player": "Detroit Lions",
+                "position": "DEF",
+                "points": 30.0
+              }
+            ],
+            "points": 210.2,
+            "starts": 17
+          }
+        ],
+        "margin": 38.8,
+        "total_points": 459.2,
+        "decisive": false,
+        "picks_involved": false,
+        "faab_involved": false,
+        "players": 3
+      },
+      {
+        "season": "2022",
+        "week": 13,
+        "txn": "903958016049803264",
+        "sides": [
+          {
+            "roster_id": 2,
+            "uid": "737361961427296256",
+            "manager": "Mangondala",
+            "received": [
+              {
+                "player": "Austin Ekeler",
+                "position": "RB",
+                "points": 113.5
+              }
+            ],
+            "points": 113.5,
+            "starts": 5
+          },
+          {
+            "roster_id": 9,
+            "uid": "868975711417946112",
+            "manager": "DicklesPickles",
+            "received": [
+              {
+                "player": "Aaron Jones",
+                "position": "RB",
+                "points": 52.9
+              },
+              {
+                "player": "DeAndre Hopkins",
+                "position": "WR",
+                "points": 22.8
+              }
+            ],
+            "points": 75.6,
+            "starts": 9
+          }
+        ],
+        "margin": 37.9,
+        "total_points": 189.1,
+        "decisive": false,
+        "picks_involved": false,
+        "faab_involved": false,
+        "players": 3
+      },
+      {
+        "season": "2022",
+        "week": 1,
+        "txn": "872713996141309952",
+        "sides": [
+          {
+            "roster_id": 2,
+            "uid": "737361961427296256",
+            "manager": "Mangondala",
+            "received": [
+              {
+                "player": "Amon-Ra St. Brown",
+                "position": "WR",
+                "points": 213.0
+              },
+              {
+                "player": "Nyheim Miller-Hines",
+                "position": "RB",
+                "points": 0.0
+              }
+            ],
+            "points": 212.9,
+            "starts": 12
+          },
+          {
+            "roster_id": 3,
+            "uid": "737362282971062272",
+            "manager": "Nickpapi69",
+            "received": [
+              {
+                "player": "Chris Godwin",
+                "position": "WR",
+                "points": 178.7
+              },
+              {
+                "player": "Skyy Moore",
+                "position": "WR",
+                "points": 0.0
+              }
+            ],
+            "points": 178.7,
+            "starts": 13
+          }
+        ],
+        "margin": 34.2,
+        "total_points": 391.6,
+        "decisive": false,
+        "picks_involved": false,
+        "faab_involved": false,
+        "players": 4
+      },
+      {
+        "season": "2021",
+        "week": 12,
+        "txn": "770874968874749952",
+        "sides": [
+          {
+            "roster_id": 8,
+            "uid": "728392183681548288",
+            "manager": "datboyp",
+            "received": [
+              {
+                "player": "Alvin Kamara",
+                "position": "RB",
+                "points": 94.7
+              },
+              {
+                "player": "Michael Pittman",
+                "position": "WR",
+                "points": 17.7
+              }
+            ],
+            "points": 112.4,
+            "starts": 7
+          },
+          {
+            "roster_id": 3,
+            "uid": "737362282971062272",
+            "manager": "Nickpapi69",
+            "received": [
+              {
+                "player": "Aaron Jones",
+                "position": "RB",
+                "points": 69.3
+              },
+              {
+                "player": "Odell Beckham",
+                "position": "WR",
+                "points": 12.0
+              }
+            ],
+            "points": 81.3,
+            "starts": 7
+          }
+        ],
+        "margin": 31.1,
+        "total_points": 193.7,
+        "decisive": false,
+        "picks_involved": false,
+        "faab_involved": false,
+        "players": 4
+      },
+      {
+        "season": "2022",
+        "week": 7,
+        "txn": "888575770812133376",
+        "sides": [
+          {
+            "roster_id": 5,
+            "uid": "739175215237586944",
+            "manager": "Cumball",
+            "received": [
+              {
+                "player": "Travis Etienne",
+                "position": "RB",
+                "points": 180.9
+              },
+              {
+                "player": "Amari Cooper",
+                "position": "WR",
+                "points": 98.6
+              },
+              {
+                "player": "AJ Dillon",
+                "position": "RB",
+                "points": 2.5
+              },
+              {
+                "player": "Tom Brady",
+                "position": "QB",
+                "points": 0.0
+              },
+              {
+                "player": "James Robinson",
+                "position": "RB",
+                "points": 0.0
+              }
+            ],
+            "points": 282.0,
+            "starts": 19
+          },
+          {
+            "roster_id": 1,
+            "uid": "727954847688630272",
+            "manager": "Pxesto",
+            "received": [
+              {
+                "player": "Josh Allen",
+                "position": "QB",
+                "points": 266.2
+              }
+            ],
+            "points": 266.2,
+            "starts": 11
+          }
+        ],
+        "margin": 15.8,
+        "total_points": 548.2,
+        "decisive": false,
+        "picks_involved": false,
+        "faab_involved": false,
+        "players": 6
+      },
+      {
+        "season": "2022",
+        "week": 7,
+        "txn": "888660359739801600",
+        "sides": [
+          {
+            "roster_id": 3,
+            "uid": "737362282971062272",
+            "manager": "Nickpapi69",
+            "received": [
+              {
+                "player": "Mike Williams",
+                "position": "WR",
+                "points": 31.3
+              },
+              {
+                "player": "Jamaal Williams",
+                "position": "RB",
+                "points": 0.0
+              },
+              {
+                "player": "Brian Robinson",
+                "position": "RB",
+                "points": 0.0
+              }
+            ],
+            "points": 31.3,
+            "starts": 3
+          },
+          {
+            "roster_id": 1,
+            "uid": "727954847688630272",
+            "manager": "Pxesto",
+            "received": [
+              {
+                "player": "Breece Hall",
+                "position": "RB",
+                "points": 15.8
+              }
+            ],
+            "points": 15.8,
+            "starts": 1
+          }
+        ],
+        "margin": 15.5,
+        "total_points": 47.1,
+        "decisive": false,
+        "picks_involved": false,
+        "faab_involved": false,
+        "players": 4
+      },
+      {
+        "season": "2023",
+        "week": 9,
+        "txn": "1026335929620869120",
+        "sides": [
+          {
+            "roster_id": 6,
+            "uid": "739174898471157760",
+            "manager": "GmanToTuff",
+            "received": [
+              {
+                "player": "Alexander Mattison",
+                "position": "RB",
+                "points": 38.9
+              }
+            ],
+            "points": 38.9,
+            "starts": 4
+          },
+          {
+            "roster_id": 1,
+            "uid": "727954847688630272",
+            "manager": "Pxesto",
+            "received": [
+              {
+                "player": "D'Onta Foreman",
+                "position": "RB",
+                "points": 19.2
+              },
+              {
+                "player": "Jaxon Smith-Njigba",
+                "position": "WR",
+                "points": 8.3
+              }
+            ],
+            "points": 27.5,
+            "starts": 2
+          }
+        ],
+        "margin": 11.4,
+        "total_points": 66.4,
+        "decisive": false,
+        "picks_involved": false,
+        "faab_involved": false,
+        "players": 3
+      },
+      {
+        "season": "2022",
+        "week": 9,
+        "txn": "895726652653559808",
+        "sides": [
+          {
+            "roster_id": 5,
+            "uid": "739175215237586944",
+            "manager": "Cumball",
+            "received": [
+              {
+                "player": "Brian Robinson",
+                "position": "RB",
+                "points": 50.3
+              },
+              {
+                "player": "Marcus Mariota",
+                "position": "QB",
+                "points": 22.0
+              }
+            ],
+            "points": 72.3,
+            "starts": 4
+          },
+          {
+            "roster_id": 3,
+            "uid": "737362282971062272",
+            "manager": "Nickpapi69",
+            "received": [
+              {
+                "player": "Tom Brady",
+                "position": "QB",
+                "points": 61.2
+              }
+            ],
+            "points": 61.2,
+            "starts": 3
+          }
+        ],
+        "margin": 11.1,
+        "total_points": 133.5,
+        "decisive": false,
+        "picks_involved": false,
+        "faab_involved": false,
+        "players": 3
+      },
+      {
+        "season": "2022",
+        "week": 9,
+        "txn": "894719335384440832",
+        "sides": [
+          {
+            "roster_id": 3,
+            "uid": "737362282971062272",
+            "manager": "Nickpapi69",
+            "received": [
+              {
+                "player": "Deon Jackson",
+                "position": "RB",
+                "points": 7.8
+              }
+            ],
+            "points": 7.8,
+            "starts": 1
+          },
+          {
+            "roster_id": 1,
+            "uid": "727954847688630272",
+            "manager": "Pxesto",
+            "received": [],
+            "points": 0.0,
+            "starts": 0
+          }
+        ],
+        "margin": 7.8,
+        "total_points": 7.8,
+        "decisive": false,
+        "picks_involved": false,
+        "faab_involved": true,
+        "players": 1
+      },
+      {
+        "season": "2022",
+        "week": 12,
+        "txn": "902041473531506688",
+        "sides": [
+          {
+            "roster_id": 10,
+            "uid": "871109847192621056",
+            "manager": "kodikat",
+            "received": [
+              {
+                "player": "Gabe Davis",
+                "position": "WR",
+                "points": 39.1
+              },
+              {
+                "player": "George Pickens",
+                "position": "WR",
+                "points": 19.3
+              }
+            ],
+            "points": 58.4,
+            "starts": 9
+          },
+          {
+            "roster_id": 1,
+            "uid": "727954847688630272",
+            "manager": "Pxesto",
+            "received": [
+              {
+                "player": "JuJu Smith-Schuster",
+                "position": "WR",
+                "points": 52.5
+              }
+            ],
+            "points": 52.5,
+            "starts": 6
+          }
+        ],
+        "margin": 5.9,
+        "total_points": 110.9,
+        "decisive": false,
+        "picks_involved": false,
+        "faab_involved": false,
+        "players": 3
+      },
+      {
+        "season": "2022",
+        "week": 3,
+        "txn": "879883163676237824",
+        "sides": [
+          {
+            "roster_id": 2,
+            "uid": "737361961427296256",
+            "manager": "Mangondala",
+            "received": [
+              {
+                "player": "Deebo Samuel",
+                "position": "WR",
+                "points": 0.0
+              },
+              {
+                "player": "Tony Pollard",
+                "position": "RB",
+                "points": 0.0
+              }
+            ],
+            "points": 0.0,
+            "starts": 0
+          },
+          {
+            "roster_id": 3,
+            "uid": "737362282971062272",
+            "manager": "Nickpapi69",
+            "received": [
+              {
+                "player": "Derrick Henry",
+                "position": "RB",
+                "points": 0.0
+              },
+              {
+                "player": "Curtis Samuel",
+                "position": "WR",
+                "points": 0.0
+              }
+            ],
+            "points": 0.0,
+            "starts": 0
+          }
+        ],
+        "margin": 0.0,
+        "total_points": 0.0,
+        "decisive": false,
+        "picks_involved": false,
+        "faab_involved": false,
+        "players": 4
+      },
+      {
+        "season": "2022",
+        "week": 9,
+        "txn": "894850166841122816",
+        "sides": [
+          {
+            "roster_id": 1,
+            "uid": "727954847688630272",
+            "manager": "Pxesto",
+            "received": [],
+            "points": 0.0,
+            "starts": 0
+          },
+          {
+            "roster_id": 2,
+            "uid": "737361961427296256",
+            "manager": "Mangondala",
+            "received": [
+              {
+                "player": "Isaiah Likely",
+                "position": "TE",
+                "points": 0.0
+              }
+            ],
+            "points": 0.0,
+            "starts": 0
+          }
+        ],
+        "margin": 0.0,
+        "total_points": 0.0,
+        "decisive": false,
+        "picks_involved": false,
+        "faab_involved": true,
+        "players": 1
+      },
+      {
+        "season": "2025",
+        "week": 5,
+        "txn": "1279295629792645120",
+        "sides": [
+          {
+            "roster_id": 8,
+            "uid": "728392183681548288",
+            "manager": "datboyp",
+            "received": [
+              {
+                "player": "CeeDee Lamb",
+                "position": "WR",
+                "points": 0.0
+              }
+            ],
+            "points": 0.0,
+            "starts": 0
+          },
+          {
+            "roster_id": 10,
+            "uid": "871109847192621056",
+            "manager": "kodikat",
+            "received": [
+              {
+                "player": "Woody Marks",
+                "position": "RB",
+                "points": 0.0
+              },
+              {
+                "player": "Chris Olave",
+                "position": "WR",
+                "points": 0.0
+              }
+            ],
+            "points": 0.0,
+            "starts": 0
+          }
+        ],
+        "margin": 0.0,
+        "total_points": 0.0,
+        "decisive": false,
+        "picks_involved": false,
+        "faab_involved": false,
+        "players": 3
+      }
+    ],
+    "trade_ledger": [
+      {
+        "uid": "871109847192621056",
+        "manager": "kodikat",
+        "trades": 7,
+        "gained": 1027.8,
+        "surrendered": 643.8,
+        "won": 4,
+        "lost": 1,
+        "washes": 2,
+        "net": 384.0,
+        "net_per_trade": 54.9
+      },
+      {
+        "uid": "728392183681548288",
+        "manager": "datboyp",
+        "trades": 16,
+        "gained": 2481.9,
+        "surrendered": 2173.9,
+        "won": 9,
+        "lost": 4,
+        "washes": 3,
+        "net": 308.0,
+        "net_per_trade": 19.2
+      },
+      {
+        "uid": "739175215237586944",
+        "manager": "Cumball",
+        "trades": 4,
+        "gained": 826.3,
+        "surrendered": 533.9,
+        "won": 2,
+        "lost": 0,
+        "washes": 2,
+        "net": 292.4,
+        "net_per_trade": 73.1
+      },
+      {
+        "uid": "739174898471157760",
+        "manager": "GmanToTuff",
+        "trades": 11,
+        "gained": 1311.4,
+        "surrendered": 1142.9,
+        "won": 4,
+        "lost": 4,
+        "washes": 3,
+        "net": 168.5,
+        "net_per_trade": 15.3
+      },
+      {
+        "uid": "737361961427296256",
+        "manager": "Mangondala",
+        "trades": 11,
+        "gained": 2281.9,
+        "surrendered": 2124.2,
+        "won": 4,
+        "lost": 3,
+        "washes": 4,
+        "net": 157.7,
+        "net_per_trade": 14.3
+      },
+      {
+        "uid": "1131318989990379520",
+        "manager": "clappincheeks69",
+        "trades": 1,
+        "gained": 230.5,
+        "surrendered": 102.8,
+        "won": 1,
+        "lost": 0,
+        "washes": 0,
+        "net": 127.7,
+        "net_per_trade": 127.7
+      },
+      {
+        "uid": "993993310521942016",
+        "manager": "echenozz",
+        "trades": 1,
+        "gained": 273.3,
+        "surrendered": 150.9,
+        "won": 1,
+        "lost": 0,
+        "washes": 0,
+        "net": 122.4,
+        "net_per_trade": 122.4
+      },
+      {
+        "uid": "633938383265161216",
+        "manager": "speixoto24",
+        "trades": 3,
+        "gained": 250.9,
+        "surrendered": 160.3,
+        "won": 1,
+        "lost": 2,
+        "washes": 0,
+        "net": 90.6,
+        "net_per_trade": 30.2
+      },
+      {
+        "uid": "868975711417946112",
+        "manager": "DicklesPickles",
+        "trades": 1,
+        "gained": 75.6,
+        "surrendered": 113.5,
+        "won": 0,
+        "lost": 0,
+        "washes": 1,
+        "net": -37.9,
+        "net_per_trade": -37.9
+      },
+      {
+        "uid": "993996540970668032",
+        "manager": "Cadengetdabag",
+        "trades": 6,
+        "gained": 1464.0,
+        "surrendered": 1593.4,
+        "won": 3,
+        "lost": 3,
+        "washes": 0,
+        "net": -129.4,
+        "net_per_trade": -21.6
+      },
+      {
+        "uid": "468905201722454016",
+        "manager": "ProfessorSell",
+        "trades": 3,
+        "gained": 430.4,
+        "surrendered": 690.8,
+        "won": 1,
+        "lost": 2,
+        "washes": 0,
+        "net": -260.4,
+        "net_per_trade": -86.8
+      },
+      {
+        "uid": "737362282971062272",
+        "manager": "Nickpapi69",
+        "trades": 16,
+        "gained": 2444.7,
+        "surrendered": 2997.7,
+        "won": 3,
+        "lost": 7,
+        "washes": 6,
+        "net": -553.0,
+        "net_per_trade": -34.6
+      },
+      {
+        "uid": "727954847688630272",
+        "manager": "Pxesto",
+        "trades": 18,
+        "gained": 2430.6,
+        "surrendered": 3101.2,
+        "won": 2,
+        "lost": 9,
+        "washes": 7,
+        "net": -670.6,
+        "net_per_trade": -37.3
+      }
+    ],
+    "waivers": {
+      "best": [
+        {
+          "season": "2023",
+          "week": 1,
+          "manager": "datboyp",
+          "player": "Puka Nacua",
+          "position": "WR",
+          "points": 261.0,
+          "starts": 16,
+          "bid": 69,
+          "points_per_100": 378.3
+        },
+        {
+          "season": "2024",
+          "week": 1,
+          "manager": "Cumball",
+          "player": "Baker Mayfield",
+          "position": "QB",
+          "points": 248.0,
+          "starts": 11,
+          "bid": null
+        },
+        {
+          "season": "2023",
+          "week": 1,
+          "manager": "Cadengetdabag",
+          "player": "Kyren Williams",
+          "position": "RB",
+          "points": 246.5,
+          "starts": 12,
+          "bid": 200,
+          "points_per_100": 123.2
+        },
+        {
+          "season": "2025",
+          "week": 2,
+          "manager": "Nickpapi69",
+          "player": "Jared Goff",
+          "position": "QB",
+          "points": 236.1,
+          "starts": 12,
+          "bid": null
+        },
+        {
+          "season": "2022",
+          "week": 5,
+          "manager": "datboyp",
+          "player": "Rhamondre Stevenson",
+          "position": "RB",
+          "points": 194.3,
+          "starts": 12,
+          "bid": null
+        },
+        {
+          "season": "2023",
+          "week": 1,
+          "manager": "DicklesPickles",
+          "player": "Gus Edwards",
+          "position": "RB",
+          "points": 193.6,
+          "starts": 16,
+          "bid": 50,
+          "points_per_100": 387.2
+        },
+        {
+          "season": "2022",
+          "week": 2,
+          "manager": "Cumball",
+          "player": "Tua Tagovailoa",
+          "position": "QB",
+          "points": 189.2,
+          "starts": 11,
+          "bid": 200,
+          "points_per_100": 94.6
+        },
+        {
+          "season": "2023",
+          "week": 2,
+          "manager": "kodikat",
+          "player": "Jerome Ford",
+          "position": "RB",
+          "points": 186.1,
+          "starts": 15,
+          "bid": 400,
+          "points_per_100": 46.5
+        },
+        {
+          "season": "2024",
+          "week": 1,
+          "manager": "datboyp",
+          "player": "Bucky Irving",
+          "position": "RB",
+          "points": 174.5,
+          "starts": 11,
+          "bid": null
+        },
+        {
+          "season": "2021",
+          "week": 4,
+          "manager": "GmanToTuff",
+          "player": "Cordarrelle Patterson",
+          "position": "RB",
+          "points": 172.7,
+          "starts": 13,
+          "bid": null
+        },
+        {
+          "season": "2024",
+          "week": 8,
+          "manager": "GmanToTuff",
+          "player": "Jonnu Smith",
+          "position": "TE",
+          "points": 170.3,
+          "starts": 9,
+          "bid": 50,
+          "points_per_100": 340.6
+        },
+        {
+          "season": "2023",
+          "week": 2,
+          "manager": "Huntermeek4",
+          "player": "Zack Moss",
+          "position": "RB",
+          "points": 167.0,
+          "starts": 12,
+          "bid": null
+        },
+        {
+          "season": "2021",
+          "week": 6,
+          "manager": "GmanToTuff",
+          "player": "James Conner",
+          "position": "RB",
+          "points": 160.3,
+          "starts": 10,
+          "bid": null
+        },
+        {
+          "season": "2023",
+          "week": 6,
+          "manager": "echenozz",
+          "player": "C.J. Stroud",
+          "position": "QB",
+          "points": 155.8,
+          "starts": 8,
+          "bid": 0
+        },
+        {
+          "season": "2023",
+          "week": 11,
+          "manager": "kodikat",
+          "player": "Matthew Stafford",
+          "position": "QB",
+          "points": 155.7,
+          "starts": 8,
+          "bid": null
+        }
+      ],
+      "bargains": [
+        {
+          "season": "2023",
+          "week": 1,
+          "manager": "DicklesPickles",
+          "player": "Gus Edwards",
+          "position": "RB",
+          "points": 193.6,
+          "starts": 16,
+          "bid": 50,
+          "points_per_100": 387.2
+        },
+        {
+          "season": "2023",
+          "week": 1,
+          "manager": "datboyp",
+          "player": "Puka Nacua",
+          "position": "WR",
+          "points": 261.0,
+          "starts": 16,
+          "bid": 69,
+          "points_per_100": 378.3
+        },
+        {
+          "season": "2024",
+          "week": 8,
+          "manager": "GmanToTuff",
+          "player": "Jonnu Smith",
+          "position": "TE",
+          "points": 170.3,
+          "starts": 9,
+          "bid": 50,
+          "points_per_100": 340.6
+        },
+        {
+          "season": "2025",
+          "week": 1,
+          "manager": "kodikat",
+          "player": "Daniel Jones",
+          "position": "QB",
+          "points": 146.1,
+          "starts": 9,
+          "bid": 51,
+          "points_per_100": 286.5
+        },
+        {
+          "season": "2024",
+          "week": 4,
+          "manager": "Cadengetdabag",
+          "player": "Cade Otton",
+          "position": "TE",
+          "points": 63.5,
+          "starts": 6,
+          "bid": 25,
+          "points_per_100": 254.0
+        },
+        {
+          "season": "2022",
+          "week": 15,
+          "manager": "DicklesPickles",
+          "player": "Jared Goff",
+          "position": "QB",
+          "points": 63.1,
+          "starts": 3,
+          "bid": 25,
+          "points_per_100": 252.4
+        },
+        {
+          "season": "2022",
+          "week": 10,
+          "manager": "Cumball",
+          "player": "Nick Folk",
+          "position": "K",
+          "points": 52.0,
+          "starts": 8,
+          "bid": 25,
+          "points_per_100": 208.0
+        },
+        {
+          "season": "2022",
+          "week": 7,
+          "manager": "Nickpapi69",
+          "player": "Tyler Bass",
+          "position": "K",
+          "points": 92.0,
+          "starts": 11,
+          "bid": 50,
+          "points_per_100": 184.0
+        },
+        {
+          "season": "2025",
+          "week": 6,
+          "manager": "GmanToTuff",
+          "player": "Chicago Bears",
+          "position": "DEF",
+          "points": 89.0,
+          "starts": 10,
+          "bid": 50,
+          "points_per_100": 178.0
+        },
+        {
+          "season": "2025",
+          "week": 9,
+          "manager": "datboyp",
+          "player": "Seattle Seahawks",
+          "position": "DEF",
+          "points": 118.0,
+          "starts": 7,
+          "bid": 69,
+          "points_per_100": 171.0
+        }
+      ],
+      "busts": [
+        {
+          "season": "2023",
+          "week": 5,
+          "manager": "Nickpapi69",
+          "player": "Logan Thomas",
+          "position": "TE",
+          "points": 1.2,
+          "starts": 1,
+          "bid": 200,
+          "points_per_100": 0.6
+        },
+        {
+          "season": "2025",
+          "week": 4,
+          "manager": "Cumball",
+          "player": "Darius Slayton",
+          "position": "WR",
+          "points": 2.1,
+          "starts": 1,
+          "bid": 200,
+          "points_per_100": 1.1
+        },
+        {
+          "season": "2022",
+          "week": 10,
+          "manager": "DicklesPickles",
+          "player": "Chase Claypool",
+          "position": "WR",
+          "points": 2.6,
+          "starts": 1,
+          "bid": 200,
+          "points_per_100": 1.3
+        },
+        {
+          "season": "2024",
+          "week": 1,
+          "manager": "datboyp",
+          "player": "Isaiah Likely",
+          "position": "TE",
+          "points": 7.0,
+          "starts": 2,
+          "bid": 604,
+          "points_per_100": 1.2
+        },
+        {
+          "season": "2024",
+          "week": 10,
+          "manager": "DicklesPickles",
+          "player": "Audric Estime",
+          "position": "RB",
+          "points": 7.7,
+          "starts": 3,
+          "bid": 250,
+          "points_per_100": 3.1
+        },
+        {
+          "season": "2023",
+          "week": 4,
+          "manager": "Mangondala",
+          "player": "Jaleel McLaughlin",
+          "position": "RB",
+          "points": 11.5,
+          "starts": 2,
+          "bid": 300,
+          "points_per_100": 3.8
+        },
+        {
+          "season": "2025",
+          "week": 1,
+          "manager": "Nickpapi69",
+          "player": "Quentin Johnston",
+          "position": "WR",
+          "points": 13.9,
+          "starts": 1,
+          "bid": 351,
+          "points_per_100": 4.0
+        },
+        {
+          "season": "2024",
+          "week": 7,
+          "manager": "DicklesPickles",
+          "player": "Sterling Shepard",
+          "position": "WR",
+          "points": 15.7,
+          "starts": 3,
+          "bid": 350,
+          "points_per_100": 4.5
+        },
+        {
+          "season": "2025",
+          "week": 6,
+          "manager": "Pxesto",
+          "player": "Zonovan Knight",
+          "position": "RB",
+          "points": 17.6,
+          "starts": 2,
+          "bid": 250,
+          "points_per_100": 7.0
+        },
+        {
+          "season": "2024",
+          "week": 10,
+          "manager": "kodikat",
+          "player": "Marquez Valdes-Scantling",
+          "position": "WR",
+          "points": 19.2,
+          "starts": 2,
+          "bid": 251,
+          "points_per_100": 7.6
+        }
+      ],
+      "free_finds": [
+        {
+          "season": "2024",
+          "week": 1,
+          "manager": "Cumball",
+          "player": "Baker Mayfield",
+          "position": "QB",
+          "points": 248.0,
+          "starts": 11,
+          "bid": null
+        },
+        {
+          "season": "2025",
+          "week": 2,
+          "manager": "Nickpapi69",
+          "player": "Jared Goff",
+          "position": "QB",
+          "points": 236.1,
+          "starts": 12,
+          "bid": null
+        },
+        {
+          "season": "2022",
+          "week": 5,
+          "manager": "datboyp",
+          "player": "Rhamondre Stevenson",
+          "position": "RB",
+          "points": 194.3,
+          "starts": 12,
+          "bid": null
+        },
+        {
+          "season": "2024",
+          "week": 1,
+          "manager": "datboyp",
+          "player": "Bucky Irving",
+          "position": "RB",
+          "points": 174.5,
+          "starts": 11,
+          "bid": null
+        },
+        {
+          "season": "2021",
+          "week": 4,
+          "manager": "GmanToTuff",
+          "player": "Cordarrelle Patterson",
+          "position": "RB",
+          "points": 172.7,
+          "starts": 13,
+          "bid": null
+        },
+        {
+          "season": "2023",
+          "week": 2,
+          "manager": "Huntermeek4",
+          "player": "Zack Moss",
+          "position": "RB",
+          "points": 167.0,
+          "starts": 12,
+          "bid": null
+        },
+        {
+          "season": "2021",
+          "week": 6,
+          "manager": "GmanToTuff",
+          "player": "James Conner",
+          "position": "RB",
+          "points": 160.3,
+          "starts": 10,
+          "bid": null
+        },
+        {
+          "season": "2023",
+          "week": 6,
+          "manager": "echenozz",
+          "player": "C.J. Stroud",
+          "position": "QB",
+          "points": 155.8,
+          "starts": 8,
+          "bid": 0
+        },
+        {
+          "season": "2023",
+          "week": 11,
+          "manager": "kodikat",
+          "player": "Matthew Stafford",
+          "position": "QB",
+          "points": 155.7,
+          "starts": 8,
+          "bid": null
+        },
+        {
+          "season": "2024",
+          "week": 3,
+          "manager": "Huntermeek4",
+          "player": "Kareem Hunt",
+          "position": "RB",
+          "points": 152.9,
+          "starts": 12,
+          "bid": null
+        }
+      ],
+      "total_wire_points": 24265.3
+    },
+    "profiles": [
+      {
+        "season": "2021",
+        "uid": "738069619088216064",
+        "manager": "StevetheDog",
+        "team_name": "Dogpound",
+        "points": 2604.1,
+        "wins": 9,
+        "finish": 1,
+        "teams": 8,
+        "made_playoffs": true,
+        "champion": false,
+        "draft_value": 574.7,
+        "draft_points": 2198.6,
+        "draft": 84.4,
+        "trade_points": 0.0,
+        "trade": 0.0,
+        "waiver_points": 405.5,
+        "waiver": 15.6,
+        "draft_rank": 1,
+        "draft_value_rank": 1
+      },
+      {
+        "season": "2021",
+        "uid": "739174898471157760",
+        "manager": "GmanToTuff",
+        "team_name": "GmanToTuff",
+        "points": 2370.9,
+        "wins": 9,
+        "finish": 2,
+        "teams": 8,
+        "made_playoffs": true,
+        "champion": false,
+        "draft_value": 25.1,
+        "draft_points": 1938.2,
+        "draft": 81.8,
+        "trade_points": 9.8,
+        "trade": 0.4,
+        "waiver_points": 422.9,
+        "waiver": 17.8,
+        "draft_rank": 4,
+        "draft_value_rank": 4
+      },
+      {
+        "season": "2021",
+        "uid": "737362282971062272",
+        "manager": "Nickpapi69",
+        "team_name": "Gg buddy",
+        "points": 2597.6,
+        "wins": 8,
+        "finish": 3,
+        "teams": 8,
+        "made_playoffs": true,
+        "champion": true,
+        "draft_value": 496.9,
+        "draft_points": 2163.3,
+        "draft": 83.3,
+        "trade_points": 104.5,
+        "trade": 4.0,
+        "waiver_points": 329.9,
+        "waiver": 12.7,
+        "draft_rank": 2,
+        "draft_value_rank": 2
+      },
+      {
+        "season": "2021",
+        "uid": "727954847688630272",
+        "manager": "Pxesto",
+        "team_name": "Somehow made it \u270a\ud83c\udffc",
+        "points": 2163.9,
+        "wins": 8,
+        "finish": 4,
+        "teams": 8,
+        "made_playoffs": true,
+        "champion": false,
+        "draft_value": -409.5,
+        "draft_points": 1456.0,
+        "draft": 67.3,
+        "trade_points": 0.0,
+        "trade": 0.0,
+        "waiver_points": 707.9,
+        "waiver": 32.7,
+        "draft_rank": 6,
+        "draft_value_rank": 8,
+        "rescued_by": 707.9,
+        "rescue_share": 32.7
+      },
+      {
+        "season": "2021",
+        "uid": "633938383265161216",
+        "manager": "speixoto24",
+        "team_name": "speixoto24",
+        "points": 2416.0,
+        "wins": 7,
+        "finish": 5,
+        "teams": 8,
+        "made_playoffs": false,
+        "champion": false,
+        "draft_value": -169.6,
+        "draft_points": 1603.5,
+        "draft": 66.4,
+        "trade_points": 250.9,
+        "trade": 10.4,
+        "waiver_points": 561.6,
+        "waiver": 23.2,
+        "draft_rank": 5,
+        "draft_value_rank": 6
+      },
+      {
+        "season": "2021",
+        "uid": "728392183681548288",
+        "manager": "datboyp",
+        "team_name": "god squad ",
+        "points": 2294.3,
+        "wins": 6,
+        "finish": 6,
+        "teams": 8,
+        "made_playoffs": false,
+        "champion": false,
+        "draft_value": -305.7,
+        "draft_points": 1368.9,
+        "draft": 59.7,
+        "trade_points": 291.4,
+        "trade": 12.7,
+        "waiver_points": 634.0,
+        "waiver": 27.6,
+        "draft_rank": 8,
+        "draft_value_rank": 7
+      },
+      {
+        "season": "2021",
+        "uid": "737361961427296256",
+        "manager": "Mangondala",
+        "team_name": "Mangondala",
+        "points": 2267.2,
+        "wins": 5,
+        "finish": 7,
+        "teams": 8,
+        "made_playoffs": false,
+        "champion": false,
+        "draft_value": 92.5,
+        "draft_points": 1984.5,
+        "draft": 87.5,
+        "trade_points": 0.0,
+        "trade": 0.0,
+        "waiver_points": 282.7,
+        "waiver": 12.5,
+        "draft_rank": 3,
+        "draft_value_rank": 3
+      },
+      {
+        "season": "2021",
+        "uid": "739175215237586944",
+        "manager": "Cumball",
+        "team_name": "Milf Slayers",
+        "points": 1995.1,
+        "wins": 4,
+        "finish": 8,
+        "teams": 8,
+        "made_playoffs": false,
+        "champion": false,
+        "draft_value": -69.8,
+        "draft_points": 1429.8,
+        "draft": 71.7,
+        "trade_points": 84.8,
+        "trade": 4.2,
+        "waiver_points": 480.6,
+        "waiver": 24.1,
+        "draft_rank": 7,
+        "draft_value_rank": 5
+      },
+      {
+        "season": "2022",
+        "uid": "871109847192621056",
+        "manager": "kodikat",
+        "team_name": "Token boomer",
+        "points": 2374.0,
+        "wins": 21,
+        "finish": 1,
+        "teams": 10,
+        "made_playoffs": true,
+        "champion": true,
+        "draft_value": 169.1,
+        "draft_points": 1981.3,
+        "draft": 83.5,
+        "trade_points": 98.6,
+        "trade": 4.2,
+        "waiver_points": 294.1,
+        "waiver": 12.4,
+        "draft_rank": 2,
+        "draft_value_rank": 4
+      },
+      {
+        "season": "2022",
+        "uid": "727954847688630272",
+        "manager": "Pxesto",
+        "team_name": "Strawhats",
+        "points": 2418.6,
+        "wins": 18,
+        "finish": 2,
+        "teams": 10,
+        "made_playoffs": true,
+        "champion": false,
+        "draft_value": 705.0,
+        "draft_points": 1308.1,
+        "draft": 54.1,
+        "trade_points": 334.6,
+        "trade": 13.8,
+        "waiver_points": 775.8,
+        "waiver": 32.1,
+        "draft_rank": 8,
+        "draft_value_rank": 1
+      },
+      {
+        "season": "2022",
+        "uid": "737362282971062272",
+        "manager": "Nickpapi69",
+        "team_name": "Gg buddy",
+        "points": 2305.4,
+        "wins": 17,
+        "finish": 3,
+        "teams": 10,
+        "made_playoffs": true,
+        "champion": false,
+        "draft_value": 183.2,
+        "draft_points": 962.2,
+        "draft": 41.7,
+        "trade_points": 690.1,
+        "trade": 29.9,
+        "waiver_points": 653.1,
+        "waiver": 28.3,
+        "draft_rank": 10,
+        "draft_value_rank": 3
+      },
+      {
+        "season": "2022",
+        "uid": "737361961427296256",
+        "manager": "Mangondala",
+        "team_name": "Turbo Herbo and the boyz",
+        "points": 2220.9,
+        "wins": 14,
+        "finish": 4,
+        "teams": 10,
+        "made_playoffs": true,
+        "champion": false,
+        "draft_value": -52.8,
+        "draft_points": 1377.3,
+        "draft": 62.0,
+        "trade_points": 674.9,
+        "trade": 30.4,
+        "waiver_points": 168.8,
+        "waiver": 7.6,
+        "draft_rank": 7,
+        "draft_value_rank": 8,
+        "rescued_by": 843.7,
+        "rescue_share": 38.0
+      },
+      {
+        "season": "2022",
+        "uid": "868975711417946112",
+        "manager": "DicklesPickles",
+        "team_name": "DicklesPickles",
+        "points": 2204.5,
+        "wins": 14,
+        "finish": 5,
+        "teams": 10,
+        "made_playoffs": true,
+        "champion": false,
+        "draft_value": -32.2,
+        "draft_points": 1709.5,
+        "draft": 77.5,
+        "trade_points": 75.6,
+        "trade": 3.4,
+        "waiver_points": 419.4,
+        "waiver": 19.0,
+        "draft_rank": 4,
+        "draft_value_rank": 7,
+        "rescued_by": 495.0,
+        "rescue_share": 22.4
+      },
+      {
+        "season": "2022",
+        "uid": "739174898471157760",
+        "manager": "GmanToTuff",
+        "team_name": "GmanToTuff",
+        "points": 2216.6,
+        "wins": 14,
+        "finish": 6,
+        "teams": 10,
+        "made_playoffs": true,
+        "champion": false,
+        "draft_value": -2.1,
+        "draft_points": 2001.5,
+        "draft": 90.3,
+        "trade_points": 0.0,
+        "trade": 0.0,
+        "waiver_points": 215.0,
+        "waiver": 9.7,
+        "draft_rank": 1,
+        "draft_value_rank": 6,
+        "rescued_by": 215.0,
+        "rescue_share": 9.7
+      },
+      {
+        "season": "2022",
+        "uid": "728392183681548288",
+        "manager": "datboyp",
+        "team_name": "god squad ",
+        "points": 2240.9,
+        "wins": 13,
+        "finish": 7,
+        "teams": 10,
+        "made_playoffs": false,
+        "champion": false,
+        "draft_value": 112.8,
+        "draft_points": 1580.2,
+        "draft": 70.5,
+        "trade_points": 53.6,
+        "trade": 2.4,
+        "waiver_points": 607.1,
+        "waiver": 27.1,
+        "draft_rank": 5,
+        "draft_value_rank": 5
+      },
+      {
+        "season": "2022",
+        "uid": "738069619088216064",
+        "manager": "StevetheDog",
+        "team_name": "Dogpound",
+        "points": 2132.4,
+        "wins": 11,
+        "finish": 8,
+        "teams": 10,
+        "made_playoffs": false,
+        "champion": false,
+        "draft_value": -221.8,
+        "draft_points": 1472.6,
+        "draft": 69.1,
+        "trade_points": 0.0,
+        "trade": 0.0,
+        "waiver_points": 659.7,
+        "waiver": 30.9,
+        "draft_rank": 6,
+        "draft_value_rank": 10
+      },
+      {
+        "season": "2022",
+        "uid": "739175215237586944",
+        "manager": "Cumball",
+        "team_name": "Milf Slayers",
+        "points": 2058.3,
+        "wins": 10,
+        "finish": 9,
+        "teams": 10,
+        "made_playoffs": false,
+        "champion": false,
+        "draft_value": -182.9,
+        "draft_points": 1244.8,
+        "draft": 60.5,
+        "trade_points": 354.3,
+        "trade": 17.2,
+        "waiver_points": 459.2,
+        "waiver": 22.3,
+        "draft_rank": 9,
+        "draft_value_rank": 9
+      },
+      {
+        "season": "2022",
+        "uid": "735566877086048256",
+        "manager": "emcwill12",
+        "team_name": "I miss Andrew Luck",
+        "points": 1990.9,
+        "wins": 8,
+        "finish": 10,
+        "teams": 10,
+        "made_playoffs": false,
+        "champion": false,
+        "draft_value": 188.4,
+        "draft_points": 1729.9,
+        "draft": 86.9,
+        "trade_points": 0.0,
+        "trade": 0.0,
+        "waiver_points": 260.9,
+        "waiver": 13.1,
+        "draft_rank": 3,
+        "draft_value_rank": 2
+      },
+      {
+        "season": "2023",
+        "uid": "737362282971062272",
+        "manager": "Nickpapi69",
+        "team_name": "King",
+        "points": 2258.6,
+        "wins": 19,
+        "finish": 1,
+        "teams": 12,
+        "made_playoffs": true,
+        "champion": false,
+        "draft_value": 501.2,
+        "draft_points": 1475.2,
+        "draft": 65.3,
+        "trade_points": 551.8,
+        "trade": 24.4,
+        "waiver_points": 231.5,
+        "waiver": 10.3,
+        "draft_rank": 5,
+        "draft_value_rank": 1
+      },
+      {
+        "season": "2023",
+        "uid": "727954847688630272",
+        "manager": "Pxesto",
+        "team_name": "In Tyreek\u2019s Bookbag",
+        "points": 2151.5,
+        "wins": 18,
+        "finish": 2,
+        "teams": 12,
+        "made_playoffs": true,
+        "champion": false,
+        "draft_value": -107.9,
+        "draft_points": 148.4,
+        "draft": 6.9,
+        "trade_points": 1095.7,
+        "trade": 50.9,
+        "waiver_points": 907.4,
+        "waiver": 42.2,
+        "draft_rank": 12,
+        "draft_value_rank": 6
+      },
+      {
+        "season": "2023",
+        "uid": "739175215237586944",
+        "manager": "Cumball",
+        "team_name": "Mixon Meth",
+        "points": 2137.3,
+        "wins": 18,
+        "finish": 3,
+        "teams": 12,
+        "made_playoffs": true,
+        "champion": false,
+        "draft_value": 102.1,
+        "draft_points": 1790.5,
+        "draft": 83.8,
+        "trade_points": 0.0,
+        "trade": 0.0,
+        "waiver_points": 346.8,
+        "waiver": 16.2,
+        "draft_rank": 3,
+        "draft_value_rank": 3
+      },
+      {
+        "season": "2023",
+        "uid": "739174898471157760",
+        "manager": "GmanToTuff",
+        "team_name": "Dope Boyz ",
+        "points": 2233.6,
+        "wins": 17,
+        "finish": 4,
+        "teams": 12,
+        "made_playoffs": true,
+        "champion": false,
+        "draft_value": -0.6,
+        "draft_points": 1858.8,
+        "draft": 83.2,
+        "trade_points": 121.0,
+        "trade": 5.4,
+        "waiver_points": 253.8,
+        "waiver": 11.4,
+        "draft_rank": 1,
+        "draft_value_rank": 5
+      },
+      {
+        "season": "2023",
+        "uid": "728392183681548288",
+        "manager": "datboyp",
+        "team_name": "The Jackson 9 ",
+        "points": 2339.8,
+        "wins": 16,
+        "finish": 5,
+        "teams": 12,
+        "made_playoffs": true,
+        "champion": true,
+        "draft_value": -160.1,
+        "draft_points": 1390.9,
+        "draft": 59.4,
+        "trade_points": 255.4,
+        "trade": 10.9,
+        "waiver_points": 693.5,
+        "waiver": 29.6,
+        "draft_rank": 7,
+        "draft_value_rank": 7,
+        "rescued_by": 948.9,
+        "rescue_share": 40.5
+      },
+      {
+        "season": "2023",
+        "uid": "993996540970668032",
+        "manager": "Cadengetdabag",
+        "team_name": "Cadengetdabag",
+        "points": 2176.2,
+        "wins": 14,
+        "finish": 6,
+        "teams": 12,
+        "made_playoffs": true,
+        "champion": false,
+        "draft_value": 71.3,
+        "draft_points": 886.7,
+        "draft": 40.7,
+        "trade_points": 819.7,
+        "trade": 37.7,
+        "waiver_points": 469.8,
+        "waiver": 21.6,
+        "draft_rank": 11,
+        "draft_value_rank": 4
+      },
+      {
+        "season": "2023",
+        "uid": "737361961427296256",
+        "manager": "Mangondala",
+        "team_name": "Mango and the Magicals",
+        "points": 2087.1,
+        "wins": 14,
+        "finish": 7,
+        "teams": 12,
+        "made_playoffs": false,
+        "champion": false,
+        "draft_value": -172.8,
+        "draft_points": 1010.3,
+        "draft": 48.4,
+        "trade_points": 783.1,
+        "trade": 37.5,
+        "waiver_points": 293.7,
+        "waiver": 14.1,
+        "draft_rank": 10,
+        "draft_value_rank": 8
+      },
+      {
+        "season": "2023",
+        "uid": "994339367600615424",
+        "manager": "Huntermeek4",
+        "team_name": "The Walker Wave",
+        "points": 2182.0,
+        "wins": 13,
+        "finish": 8,
+        "teams": 12,
+        "made_playoffs": false,
+        "champion": false,
+        "draft_value": 208.4,
+        "draft_points": 1808.2,
+        "draft": 82.9,
+        "trade_points": 0.0,
+        "trade": 0.0,
+        "waiver_points": 373.8,
+        "waiver": 17.1,
+        "draft_rank": 2,
+        "draft_value_rank": 2
+      },
+      {
+        "season": "2023",
+        "uid": "738069619088216064",
+        "manager": "StevetheDog",
+        "team_name": "Dogpound",
+        "points": 1972.9,
+        "wins": 11,
+        "finish": 9,
+        "teams": 12,
+        "made_playoffs": false,
+        "champion": false,
+        "draft_value": -185.7,
+        "draft_points": 1483.9,
+        "draft": 75.2,
+        "trade_points": 0.0,
+        "trade": 0.0,
+        "waiver_points": 489.1,
+        "waiver": 24.8,
+        "draft_rank": 4,
+        "draft_value_rank": 9
+      },
+      {
+        "season": "2023",
+        "uid": "868975711417946112",
+        "manager": "DicklesPickles",
+        "team_name": "Dookie Dogshit",
+        "points": 1898.8,
+        "wins": 11,
+        "finish": 10,
+        "teams": 12,
+        "made_playoffs": false,
+        "champion": false,
+        "draft_value": -464.0,
+        "draft_points": 1329.0,
+        "draft": 70.0,
+        "trade_points": 0.0,
+        "trade": 0.0,
+        "waiver_points": 569.8,
+        "waiver": 30.0,
+        "draft_rank": 8,
+        "draft_value_rank": 12
+      },
+      {
+        "season": "2023",
+        "uid": "871109847192621056",
+        "manager": "kodikat",
+        "team_name": "A New King Rises",
+        "points": 1855.5,
+        "wins": 9,
+        "finish": 11,
+        "teams": 12,
+        "made_playoffs": false,
+        "champion": false,
+        "draft_value": -221.4,
+        "draft_points": 1239.4,
+        "draft": 66.8,
+        "trade_points": 0.0,
+        "trade": 0.0,
+        "waiver_points": 616.1,
+        "waiver": 33.2,
+        "draft_rank": 9,
+        "draft_value_rank": 10
+      },
+      {
+        "season": "2023",
+        "uid": "993993310521942016",
+        "manager": "echenozz",
+        "team_name": "njigba\u2019s in paris",
+        "points": 1973.2,
+        "wins": 8,
+        "finish": 12,
+        "teams": 12,
+        "made_playoffs": false,
+        "champion": false,
+        "draft_value": -255.7,
+        "draft_points": 1421.6,
+        "draft": 72.0,
+        "trade_points": 273.3,
+        "trade": 13.9,
+        "waiver_points": 278.2,
+        "waiver": 14.1,
+        "draft_rank": 6,
+        "draft_value_rank": 11
+      },
+      {
+        "season": "2024",
+        "uid": "993996540970668032",
+        "manager": "Cadengetdabag",
+        "team_name": "Cadengetdabag",
+        "points": 2607.1,
+        "wins": 19,
+        "finish": 1,
+        "teams": 12,
+        "made_playoffs": true,
+        "champion": false,
+        "draft_value": 728.3,
+        "draft_points": 2049.3,
+        "draft": 78.6,
+        "trade_points": 269.5,
+        "trade": 10.3,
+        "waiver_points": 288.2,
+        "waiver": 11.1,
+        "draft_rank": 1,
+        "draft_value_rank": 1
+      },
+      {
+        "season": "2024",
+        "uid": "737361961427296256",
+        "manager": "Mangondala",
+        "team_name": "Mangos Stallions",
+        "points": 2632.0,
+        "wins": 19,
+        "finish": 2,
+        "teams": 12,
+        "made_playoffs": true,
+        "champion": true,
+        "draft_value": 384.9,
+        "draft_points": 1834.0,
+        "draft": 69.7,
+        "trade_points": 530.4,
+        "trade": 20.2,
+        "waiver_points": 267.6,
+        "waiver": 10.2,
+        "draft_rank": 4,
+        "draft_value_rank": 2
+      },
+      {
+        "season": "2024",
+        "uid": "739174898471157760",
+        "manager": "GmanToTuff",
+        "team_name": "Losers ",
+        "points": 2351.4,
+        "wins": 18,
+        "finish": 3,
+        "teams": 12,
+        "made_playoffs": true,
+        "champion": false,
+        "draft_value": 64.4,
+        "draft_points": 1513.3,
+        "draft": 64.4,
+        "trade_points": 447.0,
+        "trade": 19.0,
+        "waiver_points": 391.1,
+        "waiver": 16.6,
+        "draft_rank": 9,
+        "draft_value_rank": 7,
+        "rescued_by": 838.1,
+        "rescue_share": 35.6
+      },
+      {
+        "season": "2024",
+        "uid": "994339367600615424",
+        "manager": "Huntermeek4",
+        "team_name": "The Walker Wave",
+        "points": 2296.4,
+        "wins": 18,
+        "finish": 4,
+        "teams": 12,
+        "made_playoffs": true,
+        "champion": false,
+        "draft_value": 124.8,
+        "draft_points": 1834.7,
+        "draft": 79.9,
+        "trade_points": 0.0,
+        "trade": 0.0,
+        "waiver_points": 461.7,
+        "waiver": 20.1,
+        "draft_rank": 3,
+        "draft_value_rank": 5
+      },
+      {
+        "season": "2024",
+        "uid": "739175215237586944",
+        "manager": "Cumball",
+        "team_name": "Mixon Meth",
+        "points": 2427.1,
+        "wins": 18,
+        "finish": 5,
+        "teams": 12,
+        "made_playoffs": true,
+        "champion": false,
+        "draft_value": 182.3,
+        "draft_points": 1836.7,
+        "draft": 75.7,
+        "trade_points": 0.0,
+        "trade": 0.0,
+        "waiver_points": 590.5,
+        "waiver": 24.3,
+        "draft_rank": 2,
+        "draft_value_rank": 4
+      },
+      {
+        "season": "2024",
+        "uid": "871109847192621056",
+        "manager": "kodikat",
+        "team_name": "ULTRA MAGA",
+        "points": 2342.6,
+        "wins": 17,
+        "finish": 6,
+        "teams": 12,
+        "made_playoffs": true,
+        "champion": false,
+        "draft_value": 233.8,
+        "draft_points": 1769.9,
+        "draft": 75.6,
+        "trade_points": 49.5,
+        "trade": 2.1,
+        "waiver_points": 523.2,
+        "waiver": 22.3,
+        "draft_rank": 7,
+        "draft_value_rank": 3
+      },
+      {
+        "season": "2024",
+        "uid": "737362282971062272",
+        "manager": "Nickpapi69",
+        "team_name": "King",
+        "points": 2291.8,
+        "wins": 15,
+        "finish": 7,
+        "teams": 12,
+        "made_playoffs": false,
+        "champion": false,
+        "draft_value": 67.9,
+        "draft_points": 1338.8,
+        "draft": 58.4,
+        "trade_points": 538.1,
+        "trade": 23.5,
+        "waiver_points": 414.8,
+        "waiver": 18.1,
+        "draft_rank": 10,
+        "draft_value_rank": 6
+      },
+      {
+        "season": "2024",
+        "uid": "728392183681548288",
+        "manager": "datboyp",
+        "team_name": "New Era",
+        "points": 2266.9,
+        "wins": 13,
+        "finish": 8,
+        "teams": 12,
+        "made_playoffs": false,
+        "champion": false,
+        "draft_value": -490.6,
+        "draft_points": 682.8,
+        "draft": 30.1,
+        "trade_points": 836.9,
+        "trade": 36.9,
+        "waiver_points": 747.2,
+        "waiver": 33.0,
+        "draft_rank": 12,
+        "draft_value_rank": 11
+      },
+      {
+        "season": "2024",
+        "uid": "727954847688630272",
+        "manager": "Pxesto",
+        "team_name": "24\u2019 25\u2019 Champ ",
+        "points": 2276.7,
+        "wins": 12,
+        "finish": 9,
+        "teams": 12,
+        "made_playoffs": false,
+        "champion": false,
+        "draft_value": -600.1,
+        "draft_points": 959.8,
+        "draft": 42.2,
+        "trade_points": 536.7,
+        "trade": 23.6,
+        "waiver_points": 780.2,
+        "waiver": 34.3,
+        "draft_rank": 11,
+        "draft_value_rank": 12
+      },
+      {
+        "season": "2024",
+        "uid": "868975711417946112",
+        "manager": "DicklesPickles",
+        "team_name": "Sigh",
+        "points": 1962.4,
+        "wins": 10,
+        "finish": 10,
+        "teams": 12,
+        "made_playoffs": false,
+        "champion": false,
+        "draft_value": -145.5,
+        "draft_points": 1808.6,
+        "draft": 92.2,
+        "trade_points": 0.0,
+        "trade": 0.0,
+        "waiver_points": 153.8,
+        "waiver": 7.8,
+        "draft_rank": 5,
+        "draft_value_rank": 8
+      },
+      {
+        "season": "2024",
+        "uid": "738069619088216064",
+        "manager": "StevetheDog",
+        "team_name": "Dogpound",
+        "points": 2034.7,
+        "wins": 6,
+        "finish": 11,
+        "teams": 12,
+        "made_playoffs": false,
+        "champion": false,
+        "draft_value": -236.9,
+        "draft_points": 1784.4,
+        "draft": 87.7,
+        "trade_points": 0.0,
+        "trade": 0.0,
+        "waiver_points": 250.3,
+        "waiver": 12.3,
+        "draft_rank": 6,
+        "draft_value_rank": 10
+      },
+      {
+        "season": "2024",
+        "uid": "993993310521942016",
+        "manager": "echenozz",
+        "team_name": "njigba\u2019s in paris",
+        "points": 1959.8,
+        "wins": 3,
+        "finish": 12,
+        "teams": 12,
+        "made_playoffs": false,
+        "champion": false,
+        "draft_value": -214.0,
+        "draft_points": 1696.4,
+        "draft": 86.6,
+        "trade_points": 0.0,
+        "trade": 0.0,
+        "waiver_points": 263.4,
+        "waiver": 13.4,
+        "draft_rank": 8,
+        "draft_value_rank": 9
+      },
+      {
+        "season": "2025",
+        "uid": "728392183681548288",
+        "manager": "datboyp",
+        "team_name": "Any Given Sunday ",
+        "points": 2963.9,
+        "wins": 23,
+        "finish": 1,
+        "teams": 12,
+        "made_playoffs": true,
+        "champion": true,
+        "draft_value": 446.7,
+        "draft_points": 1406.1,
+        "draft": 47.4,
+        "trade_points": 1044.6,
+        "trade": 35.2,
+        "waiver_points": 513.2,
+        "waiver": 17.3,
+        "draft_rank": 6,
+        "draft_value_rank": 1
+      },
+      {
+        "season": "2025",
+        "uid": "1131318989990379520",
+        "manager": "clappincheeks69",
+        "team_name": "Clappincheeks",
+        "points": 2543.2,
+        "wins": 19,
+        "finish": 2,
+        "teams": 12,
+        "made_playoffs": true,
+        "champion": false,
+        "draft_value": 428.8,
+        "draft_points": 2166.2,
+        "draft": 85.2,
+        "trade_points": 230.5,
+        "trade": 9.1,
+        "waiver_points": 146.5,
+        "waiver": 5.8,
+        "draft_rank": 1,
+        "draft_value_rank": 2
+      },
+      {
+        "season": "2025",
+        "uid": "737361961427296256",
+        "manager": "Mangondala",
+        "team_name": "Mangos Minions",
+        "points": 2294.1,
+        "wins": 19,
+        "finish": 3,
+        "teams": 12,
+        "made_playoffs": true,
+        "champion": false,
+        "draft_value": -49.9,
+        "draft_points": 1713.5,
+        "draft": 74.7,
+        "trade_points": 293.5,
+        "trade": 12.8,
+        "waiver_points": 287.2,
+        "waiver": 12.5,
+        "draft_rank": 4,
+        "draft_value_rank": 7,
+        "rescued_by": 580.7,
+        "rescue_share": 25.3
+      },
+      {
+        "season": "2025",
+        "uid": "727954847688630272",
+        "manager": "Pxesto",
+        "team_name": "All roads lead Rome",
+        "points": 2204.1,
+        "wins": 16,
+        "finish": 4,
+        "teams": 12,
+        "made_playoffs": true,
+        "champion": false,
+        "draft_value": 13.2,
+        "draft_points": 1192.2,
+        "draft": 54.1,
+        "trade_points": 463.6,
+        "trade": 21.0,
+        "waiver_points": 548.3,
+        "waiver": 24.9,
+        "draft_rank": 8,
+        "draft_value_rank": 4
+      },
+      {
+        "season": "2025",
+        "uid": "993996540970668032",
+        "manager": "Cadengetdabag",
+        "team_name": "Bonnie\u2019s Dream Team",
+        "points": 2437.5,
+        "wins": 15,
+        "finish": 5,
+        "teams": 12,
+        "made_playoffs": true,
+        "champion": false,
+        "draft_value": 118.2,
+        "draft_points": 1796.5,
+        "draft": 73.7,
+        "trade_points": 374.9,
+        "trade": 15.4,
+        "waiver_points": 266.2,
+        "waiver": 10.9,
+        "draft_rank": 3,
+        "draft_value_rank": 3
+      },
+      {
+        "season": "2025",
+        "uid": "871109847192621056",
+        "manager": "kodikat",
+        "team_name": "RIP CHARLIE",
+        "points": 2340.8,
+        "wins": 15,
+        "finish": 6,
+        "teams": 12,
+        "made_playoffs": true,
+        "champion": false,
+        "draft_value": -32.1,
+        "draft_points": 1022.4,
+        "draft": 43.7,
+        "trade_points": 879.7,
+        "trade": 37.6,
+        "waiver_points": 438.7,
+        "waiver": 18.7,
+        "draft_rank": 9,
+        "draft_value_rank": 5
+      },
+      {
+        "season": "2025",
+        "uid": "868975711417946112",
+        "manager": "DicklesPickles",
+        "team_name": "Naber's think I sell Dope",
+        "points": 2172.2,
+        "wins": 15,
+        "finish": 7,
+        "teams": 12,
+        "made_playoffs": false,
+        "champion": false,
+        "draft_value": -148.4,
+        "draft_points": 1820.3,
+        "draft": 83.8,
+        "trade_points": 0.0,
+        "trade": 0.0,
+        "waiver_points": 351.9,
+        "waiver": 16.2,
+        "draft_rank": 2,
+        "draft_value_rank": 8
+      },
+      {
+        "season": "2025",
+        "uid": "739174898471157760",
+        "manager": "GmanToTuff",
+        "team_name": "Ashton Fenty and Friends ",
+        "points": 2234.5,
+        "wins": 15,
+        "finish": 8,
+        "teams": 12,
+        "made_playoffs": false,
+        "champion": false,
+        "draft_value": -39.1,
+        "draft_points": 1268.6,
+        "draft": 56.8,
+        "trade_points": 733.5,
+        "trade": 32.8,
+        "waiver_points": 232.3,
+        "waiver": 10.4,
+        "draft_rank": 7,
+        "draft_value_rank": 6
+      },
+      {
+        "season": "2025",
+        "uid": "994339367600615424",
+        "manager": "Huntermeek4",
+        "team_name": "Achane Train",
+        "points": 2128.9,
+        "wins": 11,
+        "finish": 9,
+        "teams": 12,
+        "made_playoffs": false,
+        "champion": false,
+        "draft_value": -489.1,
+        "draft_points": 1579.0,
+        "draft": 74.2,
+        "trade_points": 0.0,
+        "trade": 0.0,
+        "waiver_points": 549.9,
+        "waiver": 25.8,
+        "draft_rank": 5,
+        "draft_value_rank": 11
+      },
+      {
+        "season": "2025",
+        "uid": "737362282971062272",
+        "manager": "Nickpapi69",
+        "team_name": "King Oser",
+        "points": 2089.2,
+        "wins": 10,
+        "finish": 10,
+        "teams": 12,
+        "made_playoffs": false,
+        "champion": false,
+        "draft_value": -240.0,
+        "draft_points": 744.3,
+        "draft": 35.6,
+        "trade_points": 560.3,
+        "trade": 26.8,
+        "waiver_points": 784.7,
+        "waiver": 37.6,
+        "draft_rank": 12,
+        "draft_value_rank": 10
+      },
+      {
+        "season": "2025",
+        "uid": "739175215237586944",
+        "manager": "Cumball",
+        "team_name": "Cumball",
+        "points": 2005.8,
+        "wins": 9,
+        "finish": 11,
+        "teams": 12,
+        "made_playoffs": false,
+        "champion": false,
+        "draft_value": -741.8,
+        "draft_points": 987.6,
+        "draft": 49.2,
+        "trade_points": 387.2,
+        "trade": 19.3,
+        "waiver_points": 630.9,
+        "waiver": 31.5,
+        "draft_rank": 10,
+        "draft_value_rank": 12
+      },
+      {
+        "season": "2025",
+        "uid": "468905201722454016",
+        "manager": "ProfessorSell",
+        "team_name": "Njigbas In Paris",
+        "points": 1772.0,
+        "wins": 1,
+        "finish": 12,
+        "teams": 12,
+        "made_playoffs": false,
+        "champion": false,
+        "draft_value": -208.4,
+        "draft_points": 819.8,
+        "draft": 46.3,
+        "trade_points": 430.4,
+        "trade": 24.3,
+        "waiver_points": 521.8,
+        "waiver": 29.4,
+        "draft_rank": 11,
+        "draft_value_rank": 9
+      }
+    ],
+    "dependence": {
+      "buckets": [
+        {
+          "bucket": "top",
+          "label": "Drafted best",
+          "teams": 19,
+          "playoff_rate": 84.2,
+          "titles": 4,
+          "average_finish": 3.7
+        },
+        {
+          "bucket": "middle",
+          "label": "Drafted middling",
+          "teams": 18,
+          "playoff_rate": 55.6,
+          "titles": 1,
+          "average_finish": 5.5
+        },
+        {
+          "bucket": "bottom",
+          "label": "Drafted worst",
+          "teams": 17,
+          "playoff_rate": 11.8,
+          "titles": 0,
+          "average_finish": 9.1
+        }
+      ],
+      "by_outcome": {
+        "champions": {
+          "teams": 5,
+          "draft": 68.7,
+          "trade": 14.9,
+          "waiver": 16.4,
+          "points": 2581.5
+        },
+        "playoffs": {
+          "teams": 28,
+          "draft": 67.4,
+          "trade": 14.2,
+          "waiver": 18.4,
+          "points": 2364.8
+        },
+        "missed": {
+          "teams": 26,
+          "draft": 66.6,
+          "trade": 11.0,
+          "waiver": 22.5,
+          "points": 2098.4
+        }
+      }
+    },
+    "comebacks": {
+      "overcame": [
+        {
+          "season": "2023",
+          "uid": "728392183681548288",
+          "manager": "datboyp",
+          "team_name": "The Jackson 9 ",
+          "points": 2339.8,
+          "wins": 16,
+          "finish": 5,
+          "teams": 12,
+          "made_playoffs": true,
+          "champion": true,
+          "draft_value": -160.1,
+          "draft_points": 1390.9,
+          "draft": 59.4,
+          "trade_points": 255.4,
+          "trade": 10.9,
+          "waiver_points": 693.5,
+          "waiver": 29.6,
+          "draft_rank": 7,
+          "draft_value_rank": 7,
+          "rescued_by": 948.9,
+          "rescue_share": 40.5
+        },
+        {
+          "season": "2022",
+          "uid": "737361961427296256",
+          "manager": "Mangondala",
+          "team_name": "Turbo Herbo and the boyz",
+          "points": 2220.9,
+          "wins": 14,
+          "finish": 4,
+          "teams": 10,
+          "made_playoffs": true,
+          "champion": false,
+          "draft_value": -52.8,
+          "draft_points": 1377.3,
+          "draft": 62.0,
+          "trade_points": 674.9,
+          "trade": 30.4,
+          "waiver_points": 168.8,
+          "waiver": 7.6,
+          "draft_rank": 7,
+          "draft_value_rank": 8,
+          "rescued_by": 843.7,
+          "rescue_share": 38.0
+        },
+        {
+          "season": "2024",
+          "uid": "739174898471157760",
+          "manager": "GmanToTuff",
+          "team_name": "Losers ",
+          "points": 2351.4,
+          "wins": 18,
+          "finish": 3,
+          "teams": 12,
+          "made_playoffs": true,
+          "champion": false,
+          "draft_value": 64.4,
+          "draft_points": 1513.3,
+          "draft": 64.4,
+          "trade_points": 447.0,
+          "trade": 19.0,
+          "waiver_points": 391.1,
+          "waiver": 16.6,
+          "draft_rank": 9,
+          "draft_value_rank": 7,
+          "rescued_by": 838.1,
+          "rescue_share": 35.6
+        },
+        {
+          "season": "2021",
+          "uid": "727954847688630272",
+          "manager": "Pxesto",
+          "team_name": "Somehow made it \u270a\ud83c\udffc",
+          "points": 2163.9,
+          "wins": 8,
+          "finish": 4,
+          "teams": 8,
+          "made_playoffs": true,
+          "champion": false,
+          "draft_value": -409.5,
+          "draft_points": 1456.0,
+          "draft": 67.3,
+          "trade_points": 0.0,
+          "trade": 0.0,
+          "waiver_points": 707.9,
+          "waiver": 32.7,
+          "draft_rank": 6,
+          "draft_value_rank": 8,
+          "rescued_by": 707.9,
+          "rescue_share": 32.7
+        },
+        {
+          "season": "2025",
+          "uid": "737361961427296256",
+          "manager": "Mangondala",
+          "team_name": "Mangos Minions",
+          "points": 2294.1,
+          "wins": 19,
+          "finish": 3,
+          "teams": 12,
+          "made_playoffs": true,
+          "champion": false,
+          "draft_value": -49.9,
+          "draft_points": 1713.5,
+          "draft": 74.7,
+          "trade_points": 293.5,
+          "trade": 12.8,
+          "waiver_points": 287.2,
+          "waiver": 12.5,
+          "draft_rank": 4,
+          "draft_value_rank": 7,
+          "rescued_by": 580.7,
+          "rescue_share": 25.3
+        },
+        {
+          "season": "2022",
+          "uid": "868975711417946112",
+          "manager": "DicklesPickles",
+          "team_name": "DicklesPickles",
+          "points": 2204.5,
+          "wins": 14,
+          "finish": 5,
+          "teams": 10,
+          "made_playoffs": true,
+          "champion": false,
+          "draft_value": -32.2,
+          "draft_points": 1709.5,
+          "draft": 77.5,
+          "trade_points": 75.6,
+          "trade": 3.4,
+          "waiver_points": 419.4,
+          "waiver": 19.0,
+          "draft_rank": 4,
+          "draft_value_rank": 7,
+          "rescued_by": 495.0,
+          "rescue_share": 22.4
+        },
+        {
+          "season": "2022",
+          "uid": "739174898471157760",
+          "manager": "GmanToTuff",
+          "team_name": "GmanToTuff",
+          "points": 2216.6,
+          "wins": 14,
+          "finish": 6,
+          "teams": 10,
+          "made_playoffs": true,
+          "champion": false,
+          "draft_value": -2.1,
+          "draft_points": 2001.5,
+          "draft": 90.3,
+          "trade_points": 0.0,
+          "trade": 0.0,
+          "waiver_points": 215.0,
+          "waiver": 9.7,
+          "draft_rank": 1,
+          "draft_value_rank": 6,
+          "rescued_by": 215.0,
+          "rescue_share": 9.7
+        }
+      ],
+      "wasted": [
+        {
+          "season": "2023",
+          "uid": "994339367600615424",
+          "manager": "Huntermeek4",
+          "team_name": "The Walker Wave",
+          "points": 2182.0,
+          "wins": 13,
+          "finish": 8,
+          "teams": 12,
+          "made_playoffs": false,
+          "champion": false,
+          "draft_value": 208.4,
+          "draft_points": 1808.2,
+          "draft": 82.9,
+          "trade_points": 0.0,
+          "trade": 0.0,
+          "waiver_points": 373.8,
+          "waiver": 17.1,
+          "draft_rank": 2,
+          "draft_value_rank": 2
+        },
+        {
+          "season": "2021",
+          "uid": "737361961427296256",
+          "manager": "Mangondala",
+          "team_name": "Mangondala",
+          "points": 2267.2,
+          "wins": 5,
+          "finish": 7,
+          "teams": 8,
+          "made_playoffs": false,
+          "champion": false,
+          "draft_value": 92.5,
+          "draft_points": 1984.5,
+          "draft": 87.5,
+          "trade_points": 0.0,
+          "trade": 0.0,
+          "waiver_points": 282.7,
+          "waiver": 12.5,
+          "draft_rank": 3,
+          "draft_value_rank": 3
+        },
+        {
+          "season": "2022",
+          "uid": "735566877086048256",
+          "manager": "emcwill12",
+          "team_name": "I miss Andrew Luck",
+          "points": 1990.9,
+          "wins": 8,
+          "finish": 10,
+          "teams": 10,
+          "made_playoffs": false,
+          "champion": false,
+          "draft_value": 188.4,
+          "draft_points": 1729.9,
+          "draft": 86.9,
+          "trade_points": 0.0,
+          "trade": 0.0,
+          "waiver_points": 260.9,
+          "waiver": 13.1,
+          "draft_rank": 3,
+          "draft_value_rank": 2
+        }
+      ],
+      "overcame_count": 7,
+      "playoff_seasons": 28
+    },
+    "currency": [
+      {
+        "season": "2022",
+        "uid": "727954847688630272",
+        "manager": "Pxesto",
+        "team_name": "Strawhats",
+        "points": 2418.6,
+        "wins": 18,
+        "finish": 2,
+        "teams": 10,
+        "made_playoffs": true,
+        "champion": false,
+        "draft_value": 705.0,
+        "draft_points": 1308.1,
+        "draft": 54.1,
+        "trade_points": 334.6,
+        "trade": 13.8,
+        "waiver_points": 775.8,
+        "waiver": 32.1,
+        "draft_rank": 8,
+        "draft_value_rank": 1,
+        "gap": 7
+      },
+      {
+        "season": "2022",
+        "uid": "737362282971062272",
+        "manager": "Nickpapi69",
+        "team_name": "Gg buddy",
+        "points": 2305.4,
+        "wins": 17,
+        "finish": 3,
+        "teams": 10,
+        "made_playoffs": true,
+        "champion": false,
+        "draft_value": 183.2,
+        "draft_points": 962.2,
+        "draft": 41.7,
+        "trade_points": 690.1,
+        "trade": 29.9,
+        "waiver_points": 653.1,
+        "waiver": 28.3,
+        "draft_rank": 10,
+        "draft_value_rank": 3,
+        "gap": 7
+      },
+      {
+        "season": "2023",
+        "uid": "993996540970668032",
+        "manager": "Cadengetdabag",
+        "team_name": "Cadengetdabag",
+        "points": 2176.2,
+        "wins": 14,
+        "finish": 6,
+        "teams": 12,
+        "made_playoffs": true,
+        "champion": false,
+        "draft_value": 71.3,
+        "draft_points": 886.7,
+        "draft": 40.7,
+        "trade_points": 819.7,
+        "trade": 37.7,
+        "waiver_points": 469.8,
+        "waiver": 21.6,
+        "draft_rank": 11,
+        "draft_value_rank": 4,
+        "gap": 7
+      },
+      {
+        "season": "2023",
+        "uid": "727954847688630272",
+        "manager": "Pxesto",
+        "team_name": "In Tyreek\u2019s Bookbag",
+        "points": 2151.5,
+        "wins": 18,
+        "finish": 2,
+        "teams": 12,
+        "made_playoffs": true,
+        "champion": false,
+        "draft_value": -107.9,
+        "draft_points": 148.4,
+        "draft": 6.9,
+        "trade_points": 1095.7,
+        "trade": 50.9,
+        "waiver_points": 907.4,
+        "waiver": 42.2,
+        "draft_rank": 12,
+        "draft_value_rank": 6,
+        "gap": 6
+      },
+      {
+        "season": "2025",
+        "uid": "728392183681548288",
+        "manager": "datboyp",
+        "team_name": "Any Given Sunday ",
+        "points": 2963.9,
+        "wins": 23,
+        "finish": 1,
+        "teams": 12,
+        "made_playoffs": true,
+        "champion": true,
+        "draft_value": 446.7,
+        "draft_points": 1406.1,
+        "draft": 47.4,
+        "trade_points": 1044.6,
+        "trade": 35.2,
+        "waiver_points": 513.2,
+        "waiver": 17.3,
+        "draft_rank": 6,
+        "draft_value_rank": 1,
+        "gap": 5
+      },
+      {
+        "season": "2023",
+        "uid": "737362282971062272",
+        "manager": "Nickpapi69",
+        "team_name": "King",
+        "points": 2258.6,
+        "wins": 19,
+        "finish": 1,
+        "teams": 12,
+        "made_playoffs": true,
+        "champion": false,
+        "draft_value": 501.2,
+        "draft_points": 1475.2,
+        "draft": 65.3,
+        "trade_points": 551.8,
+        "trade": 24.4,
+        "waiver_points": 231.5,
+        "waiver": 10.3,
+        "draft_rank": 5,
+        "draft_value_rank": 1,
+        "gap": 4
+      },
+      {
+        "season": "2024",
+        "uid": "871109847192621056",
+        "manager": "kodikat",
+        "team_name": "ULTRA MAGA",
+        "points": 2342.6,
+        "wins": 17,
+        "finish": 6,
+        "teams": 12,
+        "made_playoffs": true,
+        "champion": false,
+        "draft_value": 233.8,
+        "draft_points": 1769.9,
+        "draft": 75.6,
+        "trade_points": 49.5,
+        "trade": 2.1,
+        "waiver_points": 523.2,
+        "waiver": 22.3,
+        "draft_rank": 7,
+        "draft_value_rank": 3,
+        "gap": 4
+      },
+      {
+        "season": "2024",
+        "uid": "737362282971062272",
+        "manager": "Nickpapi69",
+        "team_name": "King",
+        "points": 2291.8,
+        "wins": 15,
+        "finish": 7,
+        "teams": 12,
+        "made_playoffs": false,
+        "champion": false,
+        "draft_value": 67.9,
+        "draft_points": 1338.8,
+        "draft": 58.4,
+        "trade_points": 538.1,
+        "trade": 23.5,
+        "waiver_points": 414.8,
+        "waiver": 18.1,
+        "draft_rank": 10,
+        "draft_value_rank": 6,
+        "gap": 4
+      }
+    ]
+  },
   "luck": {
     "all_play": [
       {
@@ -8261,7 +13124,7 @@
         "names": [
           {
             "year": "2026",
-            "name": "ryderimel4"
+            "name": "Ryder\u2019s dawgs \ud83d\udc36"
           }
         ],
         "rebrands": 0

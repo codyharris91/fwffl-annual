@@ -82,8 +82,8 @@ def test_expected_value_is_zero_sum_ish(tables):
 def test_every_category_produces_output(arc, tables):
     payload = build_all(arc, tables)
     assert set(payload) == {
-        "ledger", "luck", "median", "records", "coaching", "draft", "waivers",
-        "rivalries", "comedy",
+        "ledger", "acquisition", "luck", "median", "records", "coaching", "draft",
+        "waivers", "rivalries", "comedy",
     }
     for name, section in payload.items():
         assert section, f"{name} is empty"

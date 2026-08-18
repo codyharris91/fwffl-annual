@@ -1,15 +1,17 @@
-"""Render the annual JSON into a single self-contained HTML page.
+"""Render the annual JSON into self-contained HTML pages.
 
-Two outputs, one template:
+Two pages, each emitted twice:
 
-  `data/fwffl-annual.html`  the fragment Claude Artifacts wants — it supplies its
-                            own document skeleton, so the template emits only a
-                            title, a stylesheet and content.
-  `docs/index.html`         a complete document for GitHub Pages, built by moving
-                            everything above `<main>` into a real `<head>`.
+  annual.html.j2    the record book — records, luck, the median game, rivalries
+  building.html.j2  where the points came from — draft, trades, the waiver wire
 
-Both are one file with no external requests, so either can be served from
-anywhere without an asset pipeline.
+Each is written as a fragment for Claude Artifacts, which supplies its own
+document skeleton, and as a complete document for GitHub Pages. The document is
+built by splitting the fragment at `<main>`: everything above it is already
+exactly the head content, so the two copies cannot drift apart.
+
+Every output is one file with no external requests, so any of them can be served
+from anywhere without an asset pipeline.
 """
 
 from __future__ import annotations
@@ -26,6 +28,13 @@ TEMPLATES = ROOT / "templates"
 DATA = ROOT / "data" / "annual.json"
 OUTPUT = ROOT / "data" / "fwffl-annual.html"
 SITE = ROOT / "docs" / "index.html"
+
+BUILDING_OUTPUT = ROOT / "data" / "fwffl-building.html"
+BUILDING_SITE = ROOT / "docs" / "building" / "index.html"
+BUILDING_DESCRIPTION = (
+    "Where every point in the league actually came from — the draft, a trade, or "
+    "the waiver wire — and whether a bad draft can be survived."
+)
 
 # Shown when the link is pasted into a chat app. Worth having, since that is
 # how a page like this actually gets passed around.
@@ -71,12 +80,12 @@ def scales(payload: dict[str, Any]) -> dict[str, float]:
     }
 
 
-def render(payload: dict[str, Any] | None = None) -> str:
+def render(payload: dict[str, Any] | None = None, *, template: str = "annual.html.j2") -> str:
     payload = payload or json.loads(DATA.read_text())
-    template = environment().get_template("annual.html.j2")
+    page = environment().get_template(template)
     # The stylesheet is read rather than {% include %}d so Jinja never parses CSS.
     css = Markup((TEMPLATES / "_style.css").read_text())
-    return template.render(css=css, scales=scales(payload), **payload)
+    return page.render(css=css, scales=scales(payload), **payload)
 
 
 def standalone(fragment: str, *, description: str = SOCIAL_DESCRIPTION) -> str:
@@ -119,17 +128,28 @@ def standalone(fragment: str, *, description: str = SOCIAL_DESCRIPTION) -> str:
 """
 
 
-def main() -> None:
-    html = render()
-    OUTPUT.write_text(html)
-    print(f"wrote {OUTPUT} ({len(html) / 1024:.0f} KB)")
+def _emit(html: str, artifact: Path, site: Path, description: str) -> None:
+    artifact.write_text(html)
+    print(f"wrote {artifact} ({len(html) / 1024:.0f} KB)")
 
-    SITE.parent.mkdir(parents=True, exist_ok=True)
-    site = standalone(html)
-    SITE.write_text(site)
+    site.parent.mkdir(parents=True, exist_ok=True)
+    document = standalone(html, description=description)
+    site.write_text(document)
+    print(f"wrote {site} ({len(document) / 1024:.0f} KB)")
+
+
+def main() -> None:
+    payload = json.loads(DATA.read_text())
+
+    _emit(render(payload), OUTPUT, SITE, SOCIAL_DESCRIPTION)
+    _emit(
+        render(payload, template="building.html.j2"),
+        BUILDING_OUTPUT,
+        BUILDING_SITE,
+        BUILDING_DESCRIPTION,
+    )
     # Stops GitHub Pages running the content through Jekyll.
     (SITE.parent / ".nojekyll").touch()
-    print(f"wrote {SITE} ({len(site) / 1024:.0f} KB)")
 
 
 if __name__ == "__main__":
