@@ -258,41 +258,27 @@
 
     <div class="block">
       <div class="block-head">
-        <h3>Cash Sales</h3>
-        <p class="note">Waiver budget is tradeable in this league, and
-          ${{ A.faab_trades|sum(attribute='faab_moved') }} of it has changed hands.
-          Where one side took only money, there is no points return to score — so
-          these sit outside the win-loss record rather than being counted as
-          losses for the seller.</p>
+        <h3>FAAB in Trades</h3>
+        <p class="note">Waiver budget is tradeable here, and
+          ${{ A.faab_trades|sum(attribute='faab_moved') }} of it has moved across
+          {{ A.faab_trades|length }} deals. Budget is shown but never priced into
+          points — turning it into scoring needs a claim that may never be made.
+          Where a side took <em>only</em> money there is no return to score, so
+          those sit outside the win-loss record instead of counting as losses for
+          the seller.</p>
       </div>
-      <div class="scroll">
-        <table class="sheet">
-          <thead>
-            <tr><th>When</th><th>Sent budget</th><th class="r">FAAB</th>
-              <th>Received it</th><th class="opt">For</th><th class="r">Points started</th></tr>
-          </thead>
-          <tbody>
-            {% for d in A.faab_trades %}
-            {% set payer = d.sides|selectattr('faab_out')|first %}
-            {% set taker = d.sides|selectattr('faab_in')|first %}
-            <tr>
-              <td class="dim when">{{ d.season }} wk{{ d.week }}</td>
-              <td class="name">{{ payer.manager }}</td>
-              <td class="r big">${{ d.faab_moved }}</td>
-              <td class="name">{{ taker.manager }}</td>
-              <td class="dim opt">{{ payer.received|map(attribute='player')|join(", ") or "—" }}</td>
-              <td class="r">{{ "%.1f"|format(payer.points) }}</td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
+      <div class="cards">
+        {% for d in A.faab_trades|sort(attribute='faab_moved', reverse=true) %}
+        {{ trade_card(d) }}
+        {% endfor %}
       </div>
-      <p class="note" style="margin-top:0.8rem">
-        Read the last two columns together: the manager who paid the budget got
-        those players, and that is what they started afterwards. Pxesto has been
-        the league's dealer, taking
+      <p class="note" style="margin-top:1rem">
+        Pxesto has been the league's dealer, taking
         ${{ A.trade_ledger|selectattr('manager', 'equalto', 'Pxesto')|map(attribute='faab_in')|first }}
-        in budget across his cash sales.
+        in budget across five cash sales. The one deal here that was not a cash
+        sale is the harshest of the lot: GmanToTuff sent Mark Andrews
+        <em>and</em> $150 for Isaiah Likely, and lost it by
+        {{ A.faab_trades|rejectattr('cash_deal')|map(attribute='margin')|first }} points.
       </p>
     </div>
 
